@@ -4,14 +4,15 @@ import { FaFacebook } from "react-icons/fa";
 import { CiTwitter } from "react-icons/ci";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa6";
+import { TfiEmail } from "react-icons/tfi";
 import Image from "next/image";
 
 const Footer = () => {
   return (
     <>
       {/* Top Section */}
-      <div className="w-full flex flex-col md:flex-row items-center bg-black text-white py-6 px-4">
-        <div className="text-center md:text-left md:flex-1">
+      <div className="w-full h-auto px-5 py-6 flex flex-col md:flex-row items-center bg-black text-white">
+        <div className="  md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start mx-5 md:mx-20">
           <h1 className="text-lg md:text-2xl font-semibold mb-2">
             STAY UP TO DATE ABOUT
           </h1>
@@ -19,28 +20,32 @@ const Footer = () => {
             OUR LATEST OFFERS
           </h1>
         </div>
-        <div className="flex flex-col md:flex-row mt-4 md:mt-0 gap-4 md:gap-2">
+        <div className="w-full md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:items-end relative mx-5 md:mx-20">
+          <TfiEmail
+            size={20}
+            className="absolute text-gray-500 md:left-[166px] md:mt-[13px] left-[12px] mt-[14px] bg-white"
+          />
           <input
             type="email"
             placeholder="Enter your email address"
-            className="w-full md:w-auto bg-white text-black px-4 py-2 rounded-md text-sm"
+            className="w-full md:w-[340px] h-12 bg-white text-black px-10 rounded-full text-sm mb-4"
           />
-          <button className="bg-gray-800 text-white px-4 py-2 rounded-md text-sm">
-            Subscribe
+          <button className="bg-white text-black px-3 py-3 rounded-full text-sm w-full md:w-[340px]">
+            Subscribe to Newsletter
           </button>
         </div>
       </div>
 
       {/* Bottom Section */}
-      <div className="flex flex-wrap justify-center md:justify-evenly bg-gray-100 text-black py-8 px-4">
+      <div className="w-full h-auto flex flex-wrap justify-center md:justify-evenly bg-gray-100 text-black py-8 mx-5 md:mx-20">
         {/* Column 1 */}
-        <div className="w-full md:w-1/5 mb-6 md:mb-0 px-4">
+        <div className="w-full md:w-1/5 px-4 mb-6">
           <h2 className="text-lg md:text-xl font-bold mb-4">SHOP.CO</h2>
           <p className="text-sm md:text-base mb-4">
             We have clothes that suit your style and which you’re proud to wear.
             From women to men.
           </p>
-          <div className="flex gap-4 mb-4">
+          <div className="flex gap-4">
             <CiTwitter className="w-6 h-6" />
             <FaFacebook className="w-6 h-6" />
             <IoLogoInstagram className="w-6 h-6" />
@@ -48,87 +53,48 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Column 2 */}
-        <div className="w-full md:w-1/5 mb-6 md:mb-0 px-4">
-          <h3 className="text-lg font-semibold mb-4">Company</h3>
-          <ul className="space-y-2 text-sm">
-            <li>About</li>
-            <li>Features</li>
-            <li>Works</li>
-            <li>Career</li>
-          </ul>
-        </div>
-
-        {/* Column 3 */}
-        <div className="w-full md:w-1/5 mb-6 md:mb-0 px-4">
-          <h3 className="text-lg font-semibold mb-4">Help</h3>
-          <ul className="space-y-2 text-sm">
-            <li>Customer Support</li>
-            <li>Delivery Details</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
-          </ul>
-        </div>
-
-        {/* Column 4 */}
-        <div className="w-full md:w-1/5 mb-6 md:mb-0 px-4">
-          <h3 className="text-lg font-semibold mb-4">FAQ</h3>
-          <ul className="space-y-2 text-sm">
-            <li>Account</li>
-            <li>Manage Deliveries</li>
-            <li>Orders</li>
-            <li>Payments</li>
-          </ul>
-        </div>
-
-        {/* Column 5 */}
-        <div className="w-full md:w-1/5 px-4">
-          <h3 className="text-lg font-semibold mb-4">Resources</h3>
-          <ul className="space-y-2 text-sm">
-            <li>Free eBooks</li>
-            <li>Development Tutorial</li>
-            <li>How to - Blog</li>
-            <li>YouTube Playlist</li>
-          </ul>
-        </div>
+        {/* Other Columns */}
+        {[
+          { title: "Company", items: ["About", "Features", "Works", "Career"] },
+          {
+            title: "Help",
+            items: [
+              "Customer Support",
+              "Delivery Details",
+              "Terms & Conditions",
+              "Privacy Policy",
+            ],
+          },
+          { title: "FAQ", items: ["Account", "Manage Deliveries", "Orders", "Payments"] },
+          {
+            title: "Resources",
+            items: ["Free eBooks", "Development Tutorial", "How to - Blog", "YouTube Playlist"],
+          },
+        ].map((col, index) => (
+          <div key={index} className="w-full md:w-1/5 px-4 mb-6">
+            <h3 className="text-lg font-semibold mb-4">{col.title}</h3>
+            <ul className="space-y-2 text-sm">
+              {col.items.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
         {/* Payment Badges */}
-        <div className="w-full mt-6 flex justify-end items-center gap-4 px-4">
-          <Image
-            src={"/images/badge4.png"}
-            alt="badge-pic"
-            width={46.61}
-            height={30.03}
-            className="h-14 -w-20"
-          />
-          <Image
-            src={"/images/badge3.png"}
-            alt="circle-pic"
-            width={46.61}
-            height={30.03}
-            className="h-14 w-20"
-          />
-          <Image
-            src="/images/badge2.png"
-            alt="paypal-pic"
-            width={46.61}
-            height={30.03}
-            className="h-14 w-20"
-          />
-           <Image
-            src="/images/m.png"
-            alt="paypal-pic"
-            width={46.61}
-            height={30.03}
-            className="h-14 w-20"
-          />
-           <Image
-            src="/images/badge2.png"
-            alt="google-pic"
-            width={46.61}
-            height={30.03}
-            className="h-14 w-20"
-          />
+        <div className="w-full mt-6 flex justify-center md:justify-end items-center md:gap-4 gap-[4px] mx-5 md:mx-20">
+          {["badge4.png", "badge3.png", "badge2.png", "m.png", "badge2.png"].map(
+            (src, index) => (
+              <Image
+                key={index}
+                src={`/images/${src}`}
+                alt={`badge-${index}`}
+                width={46.61}
+                height={30.03}
+                className="h-14 w-20"
+              />
+            )
+          )}
         </div>
       </div>
     </>
