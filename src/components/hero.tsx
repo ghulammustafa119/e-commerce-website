@@ -23,14 +23,14 @@ const Hero = () => {
         </div>
 
         {/* Right Content - Images */}
-        <div className="w-full relative flex justify-center mt-8 md:w-1/2 md:mt-0">
+        <div className="w-full relative flex md:justify-start mt-8 md:w-1/2 md:mt-0">
           {/* Main Image */}
           <Image
             src={"/images/gm.png"}
             alt="hero"
-            width={500}
+            width={800}
             height={300}
-            className="w-[250px] md:w-[500px]"
+            className="w-[500px] md:w-[800px]"
           />
 
           {/* Decorative Star 1 */}
