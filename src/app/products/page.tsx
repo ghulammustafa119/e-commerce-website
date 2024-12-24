@@ -111,40 +111,40 @@ const Products = () => {
       </div>
 
       {/* Browse by Dress Style */}
-      <h1 className="text-3xl md:text-4xl font-bold text-center uppercase mt-12 mb-8">
+      <h1 className="text-3xl md:text-[48px] h-[58px] font-bold text-center uppercase mt-12 bg-[#f0f0f0] py-[52px] rounded-t-[40px]">
         Browse by Dress Style
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full bg-[#f0f0f0] p-6 rounded-lg">
-        <div className="flex flex-col items-center gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 w-full bg-[#f0f0f0] p-6 rounded-b-[40px]">
+        <div className="flex flex-col items-center  gap-6">
           <Image
             src={"/images/casual.png"}
             alt="casual-pic"
-            width={307}
+            width={407}
             height={289}
-            className="w-full max-w-[300px] h-auto border-2 p-4 rounded-lg shadow-sm"
-          />
-          <Image
-            src={"/images/gym.png"}
-            alt="gym-pic"
-            width={307}
-            height={289}
-            className="w-full max-w-[300px] h-auto border-2 p-4 rounded-lg shadow-sm"
-          />
-        </div>
-        <div className="flex flex-col items-center gap-6">
-          <Image
-            src={"/images/formal.png"}
-            alt="formal-pic"
-            width={400}
-            height={289}
-            className="w-full max-w-[400px] h-auto border-2 p-4 rounded-lg shadow-sm"
+            className=" rounded-[20px] py-7 justify-self-end"
           />
           <Image
             src={"/images/party.png"}
-            alt="party-pic"
-            width={400}
+            alt="gym-pic"
+            width={684}
             height={289}
-            className="w-full max-w-[400px] h-auto border-2 p-4 rounded-lg shadow-sm"
+            className=" rounded-[20px] py-7"
+          /> 
+        </div>
+        <div className="flex flex-col items-center gap-6">
+            <Image
+            src={"/images/formal.png"}
+            alt="formal-pic"
+            width={684}
+            height={289}
+            className="  rounded-[20px] py-7"
+          /> 
+          <Image
+            src={"/images/gym.png"}
+            alt="party-pic"
+            width={407}
+            height={289}
+            className=" rounded-[20px] py-7"
           />
         </div>
       </div>
