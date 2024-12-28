@@ -111,45 +111,49 @@ const Products = () => {
       </div>
 
       {/* Browse by Dress Style */}
-      <h1 className="text-3xl md:text-[48px] h-[58px] font-bold text-center uppercase mt-12 bg-[#f0f0f0] py-[52px] rounded-t-[40px]">
-        Browse by Dress Style
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 w-full bg-[#f0f0f0] p-6 rounded-b-[40px]">
-        <div className="flex flex-col items-center  gap-6">
-          <Image
-            src={"/images/casual.png"}
-            alt="casual-pic"
-            width={407}
-            height={289}
-            className=" rounded-[20px] py-7 justify-self-end"
-          />
-          <Image
-            src={"/images/party.png"}
-            alt="gym-pic"
-            width={684}
-            height={289}
-            className=" rounded-[20px] py-7"
-          /> 
+
+      <div className="grid grid-cols-1 w-full bg-[#f0f0f0] p-6 md:rounded-[40px] rounded-[20px] md:mt-10 md:mb-10 mt-5 mb-5">
+        <div>
+          <h1 className="text-3xl md:text-[48px] font-bold text-center uppercase mt-2 bg-[#f0f0f0] py-[52px] ">
+            Browse by Dress Style
+          </h1>
         </div>
-        <div className="flex flex-col items-center gap-6">
+        <div>
+          <div className="flex flex-col items-center  gap-6 p-7 md:flex-row md:justify-center">
             <Image
-            src={"/images/formal.png"}
-            alt="formal-pic"
-            width={684}
-            height={289}
-            className="  rounded-[20px] py-7"
-          /> 
-          <Image
-            src={"/images/gym.png"}
-            alt="party-pic"
-            width={407}
-            height={289}
-            className=" rounded-[20px] py-7"
-          />
+              src={"/images/casual.png"}
+              alt="casual-pic"
+              width={407}
+              height={289}
+              className=" rounded-[20px]"
+            />
+            <Image
+              src={"/images/formal.png"}
+              alt="formal-pic"
+              width={684}
+              height={289}
+              className="  rounded-[20px] "
+            />
+          </div>
+          <div className="flex flex-col items-center gap-6 p-7 md:flex-row md:justify-center">
+            <Image
+              src={"/images/party.png"}
+              alt="gym-pic"
+              width={684}
+              height={289}
+              className=" rounded-[20px] "
+            />
+            <Image
+              src={"/images/gym.png"}
+              alt="party-pic"
+              width={407}
+              height={289}
+              className=" rounded-[20px] "
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default Products;

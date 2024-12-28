@@ -1,4 +1,3 @@
-
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { CiTwitter } from "react-icons/ci";
@@ -65,10 +64,18 @@ const Footer = () => {
               "Privacy Policy",
             ],
           },
-          { title: "FAQ", items: ["Account", "Manage Deliveries", "Orders", "Payments"] },
+          {
+            title: "FAQ",
+            items: ["Account", "Manage Deliveries", "Orders", "Payments"],
+          },
           {
             title: "Resources",
-            items: ["Free eBooks", "Development Tutorial", "How to - Blog", "YouTube Playlist"],
+            items: [
+              "Free eBooks",
+              "Development Tutorial",
+              "How to - Blog",
+              "YouTube Playlist",
+            ],
           },
         ].map((col, index) => (
           <div key={index} className="w-full md:w-1/5 px-4 mb-6">
@@ -82,19 +89,26 @@ const Footer = () => {
         ))}
 
         {/* Payment Badges */}
-        <div className="w-full mt-6 flex justify-center md:justify-end items-center md:gap-4 gap-[4px] mx-5 md:mx-20">
-          {["badge4.png", "badge3.png", "badge2.png", "m.png", "badge2.png"].map(
-            (src, index) => (
+        <div className="flex flex-col md:flex-row md:items-center justify-between items-center">
+          <p className="text-[14px] md:text-left md:mr-[400px]">Shop.co © 2000-2023, All Rights Reserved</p>
+          <div className="w-full md:w-auto mt-6 flex justify-center  items-center md:gap-4 gap-[4px] mx-5 md:mx-20">
+            {[
+              "badge4.png",
+              "badge3.png",
+              "badge2.png",
+              "m.png",
+              "badge5.png",
+            ].map((src, index) => (
               <Image
                 key={index}
                 src={`/images/${src}`}
                 alt={`badge-${index}`}
                 width={46.61}
                 height={30.03}
-                className="h-14 w-20"
+                className="h-auto w-auto md:h-14 md:w-20"
               />
-            )
-          )}
+            ))}
+          </div>
         </div>
       </div>
     </>

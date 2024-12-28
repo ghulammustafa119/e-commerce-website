@@ -9,4 +9,9 @@ export interface IProduct {
   }
 
 
-  
+export  interface IReviews {
+    name: string;
+    feedback: string;
+    rating: number;
+    verified: boolean;
+}
