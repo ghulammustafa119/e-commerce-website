@@ -101,7 +101,7 @@ const Brands = () => {
               type="text"
               placeholder="Add promo code"
             />
-            <Button className="w-[88px] h-12 md:w-[119px] px-6 py-2 rounded-[62px] gap-3">
+            <Button className="w-[88px] h-12 md:w-[119px] px-6 py-2 text-white bg-black rounded-[62px] gap-3">
               Apply
             </Button>
           </div>
