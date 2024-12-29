@@ -36,9 +36,9 @@ const cartItem: ICart[] = [
 const Brands = () => {
   return (
     <>
-      <div className="px-4 md:px-6">
+      <div className=" md:px-2">
         <BreadcrumbDemo />
-        <h1 className="font-bold text-2xl md:text-4xl mt-4">Your Cart</h1>
+        <h1 className="font-bold text-2xl md:text-4xl mt-4 ml-4 md:ml-10 uppercase">Your Cart</h1>
       </div>
 
       <div className="flex flex-col md:flex-row justify-center items-start gap-6 mt-6 px-4 md:px-0">
@@ -66,7 +66,7 @@ const Brands = () => {
               </div>
               <div className="flex flex-col md:flex-col justify-between items-center gap-10">
                 <Delete className="cursor-pointer text-gray-500 hover:text-red-500" />
-                <div className="flex items-center gap-3 bg-gray-100 rounded-full px-4 py-2">
+                <div className="flex justify-between items-center gap-3 bg-gray-100 rounded-full px-4 py-2">
                   <Minus className="cursor-pointer text-gray-500 hover:text-black" />
                   <span>1</span>
                   <Plus className="cursor-pointer text-gray-500 hover:text-black" />
@@ -82,13 +82,13 @@ const Brands = () => {
 
           <div className="mt-4 space-y-4">
             <p className="flex justify-between text-base md:text-lg text-gray-700">
-              Subtotal <span>$565</span>
+              Subtotal <span className="text-black">$565</span>
             </p>
             <p className="flex justify-between text-base md:text-lg text-gray-700">
-              Discount (-20%) <span className="hover:text-red-700">-$113</span>
+              Discount (-20%) <span className="hover:text-red-700 cursor-pointer text-black">-$113</span>
             </p>
             <p className="flex justify-between text-base md:text-lg text-gray-700">
-              Delivery Fee <span>$15</span>
+              Delivery Fee <span className="text-black">$15</span>
             </p>
             <p className="flex justify-between text-base md:text-lg font-bold text-black">
               Total <span>$467</span>
