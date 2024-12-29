@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <>
       {/* Announcement Bar */}
-      <div className="max-w-[1440px] h-[38px] bg-black text-white flex justify-center items-center px-4">
+      <div className=" h-[38px] bg-black text-white flex justify-center items-center px-4 max-w-screen-2xl mx-auto">
         <div className="w-full">
           <p className="text-[10px] sm:text-sm text-center font-normal md:ml-28">
             Sign up and get 20% off your first order.
@@ -24,7 +24,7 @@ const Header = () => {
       </div>
       {/* Main Header */}
       <div className="border-b-2">
-        <div className=" max-w-[1440px] h-20 sm:mx-[90px] mx-[90px] flex justify-between items-center">
+        <div className="max-w-screen-2xl mx-auto h-20 px-5 md:px-20 flex justify-between items-center">
           <div className="flex items-center justify-center ">
             {/* Logo */}
             <div className="w-full flex">

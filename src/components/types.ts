@@ -14,4 +14,16 @@ export  interface IReviews {
     feedback: string;
     rating: number;
     verified: boolean;
+    date? :string
+}
+
+
+
+ export  interface ICart {
+  imageurl : string;
+  title : string;
+  id : number;
+  size : string;
+  color : string;
+  price : string;
 }

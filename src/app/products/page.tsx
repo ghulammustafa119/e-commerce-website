@@ -114,7 +114,7 @@ const Products = () => {
 
       <div className="grid grid-cols-1 w-full bg-[#f0f0f0] p-6 md:rounded-[40px] rounded-[20px] md:mt-10 md:mb-10 mt-5 mb-5">
         <div>
-          <h1 className="text-3xl md:text-[48px] font-bold text-center uppercase mt-2 bg-[#f0f0f0] py-[52px] ">
+          <h1 className="text-3xl md:text-[48px] font-bold text-center uppercase mt-2 py-[52px] ">
             Browse by Dress Style
           </h1>
         </div>
@@ -123,32 +123,32 @@ const Products = () => {
             <Image
               src={"/images/casual.png"}
               alt="casual-pic"
-              width={407}
-              height={289}
-              className=" rounded-[20px]"
+              width={310}
+              height={190}
+              className=" rounded-[20px] md:w-[407px] md:h-[289px]"
             />
             <Image
               src={"/images/formal.png"}
               alt="formal-pic"
-              width={684}
-              height={289}
-              className="  rounded-[20px] "
+              width={310}
+              height={190}
+              className="  rounded-[20px] md:w-[684px] md:h-[289px]"
             />
           </div>
           <div className="flex flex-col items-center gap-6 p-7 md:flex-row md:justify-center">
             <Image
               src={"/images/party.png"}
-              alt="gym-pic"
-              width={684}
-              height={289}
-              className=" rounded-[20px] "
+              alt="party-pic"
+              width={310}
+              height={190}
+              className=" rounded-[20px] md:w-[684px] md:h-[289px]"
             />
             <Image
               src={"/images/gym.png"}
-              alt="party-pic"
-              width={407}
-              height={289}
-              className=" rounded-[20px] "
+              alt="gym-pic"
+              width={310}
+              height={190}
+              className=" rounded-[20px] md:w-[407px] md:h-[289px]"
             />
           </div>
         </div>

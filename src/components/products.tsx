@@ -2,61 +2,64 @@ import React from "react";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { FaStarHalf } from "react-icons/fa";
-import { IProduct } from "./types";
+import Link from "next/link";
+import { IProduct } from "@/components/types";
 
 const product: IProduct[] = [
   {
-    title: "T-SHIRT WITH TAPE DETAILS",
+    title: "Polo with Contrast Trims",
     id: 1,
-    price: "$120",
-    rating: "4.5/5",
-    img_url: "/images/four.png",
-  },
-  {
-    title: "SKINNY FIT JEANS",
-    id: 2,
-    price: "$240",
-    rating: "3.5/5",
-    old_price: "$260",
+    price: "$212",
+    rating: "4.0/5",
+    old_price: "$242",
     discount: "-20%",
-    img_url: "/images/one.png",
+    img_url: "/images/Frame 32.png",
   },
   {
-    title: "CHECKERED SHIRT",
+    title: "Gradient Graphic T-shirt",
+    id: 2,
+    price: "$145",
+    rating: "3.0/5",
+    img_url: "/images/Frame 33.png",
+  },
+  {
+    title: "Polo with Tipping Details",
     id: 3,
     price: "$180",
-    rating: "4.5/5",
-    img_url: "/images/two.png",
+    rating: "4.0/5",
+    img_url: "/images/Frame 34.png",
   },
   {
-    title: "SLEEVE STRIPED T-SHIRT",
+    title: "Black Striped T-shirt",
     id: 4,
-    price: "$130",
-    rating: "4.5/5",
-    old_price: "$160",
+    price: "$120",
+    rating: "5.5/5",
+    old_price: "$150",
     discount: "-30%",
-    img_url: "/images/three.png",
+    img_url: "/images/Frame 38.png",
   },
 ];
 
-const Hero1 = () => {
+const Fashion = () => {
   return (
-    <div className="max-w-screen-2xl mx-auto h-auto px-4 sm:px-6 md:px-20">
-      <h1 className="text-xl sm:text-2xl md:text-4xl mt-4 mb-4 text-center font-bold">
-        NEW ARRIVALS
+    <div className="max-w-[1440px] mx-auto px-5 md:px-10">
+      {/* Top Selling Section */}
+      <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-center uppercase mt-4 mb-4">
+      You might also like
       </h1>
       <div className="flex flex-wrap justify-center gap-6">
         {product.map((item) => {
+          // Extract numeric rating
           const numericRating = item.rating
             ? parseFloat(item.rating.split("/")[0]) || 0
             : 0;
 
-          // Dynamically generate stars based on rating
+          // Create array of stars based on numericRating
           const stars = Array.from({ length: 5 }, (_, i) =>
             i < Math.floor(numericRating) ? (
               <AiFillStar key={i} className="text-yellow-400" />
             ) : (
-              < FaStarHalf key={i} className="text-yellow-400" />
+              <FaStarHalf key={i} className="text-yellow-400" />
             )
           );
 
@@ -65,20 +68,24 @@ const Hero1 = () => {
               key={item.id}
               className="w-[90%] sm:w-[45%] md:w-[22%] bg-white shadow-sm rounded-md p-4"
             >
-              <Image
-                src={item.img_url}
-                alt={item.title}
-                width={270}
-                height={298}
-                className="rounded-md"
-              />
+              <Link href={`/products/${item.id}`}>
+                <div>
+                  <Image
+                    src={item.img_url}
+                    alt={item.title}
+                    width={270}
+                    height={298}
+                    className="w-full rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              </Link>
               <div className="mt-4">
                 <p className="text-base font-bold">{item.title}</p>
                 <div className="flex items-center">
                   {stars}
-                  <span className="text-gray-400 text-[10px] ml-1">
+                  <p className="text-gray-400 text-[10px] ml-1">
                     {item.rating}
-                  </span>
+                  </p>
                 </div>
                 <p className="text-base font-bold mt-1">
                   {item.price}{" "}
@@ -98,13 +105,7 @@ const Hero1 = () => {
           );
         })}
       </div>
-      <div className="w-full mt-8 flex justify-center">
-        <button className="px-6 py-2 bg-black text-white rounded-lg text-sm hover:bg-gray-800 transition-colors duration-300">
-          View All
-        </button>
-      </div>
     </div>
-  );
+    );
 };
-
-export default Hero1;
+export default Fashion;

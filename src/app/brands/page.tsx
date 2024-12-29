@@ -1,127 +1,117 @@
+
+import { ICart } from "@/components/types";
 import React from "react";
 import Image from "next/image";
+import { Delete, Minus, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { BreadcrumbDemo } from "@/components/bredcrumb";
+
+const cartItem: ICart[] = [
+  {
+    imageurl: "/images/Frame 33.png",
+    title: "Gradient Graphic T-shirt",
+    id: 1,
+    size: "Large",
+    color: "White",
+    price: "$145",
+  },
+  {
+    imageurl: "/images/two.png",
+    title: "CHECKERED SHIRT",
+    id: 2,
+    size: "Medium",
+    color: "Red",
+    price: "$180",
+  },
+  {
+    imageurl: "/images/one.png",
+    title: "SKINNY FIT JEANS",
+    id: 3,
+    size: "Large",
+    color: "Blue",
+    price: "$240",
+  },
+];
 
 const Brands = () => {
   return (
-    <div>
-      <h1 className="mt-8 text-center uppercase font-semibold text-[32px] text-3xl">
-        top selling
-      </h1>
-      <div className="flex justify-between items-center">
-        <div>
-          <Image
-            src={"/images/no32.png"}
-            alt="no32-pic"
-            width={295}
-            height={298}
-            className="mx-10"
-          />
-          <p>VERTICAL STRIPED SHIRT</p>
-          <Image src={"/images/a.png"} alt="a-pic" width={160} height={19} />
-          <div className="flex justify-items-start">
-            <Image
-              src={"/images/212.png"}
-              alt="212-pic"
-              width={53}
-              height={32}
-            />
-            <Image
-              src={"/images/232.png"}
-              alt="232-pic"
-              width={56}
-              height={32}
-            />
-            <Image
-              src={"/images/20.png"}
-              alt="d20-pic"
-              width={58}
-              height={28}
-            />
+    <>
+      <div className="px-4 md:px-6">
+        <BreadcrumbDemo />
+        <h1 className="font-bold text-2xl md:text-4xl mt-4">Your Cart</h1>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-center items-start gap-6 mt-6 px-4 md:px-0">
+        {/* Cart Items Section */}
+        <div className="w-full md:w-[715px] bg-white border rounded-lg p-4 md:p-6 overflow-x-auto">
+          {cartItem.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-row justify-between items-center gap-4 border-b pb-4 mb-4 last:border-b-0 last:pb-0 last:mb-0"
+            >
+              <div className="flex items-center gap-4">
+                <Image
+                  src={item.imageurl}
+                  alt={item.title}
+                  width={124}
+                  height={124}
+                  className="rounded"
+                />
+                <div>
+                  <h3 className="font-bold text-sm md:text-lg">{item.title}</h3>
+                  <p className="text-xs md:text-base">Size: {item.size}</p>
+                  <p className="text-xs md:text-base">Color: {item.color}</p>
+                  <p className="text-base md:text-2xl font-bold">{item.price}</p>
+                </div>
+              </div>
+              <div className="flex flex-col md:flex-col justify-between items-center gap-10">
+                <Delete className="cursor-pointer text-gray-500 hover:text-red-500" />
+                <div className="flex items-center gap-3 bg-gray-100 rounded-full px-4 py-2">
+                  <Minus className="cursor-pointer text-gray-500 hover:text-black" />
+                  <span>1</span>
+                  <Plus className="cursor-pointer text-gray-500 hover:text-black" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Order Summary Section */}
+        <div className="w-full md:w-[505px] bg-white border rounded-lg p-4 md:p-6 flex flex-col">
+          <h1 className="font-bold text-xl md:text-2xl">Order Summary</h1>
+
+          <div className="mt-4 space-y-4">
+            <p className="flex justify-between text-base md:text-lg text-gray-700">
+              Subtotal <span>$565</span>
+            </p>
+            <p className="flex justify-between text-base md:text-lg text-gray-700">
+              Discount (-20%) <span className="hover:text-red-700">-$113</span>
+            </p>
+            <p className="flex justify-between text-base md:text-lg text-gray-700">
+              Delivery Fee <span>$15</span>
+            </p>
+            <p className="flex justify-between text-base md:text-lg font-bold text-black">
+              Total <span>$467</span>
+            </p>
           </div>
-        </div>
 
-        <div>
-          <Image
-            src={"/images/no33.png"}
-            alt="no33-pic"
-            width={295}
-            height={298}
-            className="mx-10"
-          />
-          <p>COURAGE GRAPHIC T-SHIRT</p>
-          <Image src={"/images/b.png"} alt="b-pic" width={137} height={19} />
-          <Image src={"/images/145.png"} alt="145-pic" width={54} height={32} />
-        </div>
+          <div className="flex flex-row md:flex-row items-center gap-4 mt-6">
+            <input
+              className="w-[218px] h-12 md:w-[326px] flex-1 bg-[#f0f0f0] rounded-[62px] gap-3 px-4 py-3 text-sm md:text-base"
+              type="text"
+              placeholder="Add promo code"
+            />
+            <Button className="w-[88px] h-12 md:w-[119px] px-6 py-2 rounded-[62px] gap-3">
+              Apply
+            </Button>
+          </div>
 
-        <div>
-          <Image
-            src={"/images/no34.png"}
-            alt="no34-pic"
-            width={295}
-            height={298}
-            className="mx-10"
-          />
-          <p>LOOSE FIT BERMUDA SHORTS</p>
-          <Image src={"/images/c.png"} alt="c-pic" width={113} height={19} />
-          <Image src={"/images/80.png"} alt="80-pic" width={47} height={32} />
-        </div>
-
-        <div>
-          <Image
-            src={"/images/no35.png"}
-            alt="no35-pic"
-            width={295}
-            height={298}
-            className="mx-10"
-          />
-          <p>FADED SKINNY JEANS</p>
-          <Image src={"/images/d.png"} alt="d-pic" width={150} height={19} />
-          <Image src={"/images/210.png"} alt="210-pic" width={55} height={32} />
+          <Button className="mt-6 w-full h-[60px] px-[54px] py-4 gap-3 rounded-[62px] text-white bg-black">
+            Go to Checkout
+          </Button>
         </div>
       </div>
-
-      <div className="w-[218px] h-[52px] text-center m-auto pt-3">
-        <button>View All</button>
-      </div>
-
-      <h1 className="mt-8 text-center uppercase font-semibold text-[32px] text-3xl">
-        BROWSE BY dress STYLE
-      </h1>
-      <div className="flex justify-center items-center w-full h-[566px] bg-[#f0f0f0] mt-20 mx-20 ">
-        <div>
-          <Image
-            src={"/images/casual.png"}
-            alt="casual-pic"
-            width={307}
-            height={289}
-            className="w-[300px] h-[200px] border-[2px] p-5 rounded-xl"
-          />
-          <Image
-            src={"/images/gym.png"}
-            alt="gym-pic"
-            width={407}
-            height={289}
-            className="w-[300px] h-[200px] border-[2px] p-5 rounded-xl"
-          />
-        </div>
-        <div>
-          <Image
-            src={"/images/formal.png"}
-            alt="formal-pic"
-            width={684}
-            height={289}
-            className="w-[400px] h-[200px] border-[2px] p-5 rounded-xl"
-          />
-          <Image
-            src={"/images/party.png"}
-            alt="party-pic"
-            width={684}
-            height={289}
-            className="w-[400px] h-[200px] border-[2px] p-5 rounded-xl"
-          />
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

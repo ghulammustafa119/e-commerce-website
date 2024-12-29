@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <>
       {/* Top Section */}
-      <div className="w-full h-auto px-5 py-6 flex flex-col md:flex-row items-center bg-black text-white">
+      <div className="w-full h-auto max-w-screen-2xl mx-auto px-5 py-6 flex flex-col md:flex-row items-center bg-black text-white">
         <div className="  md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start mx-5 md:mx-20">
           <h1 className="text-lg md:text-2xl font-semibold mb-2">
             STAY UP TO DATE ABOUT
@@ -36,7 +36,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Section */}
-      <div className="w-full h-auto flex flex-wrap justify-center md:justify-evenly bg-gray-100 text-black py-8 mx-5 md:mx-20">
+      <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-wrap justify-center md:justify-evenly bg-gray-100 text-black py-8 px-5 md:px-20">
         {/* Column 1 */}
         <div className="w-full md:w-1/5 px-4 mb-6">
           <h2 className="text-lg md:text-xl font-bold mb-4">SHOP.CO</h2>
