@@ -53,9 +53,9 @@ const Brands = () => {
                 <Image
                   src={item.imageurl}
                   alt={item.title}
-                  width={124}
-                  height={124}
-                  className="rounded"
+                  width={99}
+                  height={99}
+                  className="rounded md:w-[124px] md:h-[124px]"
                 />
                 <div>
                   <h3 className="font-bold text-sm md:text-lg">{item.title}</h3>
