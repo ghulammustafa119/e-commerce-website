@@ -31,19 +31,19 @@ import { Filter } from "lucide-react"
         <AccordionItem value="item-3">
           <AccordionTrigger>Shirts</AccordionTrigger>
           <AccordionContent>
-            Yes. It's animated by default, but you can disable it if you prefer.
+            Yes. It&apos;s animated by default, but you can disable it if you prefer.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
           <AccordionTrigger>Hoodie</AccordionTrigger>
           <AccordionContent>
-            Yes. It's animated by default, but you can disable it if you prefer.
+            Yes. It&apos;s animated by default, but you can disable it if you prefer.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-5">
           <AccordionTrigger>Jeans</AccordionTrigger>
           <AccordionContent>
-            Yes. It's animated by default, but you can disable it if you prefer.
+            Yes. It&apos;s animated by default, but you can disable it if you prefer.
           </AccordionContent>
         </AccordionItem>
       </Accordion>

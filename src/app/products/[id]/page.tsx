@@ -72,7 +72,7 @@ let product: IProduct[] = [
   },
 ];
 
-const page = () => {
+const Page = () => {
   const params = useParams();
   const id = params.id;
   const data = product.find((item) => item.id === Number(id));
@@ -190,4 +190,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
