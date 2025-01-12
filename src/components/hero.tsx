@@ -20,6 +20,20 @@ const Hero = () => {
           <button className="bg-black text-white text-sm px-6 py-2 mt-6 w-full rounded-lg md:rounded-[16px] md:text-base md:w-[148px] md:mt-3">
             Shop Now
           </button>
+          <div className=" flex justify-evenly md:hidden md:justify-between flex-wrap md:flex-nowrap gap-y-4 mt-4 ml-4 space-x-4">
+                  <div className="border-r pr-2">
+                    <h1 className="text-2xl md:text-5xl  ">200+</h1>
+                    <p className="text-xs md:text-[15px] text-gray-500">International Brands</p>
+                  </div>
+                  <div className="border-r pr-5">
+                    <h1 className="text-2xl md:text-5xl  ">2,000+</h1>
+                    <p className="text-xs md:text-[15px] text-gray-500">High-Quality Products</p>
+                  </div>
+                  <div>
+                    <h1 className="text-2xl md:text-5xl ">30,000+</h1>
+                    <p className="text-xs md:text-[15px] text-gray-500">Happy Customers</p>
+                  </div>
+               </div>
         </div>
 
         {/* Right Content - Images */}
@@ -53,17 +67,6 @@ const Hero = () => {
           />
         </div>
       </div>
-
-      {/* Brands Section
-      <div className="bg-black text-white w-full py-4 max-w-screen-2xl mx-auto">
-        <ul className="text-lg uppercase flex flex-col items-center gap-4 md:flex-row md:justify-evenly md:text-2xl md:py-4">
-          <li>Versace</li>
-          <li>Zara</li>
-          <li>Gucci</li>
-          <li>Prada</li>
-          <li>Calvin Klein</li>
-        </ul>
-      </div> */}
     </>
   );
 };
