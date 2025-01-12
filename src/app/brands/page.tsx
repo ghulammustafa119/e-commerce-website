@@ -36,8 +36,8 @@ const cartItem: ICart[] = [
 const Brands = () => {
   return (
     <>
-      <div className=" md:px-2">
-        <BreadcrumbDemo />
+      <div className=" md:px-2 ">
+        <BreadcrumbDemo/>
         <h1 className="font-bold text-2xl md:text-4xl mt-4 ml-4 md:ml-10 uppercase">Your Cart</h1>
       </div>
 
