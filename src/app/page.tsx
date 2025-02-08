@@ -1,20 +1,23 @@
 import Hero from "@/components/hero";
-import Hero1 from "@/components/hero1";
 import Products from "./products/page";
-import { CarouselDemo } from "@/components/carousel";
 import Fonts from "@/components/fonts";
+import Customers from "@/components/customer";
+import Dress from "@/components/dress";
+import Sell from "./products/sell";
 
 
 
 
 export default function Home() {
+
   return (
    <div>
-         <Hero/>
+         <Hero />
          <Fonts/>
-         <Hero1/>
-         <Products/>
-         <CarouselDemo/>
+         <Products />
+         <Sell/>
+         <Dress/>
+         <Customers/>
    </div>
   );
 }

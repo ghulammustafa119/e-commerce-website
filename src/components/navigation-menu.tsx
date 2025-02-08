@@ -1,9 +1,11 @@
+
 "use client"
 
 import * as React from "react"
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,10 +16,10 @@ import {
 } from "@/components/ui/navigation-menu"
 
 const components: { title: string; href: string; description: string }[] = [
-  
+
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
+    title: "Onsale",
+    href: "/onsale",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
@@ -46,22 +48,26 @@ export function NavigationMenuDemo() {
       <NavigationMenuList>
         
         <NavigationMenuItem>
-          <NavigationMenuTrigger><h2 className="text-xl">Shop</h2></NavigationMenuTrigger>
+          <NavigationMenuTrigger>
+            <h3 className="text-xl">Shop</h3>
+          </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem
+            <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              {components.map((component,index) => (
+               <Link href={"/onsale"} key={index}>
+                 <ListItem
                   key={component.title}
                   title={component.title}
-                  href={component.href}
+                  href={"/onsale"}
                 >
                   {component.description}
                 </ListItem>
+               </Link>
               ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        
+       
       </NavigationMenuList>
     </NavigationMenu>
   )

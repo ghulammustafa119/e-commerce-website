@@ -1,53 +1,68 @@
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-  } from "@/components/ui/accordion"
-import { Filter } from "lucide-react"
-import { Button } from "./ui/button"
 
-  
-  export function Dress() {
-    return (
-        <>
-     <div className="p-6">
-        <div className="flex justify-between items-center">
-            <h1 className="font-bold text-[20px]">Dress Style</h1>
-            
+import Image from "next/image";
+
+export default function Dress() {
+  return (
+    <>
+      <div className="w-full  flex justify-center items-center mt-20 md:mt-16 mb-4  max-w-screen-2xl mx-auto ">
+        {/* container */}
+        <div className="w-[90%] md:w-[80%] bg-[#F0F0F0] p-3 md:p-0 rounded-[20px] ">
+          <div className="flex justify-center  items-center">
+            <h1 className="text-black text-2xl md:text-4xl  font-extrabold pt-4">
+              BROWSE BY DRESS STYLE
+            </h1>
+          </div>
+          {/* boxes container */}
+          <div className=" flex flex-col lg:flex-row lg:flex-wrap justify-center items-center  mt-7   ">
+            <div className="relative bg-white w-[90%] lg:w-[350px] h-[250px] mt-4 md:mt-0 rounded-[20px]">
+              <h1 className="absolute left-10 top-8 text-xl font-bold">
+                Casual
+              </h1>
+              <Image
+                src={"/images/casual .png"}
+                className="w-full h-full rounded-[20px]"
+                width={200}
+                height={200}
+                alt="images"
+              ></Image>
+            </div>
+            <div className="relative bg-white w-[90%] lg:w-[550px] h-[250px] mt-4 md:mt-0 md:ml-4 rounded-[20px]">
+              <h1 className="absolute left-10 top-8 text-xl font-bold">
+                Formal
+              </h1>
+              <Image
+                src={"/images/formal.png"}
+                className="w-full h-full rounded-[20px]"
+                width={200}
+                height={200}
+                alt="images"
+              ></Image>
+            </div>
+            <div className="relative bg-white w-[90%] lg:w-[550px] h-[250px] mt-2 rounded-[20px] mb-9">
+              <h1 className="absolute left-10 top-8 text-xl font-bold">
+                Party
+              </h1>
+              <Image
+                src={"/images/party.png"}
+                className="w-full h-full rounded-[20px]"
+                width={200}
+                height={200}
+                alt="images"
+              ></Image>
+            </div>
+            <div className="relative bg-white w-[90%] lg:w-[350px] h-[250px]  mt-2 md:ml-4 rounded-[20px] mb-9">
+              <h1 className="absolute left-10 top-8 text-xl font-bold">Gym</h1>
+              <Image
+                src={"/images/gym.png"}
+                className="w-full h-full rounded-[20px]"
+                width={200}
+                height={200}
+                alt="images"
+              ></Image>
+            </div>
+          </div>
         </div>
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Casul</AccordionTrigger>
-          <AccordionContent>
-            Yes. It adheres to the WAI-ARIA design pattern.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Formal</AccordionTrigger>
-          <AccordionContent>
-            Yes. It comes with default styles that matches the other
-            components&apos; aesthetic.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-3">
-          <AccordionTrigger>Party</AccordionTrigger>
-          <AccordionContent>
-            Yes. It&apos;s animated by default, but you can disable it if you prefer.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-4">
-          <AccordionTrigger>gym</AccordionTrigger>
-          <AccordionContent>
-            Yes. It&apos;s animated by default, but you can disable it if you prefer.
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-      <div className="mt-4 flex justify-center items-center">
-       <Button className="w-[90%] rounded-[20px] py-5 px-6">Apply Filter</Button>
-     </div>
-      </div> 
-      </>
-    )
-  }
-  
+      </div>
+    </>
+  );
+}

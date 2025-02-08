@@ -1,54 +1,63 @@
-import * as React from "react"
-import { AiFillStar } from "react-icons/ai";
 
-import { Card, CardContent } from "@/components/ui/card"
+
+import React from "react";
+import { AiFillStar } from "react-icons/ai";
+import { FaCircleCheck } from "react-icons/fa6";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
 import { IReviews } from "./types";
-import { FaCircleCheck } from "react-icons/fa6";
 
-const reviews:IReviews[] = [
-    {
-      name: "Sarah M.",
-      feedback:
-        "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.”",
-      rating: 5,
-      verified: true,
-    },
-    {
-      name: "John D.",
-      feedback:
-        "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.”",
-      rating: 5,
-      verified: true,
-    },
-    {
-      name: "Emma L.",
-      feedback:
+// Reviews data
+const reviews: IReviews[] = [
+  {
+    name: "Sarah M.",
+    feedback:
+      "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.",
+    rating: 5,
+    verified: true,
+  },
+  {
+    name: "John D.",
+    feedback:
+      "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
+    rating: 5,
+    verified: true,
+  },
+  {
+    name: "Emma L.",
+    feedback:
       "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
-      rating: 5,
-      verified: false,
-    },
-    {
-      name: "Michael B.",
-      feedback:
-       "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
-      rating: 5,
-      verified: true,
-    },
-    {
-      name: "Sophia K.",
-      feedback:
-        "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
-      rating: 5,
-      verified: true,
-    },
-  ];
+    rating: 5,
+    verified: false,
+  },
+  {
+    name: "Michael B.",
+    feedback:
+      "Shop.co's selection of clothes is not only diverse but also on-point with the latest trends. I'm thrilled to have stumbled upon this amazing store.",
+    rating: 5,
+    verified: true,
+  },
+  {
+    name: "Sophia K.",
+    feedback:
+      "The selection of clothes at Shop.co is not only diverse but also aligned with the latest trends. I've found some amazing pieces here!",
+    rating: 5,
+    verified: true,
+  },
+];
+
+// Helper for rendering stars
+const renderStars = (rating: number) => {
+  return Array.from({ length: rating }, (_, i) => (
+    <AiFillStar key={i} className="text-yellow-400 text-sm" aria-hidden="true" />
+  ));
+};
 
 export function CarouselDemo() {
   return (
@@ -65,11 +74,18 @@ export function CarouselDemo() {
           <div className="relative mt-10">
             {/* Carousel */}
             <Carousel className="w-full md:max-w-[100%] mx-auto relative">
-              {/* Buttons */}
-              <CarouselPrevious className="absolute top-[-1rem] md:top-[-3rem] left-10 md:left-[500px] lg:left-[700px] xl:left-[920px] hover:text-black" />
-              <CarouselNext className="absolute top-[-1rem] md:top-[-3rem] right-10 md:right-2 hover:text-black" />
+              {/* Navigation Buttons */}
+              <CarouselPrevious
+                className="absolute top-[-1rem] md:top-[-3rem] left-10 hover:text-black"
+                aria-label="Previous Review"
+              />
+              <CarouselNext
+                className="absolute top-[-1rem] md:top-[-3rem] right-10 hover:text-black"
+                aria-label="Next Review"
+              />
 
-              <CarouselContent className="-ml-1 flex  flex-row mt-4">
+              {/* Carousel Content */}
+              <CarouselContent className="-ml-1 flex flex-row mt-4">
                 {reviews.map((review, index) => (
                   <CarouselItem
                     key={index}
@@ -78,21 +94,17 @@ export function CarouselDemo() {
                     <div className="p-2">
                       <Card>
                         <CardContent className="flex flex-col items-start justify-center p-4">
-                          {/* Reviews Card */}
+                          {/* Review Card */}
                           <div className="flex justify-start items-center space-x-1 mb-2">
-                            {Array.from({ length:review .rating }).map(
-                              (_, i) => (
-                                <AiFillStar 
-                                  key={i}
-                                  className="text-yellow-400 text-sm"
-                                />
-                              )
-                            )}
+                            {renderStars(review.rating)}
                           </div>
                           <h2 className="flex items-center text-lg font-bold mb-2">
                             {review.name}
                             {review.verified && (
-                              <FaCircleCheck className="text-green-500 ml-2" />
+                              <FaCircleCheck
+                                className="text-green-500 ml-2"
+                                aria-label="Verified Reviewer"
+                              />
                             )}
                           </h2>
                           <p className="text-sm">{review.feedback}</p>
@@ -107,5 +119,44 @@ export function CarouselDemo() {
         </div>
       </div>
     </main>
-  )
+  );
 }
+
+
+
+
+
+
+
+// import * as React from "react"
+
+// import { Card, CardContent } from "@/components/ui/card"
+// import {
+//   Carousel,
+//   CarouselContent,
+//   CarouselItem,
+//   CarouselNext,
+//   CarouselPrevious,
+// } from "@/components/ui/carousel"
+
+// export function CarouselSpacing() {
+//   return (
+//     <Carousel className="w-full max-w-sm">
+//       <CarouselContent className="-ml-1">
+//         {Array.from({ length: 5 }).map((_, index) => (
+//           <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
+//             <div className="p-1">
+//               <Card>
+//                 <CardContent className="flex aspect-square items-center justify-center p-6">
+//                   <span className="text-2xl font-semibold">{index + 1}</span>
+//                 </CardContent>
+//               </Card>
+//             </div>
+//           </CarouselItem>
+//         ))}
+//       </CarouselContent>
+//       <CarouselPrevious />
+//       <CarouselNext />
+//     </Carousel>
+//   )
+// }

@@ -16,7 +16,7 @@ import {
 
 export function BreadcrumbDemo() {
   return (
-    <div className="px-6 md:mt-6 md:ml-7">
+    <div className="px-3 md:mt-6 md:ml-4">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -48,3 +48,58 @@ export function BreadcrumbDemo() {
     </div>
   );
 }
+
+
+
+
+
+
+// import Link from "next/link"
+
+// import {
+//   Breadcrumb,
+//   BreadcrumbEllipsis,
+//   BreadcrumbItem,
+//   BreadcrumbLink,
+//   BreadcrumbList,
+//   BreadcrumbPage,
+//   BreadcrumbSeparator,
+// } from "@/components/ui/breadcrumb"
+
+// export function BreadcrumbDemo() {
+//   return (
+//    <div className="max-w-screen-2xl  mx-auto">
+    
+//     <Breadcrumb className="mt-4 ml-4 sm:ml-10  ">
+//       <BreadcrumbList>
+//         <BreadcrumbItem>
+//           <BreadcrumbLink asChild>
+//             <Link href="/">Home</Link>
+//           </BreadcrumbLink>
+//         </BreadcrumbItem>
+//         <BreadcrumbItem>
+//         </BreadcrumbItem>
+//         <BreadcrumbSeparator />
+//         <BreadcrumbItem>
+//           <BreadcrumbLink asChild>
+//             <Link href="/casual">Shop</Link>
+//           </BreadcrumbLink>
+//         </BreadcrumbItem>
+//         <BreadcrumbSeparator />
+//         <BreadcrumbItem>
+//           <BreadcrumbPage>Mens</BreadcrumbPage>
+//         </BreadcrumbItem>
+//         <BreadcrumbItem>
+//           <BreadcrumbLink asChild>
+//             <Link href="/">casual</Link>
+//           </BreadcrumbLink>
+//         </BreadcrumbItem>
+//         <BreadcrumbSeparator />
+//         <BreadcrumbItem>
+//         </BreadcrumbItem>
+//       </BreadcrumbList>
+//     </Breadcrumb>
+
+//    </div>
+//   )
+// }

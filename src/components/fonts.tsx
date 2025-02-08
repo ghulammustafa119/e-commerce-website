@@ -1,12 +1,13 @@
+// Import Google Fonts
 import {
-  Playfair_Display,
   Cinzel,
-  Bodoni_Moda,
-  Prata,
   Montserrat,
+  Playfair_Display,
+  Prata,
+  Bodoni_Moda,
 } from "next/font/google";
 
-{/* Brands Section */}
+// Load Fonts
 const playfair = Playfair_Display({ subsets: ["latin"] });
 const cinzel = Cinzel({ subsets: ["latin"] });
 const bodoni = Bodoni_Moda({ subsets: ["latin"] });
@@ -16,7 +17,7 @@ const prata = Prata({
 });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-export default function Font() {
+export default function Fonts() {
   return (
     <div className=" bg-black w-full h-[100px] md:h-[90px] flex flex-wrap justify-evenly md:justify-between   p-8 text-center space-x-3  max-w-screen-2xl mx-auto">
       <h1
