@@ -6,8 +6,6 @@ import Dress from "@/components/dress";
 import Sell from "./products/sell";
 
 
-
-
 export default function Home() {
 
   return (
