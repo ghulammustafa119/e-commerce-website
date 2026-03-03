@@ -4,7 +4,7 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 
 ## Live Demo
 
-> Deploy on Vercel and add your live URL here.
+[https://e-commerce-website-tau-azure.vercel.app](https://e-commerce-website-tau-azure.vercel.app)
 
 ## Tech Stack
 
