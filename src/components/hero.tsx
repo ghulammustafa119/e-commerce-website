@@ -48,7 +48,7 @@ const Hero = () => {
 
           {/* Decorative Star 1 */}
           <Image
-            src="/images/v13.png"
+            src="/images/star.png"
             alt=""
             width={76}
             height={76}
@@ -57,7 +57,7 @@ const Hero = () => {
 
           {/* Decorative Star 2 */}
           <Image
-            src="/images/v13.png"
+            src="/images/star.png"
             alt=""
             width={44}
             height={44}
