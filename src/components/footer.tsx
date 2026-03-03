@@ -58,7 +58,7 @@ const Footer = () => {
               { src: "badge4.png", alt: "Visa" },
               { src: "badge3.png", alt: "Mastercard" },
               { src: "badge2.png", alt: "PayPal" },
-              { src: "m.png", alt: "Apple Pay" },
+              { src: "g.png", alt: "Apple Pay" },
               { src: "badge5.png", alt: "Google Pay" },
             ].map((badge, index) => (
               <Image
