@@ -78,7 +78,7 @@ const Products = () => {
 
           return (
             <div key={product._id}>
-              <Link href={`/product/${product._id}`}>
+              <Link href={`/products/${product._id}`}>
                 <div className="w-[200px] md:w-[270px] h-[200px] md:h-[290px] bg-[#F0EEED] rounded-[20px] overflow-hidden mx-auto">
                   {product.imageUrl ? (
                     <Image

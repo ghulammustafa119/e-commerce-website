@@ -77,7 +77,7 @@ export default function TopSell() {
       <div className="relative mt-10 overflow-x-auto flex space-x-5 px-8">
         {products.map((data) => (
           <div key={data._id} className="flex-shrink-0">
-            <Link href={`/product/${data._id}`}>
+            <Link href={`/products/${data._id}`}>
               <div className="w-[200px] md:w-[283px] h-[200px] md:h-[290px] bg-[#F0EEED] rounded-[20px]">
                 {data.imageUrl ? (
                   <Image
