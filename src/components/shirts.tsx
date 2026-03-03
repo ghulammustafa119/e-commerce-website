@@ -81,13 +81,19 @@ export default function Shirts() {
           <div className="mt-1" key={data._id}>
             <Link href={`/products/${data._id}`}>
               <div className="w-[160px] md:w-[240px] lg:w-[290px] h-[160px] md:h-[240px] lg:h-[290px] bg-[#F0EEED] rounded-[20px]">
-                <Image
-                  src={urlFor(data.imageUrl).url()}
-                  alt={data.name}
-                  className="w-full h-full rounded-[20px] object-cover"
-                  width={290}
-                  height={290}
-                />
+                {data.imageUrl ? (
+                  <Image
+                    src={urlFor(data.imageUrl).url()}
+                    alt={data.name}
+                    className="w-full h-full rounded-[20px] object-cover"
+                    width={290}
+                    height={290}
+                  />
+                ) : (
+                  <div className="w-full h-full flex justify-center items-center bg-gray-300 rounded-[20px]">
+                    <p>No Image</p>
+                  </div>
+                )}
               </div>
             </Link>
             <div>
