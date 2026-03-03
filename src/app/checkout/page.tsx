@@ -5,11 +5,15 @@ import { useCart } from "@/components/cart-context";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
+type PaymentMethod = "card" | "paypal" | "cod";
 
 export default function Checkout() {
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -23,34 +27,35 @@ export default function Checkout() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const isFormValid = () => {
+    return form.fullName && form.email && form.shippingAddress && form.phoneNumber && cartItems.length > 0;
+  };
 
-    if (cartItems.length === 0) {
-      alert("Your cart is empty!");
-      return;
-    }
+  const getOrderPayload = () => ({
+    shipping: form,
+    products: cartItems.map((item) => ({
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+    })),
+    total: subtotal,
+  });
+
+  // Stripe card payment
+  const handleStripePayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isFormValid()) return;
 
     setLoading(true);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          shipping: form,
-          products: cartItems.map((item) => ({
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
-          })),
-          total: subtotal,
-        }),
+        body: JSON.stringify({ ...getOrderPayload(), paymentMethod: "card" }),
       });
-
       const data = await res.json();
 
       if (data.success && data.url) {
-        // Redirect to Stripe Checkout
         window.location.href = data.url;
       } else {
         alert("Failed to process checkout. Please try again.");
@@ -59,6 +64,71 @@ export default function Checkout() {
       alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Cash on Delivery
+  const handleCOD = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!isFormValid()) return;
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...getOrderPayload(), paymentMethod: "cod" }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        clearCart();
+        router.push(`/checkout/success?orderId=${data.orderId}`);
+      } else {
+        alert("Failed to place order. Please try again.");
+      }
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // PayPal success handler
+  const handlePayPalSuccess = async (paypalOrderId: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...getOrderPayload(),
+          paymentMethod: "paypal",
+          paypalOrderId,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        clearCart();
+        router.push(`/checkout/success?orderId=${data.orderId}`);
+      } else {
+        alert("Failed to save order. Please try again.");
+      }
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    if (paymentMethod === "card") {
+      handleStripePayment(e);
+    } else if (paymentMethod === "cod") {
+      handleCOD(e);
+    } else {
+      e.preventDefault();
     }
   };
 
@@ -77,7 +147,7 @@ export default function Checkout() {
   }
 
   return (
-    <>
+    <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test", currency: "USD" }}>
       <div className="pl-5">
         <BreadcrumbDemo />
       </div>
@@ -85,84 +155,111 @@ export default function Checkout() {
         <h1 className="text-2xl md:text-3xl font-bold mb-6">Checkout</h1>
 
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Shipping Form */}
+          {/* Left: Form + Payment */}
           <form onSubmit={handleSubmit} className="flex-1 space-y-4">
             <h2 className="text-xl font-bold mb-2">Shipping Details</h2>
 
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium mb-1">
-                Full Name
-              </label>
-              <input
-                id="fullName"
-                name="fullName"
-                type="text"
-                required
-                value={form.fullName}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black"
-                placeholder="John Doe"
-              />
+              <label htmlFor="fullName" className="block text-sm font-medium mb-1">Full Name</label>
+              <input id="fullName" name="fullName" type="text" required value={form.fullName} onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="John Doe" />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black"
-                placeholder="john@example.com"
-              />
+              <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+              <input id="email" name="email" type="email" required value={form.email} onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="john@example.com" />
             </div>
 
             <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium mb-1">
-                Phone Number
-              </label>
-              <input
-                id="phoneNumber"
-                name="phoneNumber"
-                type="tel"
-                required
-                value={form.phoneNumber}
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black"
-                placeholder="+92 300 1234567"
-              />
+              <label htmlFor="phoneNumber" className="block text-sm font-medium mb-1">Phone Number</label>
+              <input id="phoneNumber" name="phoneNumber" type="tel" required value={form.phoneNumber} onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="+92 300 1234567" />
             </div>
 
             <div>
-              <label htmlFor="shippingAddress" className="block text-sm font-medium mb-1">
-                Shipping Address
-              </label>
-              <textarea
-                id="shippingAddress"
-                name="shippingAddress"
-                required
-                value={form.shippingAddress}
-                onChange={handleChange}
-                rows={3}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black"
-                placeholder="House #, Street, City, Country"
-              />
+              <label htmlFor="shippingAddress" className="block text-sm font-medium mb-1">Shipping Address</label>
+              <textarea id="shippingAddress" name="shippingAddress" required value={form.shippingAddress} onChange={handleChange}
+                rows={3} className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="House #, Street, City, Country" />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-black text-white py-3 rounded-full font-medium disabled:opacity-50"
-            >
-              {loading ? "Processing..." : "Pay with Stripe"}
-            </button>
+            {/* Payment Method Selection */}
+            <div className="border-t pt-4 mt-4">
+              <h2 className="text-xl font-bold mb-3">Payment Method</h2>
+              <div className="space-y-3">
+                <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "card" ? "border-black bg-gray-50" : "border-gray-200"}`}>
+                  <input type="radio" name="paymentMethod" value="card" checked={paymentMethod === "card"} onChange={() => setPaymentMethod("card")} className="accent-black" />
+                  <div className="flex-1">
+                    <p className="font-medium">Credit / Debit Card</p>
+                    <p className="text-xs text-gray-500">Pay securely with Stripe</p>
+                  </div>
+                  <span className="text-lg">💳</span>
+                </label>
+
+                <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "paypal" ? "border-black bg-gray-50" : "border-gray-200"}`}>
+                  <input type="radio" name="paymentMethod" value="paypal" checked={paymentMethod === "paypal"} onChange={() => setPaymentMethod("paypal")} className="accent-black" />
+                  <div className="flex-1">
+                    <p className="font-medium">PayPal</p>
+                    <p className="text-xs text-gray-500">Pay with your PayPal account</p>
+                  </div>
+                  <span className="text-lg font-bold text-blue-600">P</span>
+                </label>
+
+                <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "cod" ? "border-black bg-gray-50" : "border-gray-200"}`}>
+                  <input type="radio" name="paymentMethod" value="cod" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} className="accent-black" />
+                  <div className="flex-1">
+                    <p className="font-medium">Cash on Delivery</p>
+                    <p className="text-xs text-gray-500">Pay when your order arrives</p>
+                  </div>
+                  <span className="text-lg">🏠</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Payment Buttons */}
+            {paymentMethod === "paypal" ? (
+              <div className="mt-4">
+                {isFormValid() ? (
+                  <PayPalButtons
+                    style={{ layout: "vertical", color: "black", shape: "pill" }}
+                    createOrder={(_data, actions) => {
+                      return actions.order.create({
+                        intent: "CAPTURE",
+                        purchase_units: [{
+                          amount: { currency_code: "USD", value: subtotal.toFixed(2) },
+                        }],
+                      });
+                    }}
+                    onApprove={async (_data, actions) => {
+                      const order = await actions.order?.capture();
+                      if (order?.id) {
+                        await handlePayPalSuccess(order.id);
+                      }
+                    }}
+                    onError={() => {
+                      alert("PayPal payment failed. Please try again.");
+                    }}
+                  />
+                ) : (
+                  <p className="text-sm text-red-500 text-center">Please fill all shipping details first</p>
+                )}
+              </div>
+            ) : (
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-black text-white py-3 rounded-full font-medium disabled:opacity-50 mt-4"
+              >
+                {loading
+                  ? "Processing..."
+                  : paymentMethod === "cod"
+                  ? "Place Order (Cash on Delivery)"
+                  : "Pay with Stripe"}
+              </button>
+            )}
           </form>
 
-          {/* Order Summary */}
+          {/* Right: Order Summary */}
           <div className="w-full md:w-[400px] border rounded-[20px] p-6 h-fit">
             <h2 className="text-xl font-bold mb-4">Order Summary</h2>
 
@@ -170,19 +267,11 @@ export default function Checkout() {
               {cartItems.map((item) => (
                 <div key={item.id + item.size + item.color} className="flex gap-3">
                   {item.imageUrl && (
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.name}
-                      width={60}
-                      height={60}
-                      className="rounded-lg object-cover"
-                    />
+                    <Image src={item.imageUrl} alt={item.name} width={60} height={60} className="rounded-lg object-cover" />
                   )}
                   <div className="flex-1">
                     <p className="font-medium text-sm">{item.name}</p>
-                    <p className="text-xs text-gray-500">
-                      {item.size} | Qty: {item.quantity}
-                    </p>
+                    <p className="text-xs text-gray-500">{item.size} | Qty: {item.quantity}</p>
                   </div>
                   <p className="font-bold text-sm">${(item.price * item.quantity).toFixed(2)}</p>
                 </div>
@@ -197,6 +286,6 @@ export default function Checkout() {
           </div>
         </div>
       </div>
-    </>
+    </PayPalScriptProvider>
   );
 }
