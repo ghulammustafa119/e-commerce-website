@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { useParams } from "next/navigation";
@@ -8,82 +8,83 @@ import { FiMinus } from "react-icons/fi";
 import AllReviws from "@/components/all-reviews";
 import Fashion from "@/components/products";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const starIcons = Array(5)
   .fill(null)
   .map((_, index) => <AiFillStar key={index} className="text-yellow-400" />);
 
-interface IProduct {
-  title: string;
-  price: string;
-  id: number;
-  rating?: string;
-  old_price?: string;
-  img_url: string;
-  img1: string;
-  img2: string;
-  img3: string;
-  discount?: string;
+interface SanityProduct {
+  _id: string;
+  name: string;
+  price: number;
+  discountPercent: number;
+  description: string;
+  imageUrl: string;
 }
-
-const products: IProduct[] = [
-  {
-    title: "ONE LIFE GRAPHIC T-SHIRT",
-    id: 1,
-    price: "$260",
-    old_price: "$300",
-    discount: "-40%",
-    img_url: "/images/pic1.png",
-    img1: "/images/pro1.png",
-    img2: "/images/pro3.png",
-    img3: "/images/pro4.png",
-  },
-  {
-    title: "VERTICAL STRIPED SHIRT",
-    id: 2,
-    price: "$145",
-    img_url: "/images/pic2.png",
-    img1: "/images/pro1.png",
-    img2: "/images/pro3.png",
-    img3: "/images/pro4.png",
-  },
-  {
-    title: "LOOSE FIT BERMUDA SHORTS",
-    id: 3,
-    price: "$80",
-    img_url: "/images/pic3.png",
-    img1: "/images/pro1.png",
-    img2: "/images/pro3.png",
-    img3: "/images/pro4.png",
-  },
-  {
-    title: "FADED SKINNY JEANS",
-    id: 4,
-    price: "$210",
-    img_url: "/images/pic4.png",
-    img1: "/images/pro1.png",
-    img2: "/images/pro3.png",
-    img3: "/images/pro4.png",
-  },
-];
 
 const Page = () => {
   const params = useParams();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
-  const productData = products.find((item) => item.id === Number(id));
 
-  const [selectedImage, setSelectedImage] = useState(productData?.img1 || "");
+  const [product, setProduct] = useState<SanityProduct | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
 
-  if (!productData) {
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const data = await client.fetch(
+          `*[_type == 'product' && _id == $id][0]{
+            _id,
+            name,
+            price,
+            discountPercent,
+            description,
+            "imageUrl": image.asset->url
+          }`,
+          { id }
+        );
+        setProduct(data);
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setError("Failed to load product. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchProduct();
+    }
+  }, [id]);
+
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <h1 className="text-2xl font-bold text-red-500">Product not found</h1>
+        <p className="text-lg font-medium">Loading product...</p>
       </div>
     );
   }
+
+  if (error || !product) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-bold text-red-500">
+          {error || "Product not found"}
+        </h1>
+      </div>
+    );
+  }
+
+  const discountedPrice =
+    product.discountPercent > 0
+      ? ((product.price * (100 - product.discountPercent)) / 100).toFixed(2)
+      : null;
 
   const handleQuantityChange = (type: "increment" | "decrement") => {
     if (type === "increment") {
@@ -94,68 +95,54 @@ const Page = () => {
   };
 
   const handleAddToCart = () => {
-    alert(`Added ${quantity} of ${productData.title} to the cart!`);
+    alert(`Added ${quantity} of ${product.name} to the cart!`);
   };
+
+  const productImageUrl = product.imageUrl ? urlFor(product.imageUrl).url() : "";
 
   return (
     <>
       <BreadcrumbDemo />
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row md:space-x-8">
-          {/* Left Column: Thumbnails */}
-          <div className="flex md:flex-col space-x-4 md:space-x-0 md:space-y-4 mb-4 md:mb-0">
-            {[productData.img1, productData.img2, productData.img3].map((img, idx) => (
-              <button
-                key={idx}
-                type="button"
-                aria-label={`View product image ${idx + 1}`}
-                className={`cursor-pointer ${
-                  selectedImage === img ? "border-2 border-black rounded-md" : ""
-                }`}
-                onClick={() => setSelectedImage(img)}
-              >
-                <Image
-                  src={img}
-                  alt={`${productData.title} - view ${idx + 1}`}
-                  width={111}
-                  height={106}
-                  className="md:w-[152px] md:h-[167px]"
-                />
-              </button>
-            ))}
-          </div>
-
-          {/* Center Column: Main Image */}
-          <div>
-            <Image
-              src={selectedImage}
-              alt={productData.title}
-              width={358}
-              height={290}
-              className="rounded-lg md:w-[444px] md:h-[530px]"
-            />
+          {/* Left Column: Product Image */}
+          <div className="w-full md:w-1/2 flex justify-center">
+            {productImageUrl ? (
+              <Image
+                src={productImageUrl}
+                alt={product.name}
+                width={444}
+                height={530}
+                className="rounded-lg w-full max-w-[444px] h-auto object-cover"
+              />
+            ) : (
+              <div className="w-[444px] h-[530px] bg-gray-300 rounded-lg flex justify-center items-center">
+                <p className="text-gray-600">No image available</p>
+              </div>
+            )}
           </div>
 
           {/* Right Column: Product Details */}
-          <div className="flex-1">
+          <div className="flex-1 mt-6 md:mt-0">
             <h1 className="text-2xl md:text-4xl font-bold mb-2">
-              {productData.title}
+              {product.name}
             </h1>
             <div className="flex mb-2">{starIcons}</div>
             <p className="text-lg font-bold mb-2">
-              {productData.price}{" "}
-              {productData.old_price && (
-                <span className="line-through text-gray-500">
-                  {productData.old_price}
-                </span>
-              )}{" "}
-              {productData.discount && (
-                <span className="text-red-500">{productData.discount}</span>
+              ${discountedPrice || product.price}{" "}
+              {discountedPrice && (
+                <>
+                  <span className="line-through text-gray-500 ml-2">
+                    ${product.price}
+                  </span>
+                  <span className="text-red-500 ml-2">
+                    -{product.discountPercent}%
+                  </span>
+                </>
               )}
             </p>
             <p className="text-gray-600 mb-4">
-              This graphic t-shirt is perfect for any occasion. Crafted from a
-              soft and breathable fabric, it offers superior comfort and style.
+              {product.description}
             </p>
 
             {/* Colors */}
