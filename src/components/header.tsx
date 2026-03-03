@@ -7,19 +7,11 @@ import { SheetSide } from "./sheet";
 import { NavigationMenuDemo } from "./navigation-menu";
 import Link from "next/link";
 import HeaderTop from "./headerTop";
-
-type CartItem = {
-  id: number;
-  name: string;
-  quantity: number;
-};
+import { useCart } from "./cart-context";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  const toggleCart = () => setIsCartOpen(!isCartOpen);
+  const { cartItems } = useCart();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -77,14 +69,14 @@ const Header = () => {
         </div>
 
         {/* Cart Icon */}
-        <button type="button" className="relative" aria-label="Shopping cart" onClick={toggleCart}>
+        <Link href="/arrivals" className="relative" aria-label="Shopping cart">
           <BsCart3 className="text-2xl" />
           {cartItems.length > 0 && (
-            <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-1.5">
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               {cartItems.length}
             </span>
           )}
-        </button>
+        </Link>
 
         {/* User Icon */}
         <button type="button" aria-label="User account">
@@ -92,27 +84,6 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Cart Modal */}
-      {isCartOpen && (
-        <div className="absolute right-0 top-[80px] bg-white shadow-lg w-[300px] h-[400px] p-4">
-          <h2 className="text-lg font-bold">Your Cart</h2>
-          <ul>
-            {cartItems.length === 0 ? (
-              <li>No items in cart</li>
-            ) : (
-              cartItems.map((item) => (
-                <li key={item.id} className="flex justify-between items-center mb-2">
-                  <span>{item.name}</span>
-                  <span>Qty: {item.quantity}</span>
-                </li>
-              ))
-            )}
-          </ul>
-          <button className="mt-4 w-full py-2 bg-blue-600 text-white rounded-md">
-            Checkout
-          </button>
-        </div>
-      )}
     </header>
     </>
   );

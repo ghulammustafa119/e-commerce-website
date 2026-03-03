@@ -10,6 +10,7 @@ import Fashion from "@/components/products";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
+import { useCart } from "@/components/cart-context";
 
 const starIcons = Array(5)
   .fill(null)
@@ -28,6 +29,7 @@ const Page = () => {
   const params = useParams();
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<SanityProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -95,6 +97,15 @@ const Page = () => {
   };
 
   const handleAddToCart = () => {
+    addToCart({
+      id: product._id,
+      name: product.name,
+      price: discountedPrice ? parseFloat(discountedPrice) : product.price,
+      imageUrl: productImageUrl,
+      size: selectedSize || "Medium",
+      color: selectedColor || "#534933",
+      quantity,
+    });
     alert(`Added ${quantity} of ${product.name} to the cart!`);
   };
 
