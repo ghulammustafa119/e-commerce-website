@@ -5,15 +5,27 @@ import { Button } from "@/components/ui/button";
 import { Delete, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/components/cart-context";
 
 export default function Cart() {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
   const [promoCode, setPromoCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
+  const router = useRouter();
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const discount = promoCode === "SAVE10" ? subtotal * 0.1 : 0;
+  const discount = discountApplied ? subtotal * 0.1 : 0;
   const total = subtotal - discount;
+
+  const handleApplyPromo = () => {
+    if (promoCode.toUpperCase() === "SAVE10") {
+      setDiscountApplied(true);
+    } else {
+      setDiscountApplied(false);
+      alert("Invalid promo code. Try SAVE10 for 10% off!");
+    }
+  };
 
   return (
     <>
@@ -77,9 +89,12 @@ export default function Cart() {
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
               />
-              <Button className="ml-1">Apply</Button>
+              <Button className="ml-1" onClick={handleApplyPromo}>Apply</Button>
             </div>
-            <Button className="w-full">Go To Checkout</Button>
+            {discountApplied && (
+              <p className="text-green-600 text-sm">Promo code SAVE10 applied! 10% off</p>
+            )}
+            <Button className="w-full" onClick={() => router.push("/checkout")}>Go To Checkout</Button>
           </div>
         </div>
       </div>
