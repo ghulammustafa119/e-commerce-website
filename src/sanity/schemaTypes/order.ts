@@ -1,4 +1,3 @@
-// schemas/orders.js (Updated with reference to shippingForm)
 import { defineType } from "sanity";
 
 export default defineType({
@@ -9,8 +8,8 @@ export default defineType({
     {
       name: "shippingForm",
       title: "Shipping Form",
-      type: "reference",  // Reference type
-      to: [{ type:"shippingForm" }], // Reference to the shippingForm schema
+      type: "reference",
+      to: [{ type: "shippingForm" }],
     },
     {
       name: "products",
@@ -35,10 +34,40 @@ export default defineType({
               title: "Quantity",
               type: "number",
             },
-           
           ],
         },
       ],
+    },
+    {
+      name: "status",
+      title: "Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Pending", value: "pending" },
+          { title: "Paid", value: "paid" },
+          { title: "Processing", value: "processing" },
+          { title: "Shipped", value: "shipped" },
+          { title: "Delivered", value: "delivered" },
+          { title: "Cancelled", value: "cancelled" },
+        ],
+      },
+      initialValue: "pending",
+    },
+    {
+      name: "total",
+      title: "Total Amount",
+      type: "number",
+    },
+    {
+      name: "stripeSessionId",
+      title: "Stripe Session ID",
+      type: "string",
+    },
+    {
+      name: "createdAt",
+      title: "Created At",
+      type: "datetime",
     },
   ],
 });

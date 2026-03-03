@@ -1,19 +1,19 @@
-import { createClient } from "next-sanity";
 import { NextResponse } from "next/server";
+import Stripe from "stripe";
+import { writeClient } from "@/sanity/lib/writeClient";
 
-const writeClient = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
-  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-01-17",
-  token: process.env.SANITY_API_TOKEN,
-  useCdn: false,
-});
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+    apiVersion: "2025-02-24.acacia" as Stripe.LatestApiVersion,
+  });
+}
 
 export async function POST(req: Request) {
   try {
-    const { shipping, products } = await req.json();
+    const { shipping, products, total } = await req.json();
+    const stripe = getStripe();
 
-    // Create shipping form document
+    // Create shipping form document in Sanity
     const shippingDoc = await writeClient.create({
       _type: "shippingForm",
       fullName: shipping.fullName,
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       phoneNumber: shipping.phoneNumber,
     });
 
-    // Create order document with reference to shipping form
+    // Create order document in Sanity
     const orderDoc = await writeClient.create({
       _type: "orders",
       shippingForm: {
@@ -35,13 +35,44 @@ export async function POST(req: Request) {
         price: p.price,
         qty: p.quantity,
       })),
+      status: "pending",
+      total: total,
+      createdAt: new Date().toISOString(),
     });
 
-    return NextResponse.json({ success: true, orderId: orderDoc._id });
+    // Create Stripe Checkout Session
+    const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: products.map((p: { name: string; price: number; quantity: number }) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: p.name,
+          },
+          unit_amount: Math.round(p.price * 100),
+        },
+        quantity: p.quantity,
+      })),
+      mode: "payment",
+      success_url: `${origin}/checkout/success?orderId=${orderDoc._id}&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/checkout?cancelled=true`,
+      customer_email: shipping.email,
+      metadata: {
+        orderId: orderDoc._id,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      orderId: orderDoc._id,
+      url: session.url,
+    });
   } catch (error) {
     console.error("Checkout error:", error);
     return NextResponse.json(
-      { success: false, error: "Failed to place order" },
+      { success: false, error: "Failed to process checkout" },
       { status: 500 }
     );
   }

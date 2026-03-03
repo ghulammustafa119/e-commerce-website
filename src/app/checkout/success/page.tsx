@@ -2,11 +2,17 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
+import { useCart } from "@/components/cart-context";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
+  const { clearCart } = useCart();
+
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
 
   return (
     <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
@@ -16,16 +22,26 @@ function SuccessContent() {
         </svg>
       </div>
       <h1 className="text-2xl md:text-3xl font-bold mb-2">Order Placed Successfully!</h1>
-      <p className="text-gray-600 mb-2">Thank you for your purchase.</p>
+      <p className="text-gray-600 mb-2">Thank you for your purchase. Your payment has been processed.</p>
       {orderId && (
-        <p className="text-sm text-gray-500 mb-6">Order ID: {orderId}</p>
+        <p className="text-sm text-gray-500 mb-4">Order ID: {orderId}</p>
       )}
-      <Link
-        href="/"
-        className="bg-black text-white px-8 py-3 rounded-full font-medium"
-      >
-        Continue Shopping
-      </Link>
+      <div className="flex gap-4 flex-wrap justify-center">
+        {orderId && (
+          <Link
+            href={`/track-order?id=${orderId}`}
+            className="bg-gray-200 text-black px-8 py-3 rounded-full font-medium"
+          >
+            Track Order
+          </Link>
+        )}
+        <Link
+          href="/"
+          className="bg-black text-white px-8 py-3 rounded-full font-medium"
+        >
+          Continue Shopping
+        </Link>
+      </div>
     </div>
   );
 }

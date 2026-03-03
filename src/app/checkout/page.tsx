@@ -7,7 +7,7 @@ import Image from "next/image";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
 
 export default function Checkout() {
-  const { cartItems, clearCart } = useCart();
+  const { cartItems } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -43,16 +43,17 @@ export default function Checkout() {
             price: item.price,
             quantity: item.quantity,
           })),
+          total: subtotal,
         }),
       });
 
       const data = await res.json();
 
-      if (data.success) {
-        clearCart();
-        router.push(`/checkout/success?orderId=${data.orderId}`);
+      if (data.success && data.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = data.url;
       } else {
-        alert("Failed to place order. Please try again.");
+        alert("Failed to process checkout. Please try again.");
       }
     } catch {
       alert("Something went wrong. Please try again.");
@@ -157,7 +158,7 @@ export default function Checkout() {
               disabled={loading}
               className="w-full bg-black text-white py-3 rounded-full font-medium disabled:opacity-50"
             >
-              {loading ? "Placing Order..." : "Place Order"}
+              {loading ? "Processing..." : "Pay with Stripe"}
             </button>
           </form>
 
