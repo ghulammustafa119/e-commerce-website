@@ -1,11 +1,10 @@
-
 import React from "react";
 import Image from "next/image";
 import { AiFillStar } from "react-icons/ai";
 import { FaStarHalf, FaStar } from "react-icons/fa";
 import Link from "next/link";
 
-export interface IProduct {
+interface IFashionProduct {
   title: string;
   price: string;
   id: number;
@@ -16,7 +15,7 @@ export interface IProduct {
   quantity: number;
 }
 
-const products: IProduct[] = [
+const products: IFashionProduct[] = [
   {
     title: "T-SHIRT WITH TAPE DETAILS",
     id: 1,
@@ -77,7 +76,6 @@ const Fashion = () => {
                   alt={item.title}
                   width={270}
                   height={298}
-                  priority
                   className="w-full rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
                 />
                 <div className="mt-4">

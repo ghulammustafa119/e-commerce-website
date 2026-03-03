@@ -1,5 +1,5 @@
 import { AccordionDemo } from '@/components/accordion';
-import { BreadcrumbDemo } from '@/components/bredcrumb';
+import { BreadcrumbDemo } from '@/components/breadcrumb';
 import { CheckboxDisabled } from '@/components/check-box';
 import { DressStyle } from '@/components/dressStyle';
 import PaginationPage from '@/components/pagination';

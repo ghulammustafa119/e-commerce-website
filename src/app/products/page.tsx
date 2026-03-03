@@ -1,4 +1,3 @@
-
 "use client";
 import { Button } from "@/components/ui/button";
 import { client } from "@/sanity/lib/client";
@@ -7,10 +6,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import{IProduct} from "@/components/types"
+import { IProduct } from "@/components/types";
 
-
-const star = Array(5).fill(<FaStar className="text-yellow-400" />);
+const star = Array(5)
+  .fill(null)
+  .map((_, i) => <FaStar key={i} className="text-yellow-400" />);
 
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -71,10 +71,9 @@ const Products = () => {
       </h1>
       <div className="relative mt-10 flex space-x-2 px-2 overflow-x-auto">
         {products.map((product) => {
-          console.log(product); 
-
-          const productPrice = Number(product.price) || 0; 
-          const originalPrice = productPrice / (1 - product.discountPercent / 100);
+          const productPrice = Number(product.price) || 0;
+          const discountRate = product.discountPercent / 100;
+          const originalPrice = discountRate < 1 ? productPrice / (1 - discountRate) : productPrice;
           const discountAmount = originalPrice - productPrice;
 
           return (
@@ -91,7 +90,7 @@ const Products = () => {
                     />
                   ) : (
                     <div className="w-full h-full flex justify-center items-center bg-gray-300">
-                      <p className="text-gray-600 uppercase">Something went wrong</p>
+                      <p className="text-gray-600 uppercase">No image available</p>
                     </div>
                   )}
                 </div>
@@ -100,14 +99,14 @@ const Products = () => {
                 <p className="text-lg font-bold">{product.name}</p>
                 <div className="flex">{star}</div>
                 <p className="font-bold mt-1">
-                  ${productPrice.toFixed(2)} {/* Discounted Price */}
+                  ${productPrice.toFixed(2)}
                   {product.discountPercent > 0 && (
                     <>
                       <span className="text-gray-400 font-bold line-through ml-2">
-                        ${originalPrice.toFixed(2)} {/* Original Price */}
+                        ${originalPrice.toFixed(2)}
                       </span>
                       <span className="text-green-600 ml-2">
-                        (Save ${discountAmount.toFixed(2)}) {/* Discount Amount */}
+                        (Save ${discountAmount.toFixed(2)})
                       </span>
                     </>
                   )}

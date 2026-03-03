@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -8,8 +7,8 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 
-interface Iproduct {
-  image: string;
+interface IProduct {
+  imageUrl: string;
   discountPercent: number;
   isNew: boolean;
   name: string;
@@ -18,22 +17,21 @@ interface Iproduct {
   _id: string;
 }
 
-// Adding key prop in star array
 const star = Array(5)
   .fill(null)
-  .map((_, i) => <FaStar key={i} />);
+  .map((_, i) => <FaStar key={i} className="text-yellow-400" />);
 
 export default function Shirts() {
-  const [products, setProducts] = useState<Iproduct[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const fetchedProducts: Iproduct[] = await client.fetch(
+        const fetchedProducts: IProduct[] = await client.fetch(
           `*[_type == 'product']{
-            "image": image.asset->url,
+            "imageUrl": image.asset->url,
             discountPercent,
             isNew,
             name,
@@ -84,9 +82,9 @@ export default function Shirts() {
             <Link href={`/product/${data._id}`}>
               <div className="w-[160px] md:w-[240px] lg:w-[290px] h-[160px] md:h-[240px] lg:h-[290px] bg-[#F0EEED] rounded-[20px]">
                 <Image
-                  src={urlFor(data.image).url()}
+                  src={urlFor(data.imageUrl).url()}
                   alt={data.name}
-                  className="w-full h-full rounded-[20px]"
+                  className="w-full h-full rounded-[20px] object-cover"
                   width={290}
                   height={290}
                 />
@@ -96,7 +94,7 @@ export default function Shirts() {
               <p className="text-sm md:text-lg mt-2 font-bold">{data.name}</p>
               <div className="flex text-yellow-400">{star}</div>
               <p className="font-bold mt-1">
-                ${data.discountPercent > 0 
+                ${data.discountPercent > 0
                   ? ((data.price * (100 - data.discountPercent)) / 100).toFixed(2)
                   : data.price}
                 {data.discountPercent > 0 && (

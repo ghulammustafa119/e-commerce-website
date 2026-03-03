@@ -7,7 +7,7 @@ import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
-interface Iproducts {
+interface IProduct {
   imageUrl: string;
   discountPercent: number;
   isNew: boolean;
@@ -17,27 +17,21 @@ interface Iproducts {
   _id: string;
 }
 
-// Star icons array
-const star = [
-  <FaStar key={1} />,
-  <FaStar key={2} />,
-  <FaStar key={3} />,
-  <FaStar key={4} />,
-  <FaStar key={5} />,
-];
+const star = Array(5)
+  .fill(null)
+  .map((_, i) => <FaStar key={i} className="text-yellow-400" />);
 
 export default function TopSell() {
-  const [products, setProducts] = useState<Iproducts[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch products with error handling
     const fetchProducts = async () => {
       try {
         setLoading(true);
         setError(null);
-        const fetchedProducts: Iproducts[] = await client.fetch(
+        const fetchedProducts: IProduct[] = await client.fetch(
           `*[_type == 'products']{
             "imageUrl": image.asset->url,
             category,
@@ -50,7 +44,7 @@ export default function TopSell() {
           }[0...4]`
         );
         setProducts(fetchedProducts);
-      } catch (err: any) {
+      } catch (err) {
         setError("Failed to load products. Please try again later.");
         console.error("Error fetching products:", err);
       } finally {
@@ -89,9 +83,9 @@ export default function TopSell() {
                   <Image
                     src={urlFor(data.imageUrl).url()}
                     alt={data.name}
-                    className="w-full h-full rounded-[20px]"
-                    width={100}
-                    height={100}
+                    className="w-full h-full rounded-[20px] object-cover"
+                    width={283}
+                    height={290}
                   />
                 ) : (
                   <div className="w-full h-full flex justify-center items-center bg-gray-300 rounded-[20px]">
@@ -102,18 +96,14 @@ export default function TopSell() {
             </Link>
             <div className="pl-2">
               <p className="text-lg mt-2 font-bold">{data.name}</p>
-              <div className="flex text-yellow-400">
-                {star.map((icon, index) => (
-                  <span key={index}>{icon}</span>
-                ))}
-              </div>
+              <div className="flex text-yellow-400">{star}</div>
               <p className="font-bold mt-1">
                 ${data.price.toFixed(2)}
-                {data.discountPercent ? (
+                {data.discountPercent > 0 && (
                   <span className="text-gray-400 font-bold line-through ml-2">
-                    {data.discountPercent}%
+                    -{data.discountPercent}%
                   </span>
-                ) : null}
+                )}
               </p>
             </div>
           </div>

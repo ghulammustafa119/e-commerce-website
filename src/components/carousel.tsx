@@ -1,6 +1,3 @@
-
-
-import React from "react";
 import { AiFillStar } from "react-icons/ai";
 import { FaCircleCheck } from "react-icons/fa6";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,7 +10,6 @@ import {
 } from "@/components/ui/carousel";
 import { IReviews } from "./types";
 
-// Reviews data
 const reviews: IReviews[] = [
   {
     name: "Sarah M.",
@@ -52,7 +48,6 @@ const reviews: IReviews[] = [
   },
 ];
 
-// Helper for rendering stars
 const renderStars = (rating: number) => {
   return Array.from({ length: rating }, (_, i) => (
     <AiFillStar key={i} className="text-yellow-400 text-sm" aria-hidden="true" />
@@ -63,18 +58,14 @@ export function CarouselDemo() {
   return (
     <main className="mt-14">
       <div className="w-full flex justify-center items-center mt-10 mb-1 max-w-screen-xl mx-auto">
-        {/* Container */}
         <div className="w-[95%] md:w-[80%] p-3 md:p-0">
-          {/* Header */}
           <div className="flex justify-between items-center">
             <h1 className="text-black text-3xl md:text-4xl font-extrabold pt-4 text-center md:text-left">
               OUR HAPPY CUSTOMERS
             </h1>
           </div>
           <div className="relative mt-10">
-            {/* Carousel */}
             <Carousel className="w-full md:max-w-[100%] mx-auto relative">
-              {/* Navigation Buttons */}
               <CarouselPrevious
                 className="absolute top-[-1rem] md:top-[-3rem] left-10 hover:text-black"
                 aria-label="Previous Review"
@@ -83,8 +74,6 @@ export function CarouselDemo() {
                 className="absolute top-[-1rem] md:top-[-3rem] right-10 hover:text-black"
                 aria-label="Next Review"
               />
-
-              {/* Carousel Content */}
               <CarouselContent className="-ml-1 flex flex-row mt-4">
                 {reviews.map((review, index) => (
                   <CarouselItem
@@ -94,7 +83,6 @@ export function CarouselDemo() {
                     <div className="p-2">
                       <Card>
                         <CardContent className="flex flex-col items-start justify-center p-4">
-                          {/* Review Card */}
                           <div className="flex justify-start items-center space-x-1 mb-2">
                             {renderStars(review.rating)}
                           </div>
@@ -121,42 +109,3 @@ export function CarouselDemo() {
     </main>
   );
 }
-
-
-
-
-
-
-
-// import * as React from "react"
-
-// import { Card, CardContent } from "@/components/ui/card"
-// import {
-//   Carousel,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
-// } from "@/components/ui/carousel"
-
-// export function CarouselSpacing() {
-//   return (
-//     <Carousel className="w-full max-w-sm">
-//       <CarouselContent className="-ml-1">
-//         {Array.from({ length: 5 }).map((_, index) => (
-//           <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
-//             <div className="p-1">
-//               <Card>
-//                 <CardContent className="flex aspect-square items-center justify-center p-6">
-//                   <span className="text-2xl font-semibold">{index + 1}</span>
-//                 </CardContent>
-//               </Card>
-//             </div>
-//           </CarouselItem>
-//         ))}
-//       </CarouselContent>
-//       <CarouselPrevious />
-//       <CarouselNext />
-//     </Carousel>
-//   )
-// }

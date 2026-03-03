@@ -1,11 +1,11 @@
 import { createClient } from '@sanity/client';
 
 const client = createClient({
-  projectId:'9n7vk4y9',
-  dataset:'production',
-  useCdn:true,
-  apiVersion:'2025-01-13',
-  token:'skppMDixYS21PVM2SeeVLg1LIDrsyUBVnkXoynZ82oJe7bg2dLDYDvJkuGi1aJUlCmgTGezTqhAJylNACV2sRDBkPvF47ztPCQjQRQbE73AV7wHgS3bj7OzbHWWWT0ov080UPJ8lQFV0eVqLDxmnVox5KV8w4mElDhqSp5JCrDkXRP8c3aOC',
+  projectId: process.env.SANITY_PROJECT_ID,
+  dataset: process.env.SANITY_DATASET || 'production',
+  useCdn: true,
+  apiVersion: '2025-01-13',
+  token: process.env.SANITY_API_TOKEN,
 });
 
 async function uploadImageToSanity(imageUrl) {
@@ -42,8 +42,8 @@ async function uploadProduct(product) {
         name: product.name,
         description: product.description,
         price: product.price,
-        oldPrice:product.oldPrice,
-        rating:product.rating,
+        oldPrice: product.oldPrice,
+        rating: product.rating,
         image: {
           _type: 'image',
           asset: {

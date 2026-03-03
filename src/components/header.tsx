@@ -3,12 +3,11 @@ import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { BsCart3 } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
-import { SheetSide } from "./sheet"; // Mobile menu modal component
+import { SheetSide } from "./sheet";
 import { NavigationMenuDemo } from "./navigation-menu";
 import Link from "next/link";
 import HeaderTop from "./headerTop";
 
-// Cart Item type
 type CartItem = {
   id: number;
   name: string;
@@ -16,15 +15,12 @@ type CartItem = {
 };
 
 const Header = () => {
-  // States for search and cart
   const [searchTerm, setSearchTerm] = useState("");
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // Handle cart toggle
   const toggleCart = () => setIsCartOpen(!isCartOpen);
 
-  // Handle search input change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
@@ -40,63 +36,69 @@ const Header = () => {
       </div>
 
       {/* Center Navigation */}
-      <ul className="hidden md:flex space-x-6">
-        <li>
-          <Link href={"/"}>
-            <NavigationMenuDemo />
-          </Link>
-        </li>
-        <li>
-          <Link href={"/onsale"}>On Sale</Link>
-        </li>
-        <li>
-          <Link href={"/arrivals"}>New Arrivals</Link>
-        </li>
-        <li>
-          <Link href={"/brands"}>Brands</Link>
-        </li>
-      </ul>
+      <nav>
+        <ul className="hidden md:flex space-x-6">
+          <li>
+            <Link href={"/"}>
+              <NavigationMenuDemo />
+            </Link>
+          </li>
+          <li>
+            <Link href={"/onsale"}>On Sale</Link>
+          </li>
+          <li>
+            <Link href={"/arrivals"}>New Arrivals</Link>
+          </li>
+          <li>
+            <Link href={"/brands"}>Brands</Link>
+          </li>
+        </ul>
+      </nav>
 
       {/* Right Section */}
       <div className="flex items-center space-x-4 mr-[40px]">
         {/* Mobile Search Icon */}
-        <IoSearch className="text-xl md:hidden" />
+        <button type="button" aria-label="Search" className="md:hidden">
+          <IoSearch className="text-xl" />
+        </button>
 
         {/* Desktop Search Bar */}
         <div className="hidden md:flex items-center w-[300px] lg:w-[400px] h-[48px] rounded-full bg-[#f0f0f0] px-4">
           <IoSearch className="text-xl" />
+          <label htmlFor="header-search" className="sr-only">Search items</label>
           <input
+            id="header-search"
             type="text"
             placeholder="Search items..."
             className="w-full h-full bg-transparent px-3 focus:outline-none"
             value={searchTerm}
-            onChange={handleSearchChange} // Update search term
+            onChange={handleSearchChange}
           />
         </div>
 
         {/* Cart Icon */}
-        <div className="relative">
-
-          <BsCart3 className="text-2xl" onClick={toggleCart} />
-
+        <button type="button" className="relative" aria-label="Shopping cart" onClick={toggleCart}>
+          <BsCart3 className="text-2xl" />
           {cartItems.length > 0 && (
             <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full px-1.5">
               {cartItems.length}
             </span>
           )}
-        </div>
+        </button>
 
         {/* User Icon */}
-         <FiUser className="text-2xl cursor-pointer"  />
-         </div>
+        <button type="button" aria-label="User account">
+          <FiUser className="text-2xl cursor-pointer" />
+        </button>
+      </div>
 
-      {/* Cart Modal (or sidebar) */}
+      {/* Cart Modal */}
       {isCartOpen && (
         <div className="absolute right-0 top-[80px] bg-white shadow-lg w-[300px] h-[400px] p-4">
           <h2 className="text-lg font-bold">Your Cart</h2>
           <ul>
             {cartItems.length === 0 ? (
-              <p>No items in cart</p>
+              <li>No items in cart</li>
             ) : (
               cartItems.map((item) => (
                 <li key={item.id} className="flex justify-between items-center mb-2">

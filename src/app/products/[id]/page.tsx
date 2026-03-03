@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -8,7 +7,7 @@ import { FaCheck, FaPlus } from "react-icons/fa6";
 import { FiMinus } from "react-icons/fi";
 import AllReviws from "@/components/all-reviews";
 import Fashion from "@/components/products";
-import { BreadcrumbDemo } from "@/components/bredcrumb";
+import { BreadcrumbDemo } from "@/components/breadcrumb";
 
 const starIcons = Array(5)
   .fill(null)
@@ -70,7 +69,7 @@ const products: IProduct[] = [
 
 const Page = () => {
   const params = useParams();
-  const id = params.id;
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
   const productData = products.find((item) => item.id === Number(id));
 
   const [selectedImage, setSelectedImage] = useState(productData?.img1 || "");
@@ -79,7 +78,11 @@ const Page = () => {
   const [quantity, setQuantity] = useState(1);
 
   if (!productData) {
-    return <h1>Product not found</h1>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-bold text-red-500">Product not found</h1>
+      </div>
+    );
   }
 
   const handleQuantityChange = (type: "increment" | "decrement") => {
@@ -102,17 +105,23 @@ const Page = () => {
           {/* Left Column: Thumbnails */}
           <div className="flex md:flex-col space-x-4 md:space-x-0 md:space-y-4 mb-4 md:mb-0">
             {[productData.img1, productData.img2, productData.img3].map((img, idx) => (
-              <Image
+              <button
                 key={idx}
-                src={img}
-                alt={`Thumbnail ${idx + 1}`}
-                width={111}
-                height={106}
-                className={`cursor-pointer md:w-[152px] md:h-[167px] ${
-                  selectedImage === img ? "border-2 border-black" : ""
+                type="button"
+                aria-label={`View product image ${idx + 1}`}
+                className={`cursor-pointer ${
+                  selectedImage === img ? "border-2 border-black rounded-md" : ""
                 }`}
                 onClick={() => setSelectedImage(img)}
-              />
+              >
+                <Image
+                  src={img}
+                  alt={`${productData.title} - view ${idx + 1}`}
+                  width={111}
+                  height={106}
+                  className="md:w-[152px] md:h-[167px]"
+                />
+              </button>
             ))}
           </div>
 
@@ -120,7 +129,7 @@ const Page = () => {
           <div>
             <Image
               src={selectedImage}
-              alt="Main Product Image"
+              alt={productData.title}
               width={358}
               height={290}
               className="rounded-lg md:w-[444px] md:h-[530px]"
@@ -151,10 +160,13 @@ const Page = () => {
 
             {/* Colors */}
             <p className="text-sm text-gray-500 mb-2">Select Colors</p>
-            <div className="flex space-x-3 mb-4">
+            <div className="flex space-x-3 mb-4" role="radiogroup" aria-label="Select color">
               {["#534933", "#314f4a", "#31344f"].map((color, idx) => (
-                <div
+                <button
                   key={idx}
+                  type="button"
+                  aria-label={`Color option ${idx + 1}`}
+                  aria-pressed={selectedColor === color}
                   className={`w-8 h-8 rounded-full flex justify-center items-center cursor-pointer ${
                     selectedColor === color ? "ring-2 ring-black" : ""
                   }`}
@@ -162,7 +174,7 @@ const Page = () => {
                   onClick={() => setSelectedColor(color)}
                 >
                   <FaCheck className={`text-white ${selectedColor === color ? "block" : "hidden"}`} />
-                </div>
+                </button>
               ))}
             </div>
 
@@ -185,9 +197,13 @@ const Page = () => {
             {/* Quantity and Add to Cart */}
             <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
               <div className="flex items-center border rounded-full px-4 py-2 space-x-4">
-                <FiMinus className="cursor-pointer" onClick={() => handleQuantityChange("decrement")} />
+                <button type="button" aria-label="Decrease quantity" onClick={() => handleQuantityChange("decrement")}>
+                  <FiMinus className="cursor-pointer" />
+                </button>
                 <span>{quantity}</span>
-                <FaPlus className="cursor-pointer" onClick={() => handleQuantityChange("increment")} />
+                <button type="button" aria-label="Increase quantity" onClick={() => handleQuantityChange("increment")}>
+                  <FaPlus className="cursor-pointer" />
+                </button>
               </div>
               <button
                 className="w-full md:w-auto px-6 py-2 rounded-full bg-black text-white"

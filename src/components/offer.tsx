@@ -1,35 +1,29 @@
-
-
- "use client"
-import { useState } from 'react'; // To manage state for email and messages
+"use client"
+import { useState } from 'react';
 import { MdOutlineEmail } from "react-icons/md";
 
 export default function Offers() {
-  const [email, setEmail] = useState(""); // State for email input
-  const [message, setMessage] = useState(""); // State for feedback message
-  const [loading, setLoading] = useState(false); // Loading state for subscription process
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Handle email input change
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  // Handle subscription form submission
   const handleSubscribe = async () => {
-    // Basic email validation
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setMessage("Please enter a valid email address.");
       return;
     }
 
     setLoading(true);
-    setMessage(""); // Clear any previous messages
+    setMessage("");
 
-    // Simulate an API call for subscribing
     setTimeout(() => {
       setLoading(false);
       setMessage("Thank you for subscribing!");
-      setEmail(""); // Clear the email field after successful subscription
+      setEmail("");
     }, 1500);
   };
 
@@ -39,7 +33,7 @@ export default function Offers() {
         {/* Heading Section */}
         <div className="flex flex-col text-center sm:text-left">
           <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight">
-            STAY UP TO DATE ABOUT 
+            STAY UP TO DATE ABOUT
           </h1>
           <h1 className="text-2xl sm:text-4xl font-extrabold leading-tight">
              OUR LATEST OFFERS
@@ -51,7 +45,9 @@ export default function Offers() {
           {/* Input Section */}
           <div className="flex items-center bg-gray-100 rounded-full px-4 py-2">
             <MdOutlineEmail className="text-xl text-black" />
+            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
             <input
+              id="newsletter-email"
               type="email"
               placeholder="Enter your email..."
               className="w-full ml-2 outline-none bg-transparent"
@@ -64,7 +60,7 @@ export default function Offers() {
           <button
             className="w-full sm:w-auto bg-gray-100 text-black rounded-full px-6 py-2 font-semibold hover:bg-gray-200"
             onClick={handleSubscribe}
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? "Subscribing..." : "Subscribe to Newsletter"}
           </button>

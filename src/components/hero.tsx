@@ -1,5 +1,3 @@
-
-import React from "react";
 import Image from "next/image";
 
 const Hero = () => {
@@ -20,17 +18,17 @@ const Hero = () => {
           <button className="bg-black text-white text-sm px-6 py-2 mt-6 w-full rounded-lg md:rounded-[16px] md:text-base md:w-[148px] md:mt-3">
             Shop Now
           </button>
-          <div className=" flex justify-evenly md:hidden md:justify-between flex-wrap md:flex-nowrap gap-y-4 mt-4 ml-4 space-x-4">
+          <div className="flex justify-evenly md:hidden md:justify-between flex-wrap md:flex-nowrap gap-y-4 mt-4 ml-4 space-x-4">
                   <div className="border-r pr-2">
-                    <h1 className="text-2xl md:text-5xl  ">200+</h1>
+                    <h1 className="text-2xl md:text-5xl">200+</h1>
                     <p className="text-xs md:text-[15px] text-gray-500">International Brands</p>
                   </div>
                   <div className="border-r pr-5">
-                    <h1 className="text-2xl md:text-5xl  ">2,000+</h1>
+                    <h1 className="text-2xl md:text-5xl">2,000+</h1>
                     <p className="text-xs md:text-[15px] text-gray-500">High-Quality Products</p>
                   </div>
                   <div>
-                    <h1 className="text-2xl md:text-5xl ">30,000+</h1>
+                    <h1 className="text-2xl md:text-5xl">30,000+</h1>
                     <p className="text-xs md:text-[15px] text-gray-500">Happy Customers</p>
                   </div>
                </div>
@@ -41,7 +39,7 @@ const Hero = () => {
           {/* Main Image */}
           <Image
             src="/images/couple.jpeg"
-            alt="hero"
+            alt="Couple wearing stylish clothes from Shop.co"
             width={617}
             height={300}
             className="max-w-full h-auto"
@@ -51,7 +49,7 @@ const Hero = () => {
           {/* Decorative Star 1 */}
           <Image
             src="/images/v13.png"
-            alt="decorative star"
+            alt=""
             width={76}
             height={76}
             className="absolute w-[76px] h-[76px] top-[53px] right-[26px] md:w-[104px] md:h-[104px] md:top-[117px] md:right-[65px]"
@@ -60,7 +58,7 @@ const Hero = () => {
           {/* Decorative Star 2 */}
           <Image
             src="/images/v13.png"
-            alt="decorative star"
+            alt=""
             width={44}
             height={44}
             className="absolute w-11 h-11 top-[141px] left-[26px] md:w-14 md:h-14 md:top-80 md:left-[65px]"
