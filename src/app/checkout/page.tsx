@@ -5,7 +5,6 @@ import { useCart } from "@/components/cart-context";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 type PaymentMethod = "card" | "paypal" | "cod";
 
@@ -94,34 +93,6 @@ export default function Checkout() {
     }
   };
 
-  // PayPal success handler
-  const handlePayPalSuccess = async (paypalOrderId: string) => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...getOrderPayload(),
-          paymentMethod: "paypal",
-          paypalOrderId,
-        }),
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        clearCart();
-        router.push(`/checkout/success?orderId=${data.orderId}`);
-      } else {
-        alert("Failed to save order. Please try again.");
-      }
-    } catch {
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     if (paymentMethod === "card") {
       handleStripePayment(e);
@@ -129,6 +100,7 @@ export default function Checkout() {
       handleCOD(e);
     } else {
       e.preventDefault();
+      alert("PayPal is not configured yet. Please use Card or Cash on Delivery.");
     }
   };
 
@@ -147,7 +119,7 @@ export default function Checkout() {
   }
 
   return (
-    <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test", currency: "USD" }}>
+    <>
       <div className="pl-5">
         <BreadcrumbDemo />
       </div>
@@ -193,7 +165,6 @@ export default function Checkout() {
                     <p className="font-medium">Credit / Debit Card</p>
                     <p className="text-xs text-gray-500">Pay securely with Stripe</p>
                   </div>
-                  <span className="text-lg">💳</span>
                 </label>
 
                 <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "paypal" ? "border-black bg-gray-50" : "border-gray-200"}`}>
@@ -202,7 +173,6 @@ export default function Checkout() {
                     <p className="font-medium">PayPal</p>
                     <p className="text-xs text-gray-500">Pay with your PayPal account</p>
                   </div>
-                  <span className="text-lg font-bold text-blue-600">P</span>
                 </label>
 
                 <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "cod" ? "border-black bg-gray-50" : "border-gray-200"}`}>
@@ -211,52 +181,23 @@ export default function Checkout() {
                     <p className="font-medium">Cash on Delivery</p>
                     <p className="text-xs text-gray-500">Pay when your order arrives</p>
                   </div>
-                  <span className="text-lg">🏠</span>
                 </label>
               </div>
             </div>
 
-            {/* Payment Buttons */}
-            {paymentMethod === "paypal" ? (
-              <div className="mt-4">
-                {isFormValid() ? (
-                  <PayPalButtons
-                    style={{ layout: "vertical", color: "black", shape: "pill" }}
-                    createOrder={(_data, actions) => {
-                      return actions.order.create({
-                        intent: "CAPTURE",
-                        purchase_units: [{
-                          amount: { currency_code: "USD", value: subtotal.toFixed(2) },
-                        }],
-                      });
-                    }}
-                    onApprove={async (_data, actions) => {
-                      const order = await actions.order?.capture();
-                      if (order?.id) {
-                        await handlePayPalSuccess(order.id);
-                      }
-                    }}
-                    onError={() => {
-                      alert("PayPal payment failed. Please try again.");
-                    }}
-                  />
-                ) : (
-                  <p className="text-sm text-red-500 text-center">Please fill all shipping details first</p>
-                )}
-              </div>
-            ) : (
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-black text-white py-3 rounded-full font-medium disabled:opacity-50 mt-4"
-              >
-                {loading
-                  ? "Processing..."
-                  : paymentMethod === "cod"
-                  ? "Place Order (Cash on Delivery)"
-                  : "Pay with Stripe"}
-              </button>
-            )}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-black text-white py-3 rounded-full font-medium disabled:opacity-50 mt-4"
+            >
+              {loading
+                ? "Processing..."
+                : paymentMethod === "cod"
+                ? "Place Order (Cash on Delivery)"
+                : paymentMethod === "paypal"
+                ? "Pay with PayPal"
+                : "Pay with Stripe"}
+            </button>
           </form>
 
           {/* Right: Order Summary */}
@@ -286,6 +227,6 @@ export default function Checkout() {
           </div>
         </div>
       </div>
-    </PayPalScriptProvider>
+    </>
   );
 }
