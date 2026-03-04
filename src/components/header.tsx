@@ -12,7 +12,7 @@ import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { cartItems } = useCart();
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, isLoaded } = useAuth();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -80,7 +80,7 @@ const Header = () => {
         </Link>
 
         {/* User */}
-        {isSignedIn ? (
+        {!isLoaded ? null : isSignedIn ? (
           <UserButton />
         ) : (
           <SignInButton mode="modal">
