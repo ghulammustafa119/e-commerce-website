@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { CartProvider } from "@/components/cart-context";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,16 +19,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <CartProvider>
-          <div className="max-w-[95%] mx-auto">
-            <Header />
-            {children}
-            <Footer />
-          </div>
-        </CartProvider>
-      </body>
-    </html>
+    // @ts-expect-error Clerk async server component
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <CartProvider>
+            <div className="max-w-[95%] mx-auto">
+              <Header />
+              {children}
+              <Footer />
+            </div>
+          </CartProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

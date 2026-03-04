@@ -2,16 +2,17 @@
 import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { BsCart3 } from "react-icons/bs";
-import { FiUser } from "react-icons/fi";
 import { SheetSide } from "./sheet";
 import { NavigationMenuDemo } from "./navigation-menu";
 import Link from "next/link";
 import HeaderTop from "./headerTop";
 import { useCart } from "./cart-context";
+import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { cartItems } = useCart();
+  const { isSignedIn } = useAuth();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -78,10 +79,16 @@ const Header = () => {
           )}
         </Link>
 
-        {/* User Icon */}
-        <button type="button" aria-label="User account">
-          <FiUser className="text-2xl cursor-pointer" />
-        </button>
+        {/* User */}
+        {isSignedIn ? (
+          <UserButton />
+        ) : (
+          <SignInButton mode="modal">
+            <button type="button" className="bg-black text-white px-4 py-1.5 rounded-full text-sm">
+              Sign In
+            </button>
+          </SignInButton>
+        )}
       </div>
 
     </header>
