@@ -57,14 +57,20 @@ export default function AdminDashboard() {
         body: JSON.stringify({ orderId, status: newStatus }),
       });
 
+      const data = await res.json();
+
       if (res.ok) {
-        toast.success("Order status updated");
+        console.log("Update response:", data);
+        toast.success(`Status changed to ${newStatus}`);
         // Update locally immediately
         setOrders((prev) =>
           prev.map((o) => (o._id === orderId ? { ...o, status: newStatus } : o))
         );
         // Re-fetch after delay to confirm Sanity propagated
         setTimeout(() => fetchOrders(), 2000);
+      } else {
+        console.error("Update failed:", data);
+        toast.error(data.error || "Failed to update status");
       }
     } catch {
       toast.error("Failed to update order status");
