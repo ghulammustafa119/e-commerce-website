@@ -16,29 +16,25 @@ import {
 } from "@/components/ui/navigation-menu"
 
 const components: { title: string; href: string; description: string }[] = [
-
   {
-    title: "Onsale",
+    title: "On Sale",
     href: "/onsale",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+    description: "Browse all products with filters, categories, and price ranges.",
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    title: "New Arrivals",
+    href: "/products",
+    description: "Check out the latest products added to our collection.",
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+    title: "Wishlist",
+    href: "/wishlist",
+    description: "View your saved favorite products.",
   },
   {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+    title: "My Orders",
+    href: "/orders",
+    description: "Look up your order history and track deliveries.",
   },
 ]
 
@@ -53,12 +49,11 @@ export function NavigationMenuDemo() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component,index) => (
-               <Link href={"/onsale"} key={index}>
+              {components.map((component) => (
+               <Link href={component.href} key={component.title}>
                  <ListItem
-                  key={component.title}
                   title={component.title}
-                  href={"/onsale"}
+                  href={component.href}
                 >
                   {component.description}
                 </ListItem>
