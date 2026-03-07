@@ -6,7 +6,6 @@ import { AiFillStar } from "react-icons/ai";
 import { FaStarHalf, FaStar } from "react-icons/fa";
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
-import { urlFor } from "@/sanity/lib/image";
 
 interface SanityProduct {
   _id: string;
@@ -79,7 +78,7 @@ const Fashion = ({ category, excludeId }: FashionProps) => {
           const discountedPrice = item.discountPercent > 0
             ? ((item.price * (100 - item.discountPercent)) / 100).toFixed(2)
             : null;
-          const imageUrl = item.imageUrl ? urlFor(item.imageUrl).url() : "";
+          const imageUrl = item.imageUrl || "";
 
           return (
             <div
