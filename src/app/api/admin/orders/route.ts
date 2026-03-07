@@ -12,7 +12,9 @@ export async function GET() {
       createdAt,
       products,
       shippingForm->{fullName, email, phoneNumber}
-    }`
+    }`,
+    {},
+    { next: { revalidate: 0 } }
   );
 
   return NextResponse.json({ orders }, {

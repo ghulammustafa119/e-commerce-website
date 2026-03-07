@@ -19,7 +19,8 @@ export async function GET(req: Request) {
       createdAt,
       products
     }`,
-    { email }
+    { email },
+    { next: { revalidate: 0 } }
   );
 
   return NextResponse.json({ orders });

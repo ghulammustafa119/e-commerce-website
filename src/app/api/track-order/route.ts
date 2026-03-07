@@ -20,7 +20,8 @@ export async function GET(req: Request) {
       products,
       shippingForm->{fullName, email, shippingAddress, phoneNumber}
     }`,
-    { id: orderId }
+    { id: orderId },
+    { next: { revalidate: 0 } }
   );
 
   if (!order) {
