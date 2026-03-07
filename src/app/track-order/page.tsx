@@ -31,15 +31,16 @@ const STATUS_LABELS: Record<string, string> = {
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
-  const initialId = searchParams.get("id") || "";
+  const initialId = (searchParams.get("id") || "").replace(/\/+$/, "").trim();
 
   const [orderId, setOrderId] = useState(initialId);
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchOrder = async (id: string) => {
-    if (!id.trim()) return;
+  const fetchOrder = async (rawId: string) => {
+    const id = rawId.replace(/\/+$/, "").trim();
+    if (!id) return;
     setLoading(true);
     setError("");
     setOrder(null);
