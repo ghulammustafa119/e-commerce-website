@@ -65,25 +65,8 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Stats bar - desktop only */}
-      <div className="hidden md:flex w-full max-w-screen-2xl mx-auto justify-evenly items-center bg-[#f2f0f1] pb-8 px-20">
-        <div className="flex items-center gap-8">
-          <div>
-            <h2 className="text-[40px] font-bold">200+</h2>
-            <p className="text-base text-black/60">International Brands</p>
-          </div>
-          <div className="h-[52px] w-px bg-black/10" />
-          <div>
-            <h2 className="text-[40px] font-bold">2,000+</h2>
-            <p className="text-base text-black/60">High-Quality Products</p>
-          </div>
-          <div className="h-[52px] w-px bg-black/10" />
-          <div>
-            <h2 className="text-[40px] font-bold">30,000+</h2>
-            <p className="text-base text-black/60">Happy Customers</p>
-          </div>
-        </div>
-      </div>
+
+
     </>
   );
 };
