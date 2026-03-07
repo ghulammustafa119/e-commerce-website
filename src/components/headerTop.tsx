@@ -2,34 +2,41 @@
 
 import { useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
+import { IoChevronDown } from "react-icons/io5";
 import { SignUpButton } from "@clerk/nextjs";
 
 function HeaderTop() {
   const [visible, setVisible] = useState(true);
 
   return (
-    <div
-      className={`w-full bg-black text-white flex justify-center items-center max-w-screen-2xl mx-auto relative overflow-hidden transition-all duration-300 ${
-        visible ? "h-[38px]" : "h-0"
-      }`}
-    >
-      <div className="flex items-center space-x-2">
-        <h1 className="text-[8px] md:text-xs">
-          Sign up and get 20% off to your first order.
-        </h1>
-        <SignUpButton mode="modal">
-          <button className="underline underline-offset-4 text-xs md:text-sm">
-            Sign Up Now
-          </button>
-        </SignUpButton>
+    <div className="relative">
+      <div
+        className={`w-full bg-black text-white flex justify-center items-center max-w-screen-2xl mx-auto transition-all duration-300 ${
+          visible ? "h-[38px] opacity-100" : "h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        <div className="flex items-center space-x-2">
+          <h1 className="text-[8px] md:text-xs">
+            Sign up and get 20% off to your first order.
+          </h1>
+          <SignUpButton mode="modal">
+            <button className="underline underline-offset-4 text-xs md:text-sm cursor-pointer z-10">
+              Sign Up Now
+            </button>
+          </SignUpButton>
+        </div>
       </div>
 
       <button
         onClick={() => setVisible(!visible)}
         aria-label="Toggle announcement"
-        className="hidden md:block absolute right-[100px]"
+        className="hidden md:flex absolute right-4 top-0 h-[38px] items-center z-20"
       >
-        <MdOutlineClear className="text-xl text-white" />
+        {visible ? (
+          <MdOutlineClear className="text-xl text-white" />
+        ) : (
+          <IoChevronDown className="text-xl text-black" />
+        )}
       </button>
     </div>
   );
