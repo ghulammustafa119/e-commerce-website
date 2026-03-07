@@ -59,7 +59,12 @@ export default function AdminDashboard() {
 
       if (res.ok) {
         toast.success("Order status updated");
-        await fetchOrders();
+        // Update locally immediately
+        setOrders((prev) =>
+          prev.map((o) => (o._id === orderId ? { ...o, status: newStatus } : o))
+        );
+        // Re-fetch after delay to confirm Sanity propagated
+        setTimeout(() => fetchOrders(), 2000);
       }
     } catch {
       toast.error("Failed to update order status");
