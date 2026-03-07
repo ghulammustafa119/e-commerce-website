@@ -15,5 +15,9 @@ export async function GET() {
     }`
   );
 
-  return NextResponse.json({ orders });
+  return NextResponse.json({ orders }, {
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+    },
+  });
 }

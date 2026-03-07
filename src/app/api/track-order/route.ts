@@ -27,5 +27,9 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ order });
+  return NextResponse.json({ order }, {
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+    },
+  });
 }

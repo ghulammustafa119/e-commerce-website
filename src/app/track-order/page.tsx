@@ -46,7 +46,7 @@ function TrackOrderContent() {
     setOrder(null);
 
     try {
-      const res = await fetch(`/api/track-order?id=${id}&t=${Date.now()}`);
+      const res = await fetch(`/api/track-order?id=${id}&t=${Date.now()}`, { cache: "no-store" });
       const data = await res.json();
 
       if (res.ok) {

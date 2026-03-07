@@ -34,7 +34,7 @@ export default function AdminDashboard() {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch(`/api/admin/orders?t=${Date.now()}`);
+      const res = await fetch(`/api/admin/orders?t=${Date.now()}`, { cache: "no-store" });
       const data = await res.json();
       setOrders(data.orders || []);
     } catch {
@@ -58,9 +58,8 @@ export default function AdminDashboard() {
       });
 
       if (res.ok) {
-        setOrders((prev) =>
-          prev.map((o) => (o._id === orderId ? { ...o, status: newStatus } : o))
-        );
+        toast.success("Order status updated");
+        await fetchOrders();
       }
     } catch {
       toast.error("Failed to update order status");
