@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
-import { SignUpButton } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
 
 function HeaderTop() {
   const [visible, setVisible] = useState(true);
+  const { openSignUp } = useClerk();
 
   return (
     <div className="relative">
@@ -19,11 +20,12 @@ function HeaderTop() {
           <h1 className="text-[8px] md:text-xs">
             Sign up and get 20% off to your first order.
           </h1>
-          <SignUpButton mode="modal">
-            <button className="underline underline-offset-4 text-xs md:text-sm cursor-pointer z-10">
-              Sign Up Now
-            </button>
-          </SignUpButton>
+          <button
+            onClick={() => openSignUp()}
+            className="underline underline-offset-4 text-xs md:text-sm cursor-pointer z-10"
+          >
+            Sign Up Now
+          </button>
         </div>
       </div>
 
