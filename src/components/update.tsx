@@ -46,17 +46,17 @@ export default function UpdateOffers() {
           </h1>
         </div>
         <div className="space-y-4 mt-2">
-          <div className="flex justify-start items-center bg-[#F0F0F0] md:w-[300px] h-[35px] pl-2 md:ml-0 hover:border-none rounded-full">
-            <AiOutlineMail className="text-xl" />
+          <label className="flex items-center bg-[#F0F0F0] md:w-[300px] py-2 px-3 rounded-full cursor-text">
+            <AiOutlineMail className="text-xl text-gray-500 shrink-0" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubscribe()}
               placeholder="Enter your email address"
-              className="bg-[#F0F0F0] w-[90%] rounded-full h-full ml-2 outline-none text-[#111] placeholder:text-[#999] caret-black"
+              className="bg-transparent flex-1 ml-2 outline-none text-[#111] placeholder:text-[#999] caret-black text-sm"
             />
-          </div>
+          </label>
           <button
             onClick={handleSubscribe}
             disabled={loading}
