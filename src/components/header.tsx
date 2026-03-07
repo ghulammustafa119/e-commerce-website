@@ -5,6 +5,7 @@ import { BsCart3 } from "react-icons/bs";
 import { SheetSide } from "./sheet";
 import { NavigationMenuDemo } from "./navigation-menu";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import HeaderTop from "./headerTop";
 import { useCart } from "./cart-context";
 import { useWishlist } from "./wishlist-context";
@@ -16,9 +17,16 @@ const Header = () => {
   const { cartItems } = useCart();
   const { wishlistItems } = useWishlist();
   const { isSignedIn, isLoaded } = useAuth();
+  const router = useRouter();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchTerm.trim()) {
+      router.push(`/onsale?search=${encodeURIComponent(searchTerm.trim())}`);
+    }
   };
 
   return (
@@ -69,6 +77,7 @@ const Header = () => {
             className="w-full h-full bg-transparent px-3 focus:outline-none"
             value={searchTerm}
             onChange={handleSearchChange}
+            onKeyDown={handleSearchSubmit}
           />
         </div>
 

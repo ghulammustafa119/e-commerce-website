@@ -32,9 +32,10 @@ const star = Array(5)
 
 interface ShirtsProps {
   filters?: FilterState;
+  searchQuery?: string;
 }
 
-export default function Shirts({ filters }: ShirtsProps) {
+export default function Shirts({ filters, searchQuery }: ShirtsProps) {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -43,7 +44,7 @@ export default function Shirts({ filters }: ShirtsProps) {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filters]);
+  }, [filters, searchQuery]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,6 +58,9 @@ export default function Shirts({ filters }: ShirtsProps) {
 
         let filterQuery = `_type == 'product'`;
 
+        if (searchQuery) {
+          filterQuery += ` && name match $searchQuery`;
+        }
         if (categories.length > 0) {
           filterQuery += ` && category in $categories`;
         }
@@ -79,6 +83,7 @@ export default function Shirts({ filters }: ShirtsProps) {
           colors,
           start,
           end,
+          searchQuery: searchQuery ? `${searchQuery}*` : "",
         };
 
         const [fetchedProducts, count] = await Promise.all([
@@ -108,7 +113,7 @@ export default function Shirts({ filters }: ShirtsProps) {
     };
 
     fetchProducts();
-  }, [filters, currentPage]);
+  }, [filters, currentPage, searchQuery]);
 
   if (loading) {
     return (
@@ -131,7 +136,7 @@ export default function Shirts({ filters }: ShirtsProps) {
   return (
     <div className="w-full h-full">
       <div className="flex justify-between items-center pl-5 pr-5 mb-4">
-        <h1 className="text-[25px] font-bold">Casual</h1>
+        <h1 className="text-[25px] font-bold">{searchQuery ? `Results for "${searchQuery}"` : "Casual"}</h1>
         <span className="text-sm text-gray-500">{totalCount} products found</span>
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { AccordionDemo } from "@/components/accordion";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
 import { CheckboxDisabled } from "@/components/check-box";
@@ -9,7 +10,10 @@ import Shirts, { FilterState } from "@/components/shirts";
 import Size from "@/components/size";
 import { SliderDemo } from "@/components/slider";
 
-const Onsale = () => {
+function OnsaleContent() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
+
   const [filters, setFilters] = useState<FilterState>({
     categories: [],
     priceRange: [0, 500],
@@ -83,10 +87,16 @@ const Onsale = () => {
       </div>
       {/* Main Content */}
       <div className="w-full lg:w-[900px]">
-        <Shirts filters={filters} />
+        <Shirts filters={filters} searchQuery={searchQuery} />
       </div>
     </div>
   );
-};
+}
 
-export default Onsale;
+export default function Onsale() {
+  return (
+    <Suspense fallback={<div className="flex justify-center py-20"><p>Loading...</p></div>}>
+      <OnsaleContent />
+    </Suspense>
+  );
+}
