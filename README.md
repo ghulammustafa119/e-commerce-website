@@ -1,6 +1,6 @@
 # Shop.co - E-Commerce Fashion Store
 
-A modern, fully responsive e-commerce fashion store built with **Next.js 14**, **Sanity CMS**, **Stripe**, **PayPal**, and **Tailwind CSS**. Browse, search, shop, and pay — all in one seamless experience.
+A modern, fully responsive e-commerce fashion store built with **Next.js 14**, **Sanity CMS**, **Stripe**, **Clerk**, and **Tailwind CSS**. Browse, filter, wishlist, review, shop, and pay — all in one seamless experience.
 
 ## Live Demo
 
@@ -13,39 +13,50 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 | [Next.js 14](https://nextjs.org/) | React framework (App Router) |
 | [TypeScript](https://www.typescriptlang.org/) | Type safety |
 | [Tailwind CSS](https://tailwindcss.com/) | Utility-first styling |
-| [Sanity CMS](https://www.sanity.io/) | Headless CMS for product & order data |
+| [Sanity CMS](https://www.sanity.io/) | Headless CMS for products, orders & reviews |
 | [Stripe](https://stripe.com/) | Credit/debit card payments |
-| [PayPal](https://developer.paypal.com/) | PayPal payments |
+| [Clerk](https://clerk.com/) | Authentication (Sign in / Sign up) |
 | [Resend](https://resend.com/) | Transactional order confirmation emails |
+| [Sonner](https://sonner.emilkowal.dev/) | Toast notifications |
 | [Shadcn/ui](https://ui.shadcn.com/) | UI component library |
 | [React Icons](https://react-icons.github.io/react-icons/) | Icon library |
 
 ## Features
 
 ### Shopping Experience
-- **Product Catalog** — Browse new arrivals and top-selling products fetched from Sanity CMS
-- **Product Detail Page** — View product images, select colors & sizes, adjust quantity
-- **Search** — Real-time product search powered by Sanity GROQ queries
-- **Shopping Cart** — Add/remove items, apply promo codes (`SAVE10` for 10% off), view order summary
-- **Browse by Style** — Filter products by dress style (Casual, Formal, Party, Gym)
-- **Customer Reviews** — Interactive carousel showcasing customer testimonials
+- **Product Catalog** — Browse products fetched dynamically from Sanity CMS
+- **Product Detail Page** — View images, select colors & sizes, adjust quantity
+- **Product Filters** — Filter by category, price range, colors, and sizes with live results
+- **Pagination** — Navigate through products with page-based pagination (9 per page)
+- **Search** — Real-time product search
+- **Related Products** — "You might also like" section showing same-category products from Sanity
+- **Wishlist** — Save favorite products with heart icon, persists in localStorage
+- **Shopping Cart** — Add/remove items, apply promo codes (`SAVE10` for 10% off)
+- **Toast Notifications** — Beautiful toast alerts for all actions (add to cart, wishlist, errors)
 - **Responsive Design** — Fully optimized for mobile, tablet, and desktop
 
+### Authentication
+- **Clerk Authentication** — Sign in / Sign up with modal
+- **Protected Routes** — Checkout, orders, and tracking require authentication
+
 ### Checkout & Payments
-- **Multiple Payment Methods** — Credit/Debit Card (Stripe), PayPal, and Cash on Delivery
-- **Stripe Checkout** — Secure card payments with Stripe hosted checkout page
-- **PayPal Integration** — Pay directly with PayPal account
+- **Credit/Debit Card (Stripe)** — Secure payments via Stripe hosted checkout
 - **Cash on Delivery** — Place orders without online payment
 - **Promo Codes** — Apply discount codes at checkout
 
+### Reviews & Ratings
+- **Submit Reviews** — Star rating selector with comment form on product pages
+- **View Reviews** — Real reviews fetched from Sanity with average rating display
+- **Verified Badge** — Shows verified purchase indicator
+
 ### Order Management
-- **Order Tracking** — Track order status with visual stepper (Pending → Paid → Processing → Shipped → Delivered)
+- **Order Tracking** — Visual status stepper (Pending → Paid → Processing → Shipped → Delivered)
 - **Order History** — Look up past orders by email address
 - **Email Confirmation** — Automated order confirmation emails via Resend
-- **Admin Dashboard** — View order stats, revenue, and manage order statuses
+- **Admin Dashboard** — View stats (orders, revenue, pending, delivered) and manage order statuses
 
 ### Content Management
-- **Sanity Studio** — Built-in CMS at `/studio` for managing products, orders, and shipping data
+- **Sanity Studio** — Built-in CMS at `/studio` for managing products, orders, reviews
 - **Newsletter Subscription** — Stay updated with latest offers
 
 ## Project Structure
@@ -54,54 +65,54 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 src/
 ├── app/
 │   ├── page.tsx              # Home page
-│   ├── layout.tsx            # Root layout with CartProvider
-│   ├── error.tsx             # Error boundary
+│   ├── layout.tsx            # Root layout (Clerk, Cart, Wishlist, Toaster)
 │   ├── arrivals/             # Cart page
 │   ├── checkout/
-│   │   ├── page.tsx          # Checkout with payment methods
+│   │   ├── page.tsx          # Checkout (Stripe + COD)
 │   │   └── success/page.tsx  # Order success page
+│   ├── wishlist/             # Wishlist page
 │   ├── track-order/          # Order tracking page
 │   ├── orders/               # Order history lookup
 │   ├── admin/                # Admin dashboard
-│   ├── brands/               # Brands page
-│   ├── onsale/               # On Sale - product listing with filters
+│   ├── onsale/               # Product listing with filters & pagination
 │   ├── products/
 │   │   ├── page.tsx          # New Arrivals section
 │   │   ├── sell.tsx          # Top Selling section
-│   │   └── [id]/page.tsx     # Product detail page (dynamic from Sanity)
+│   │   └── [id]/page.tsx     # Product detail (reviews, wishlist, related)
 │   ├── api/
-│   │   ├── checkout/         # Checkout API (Stripe + PayPal + COD)
+│   │   ├── checkout/         # Checkout API (Stripe + COD)
 │   │   ├── webhook/          # Stripe webhook handler
+│   │   ├── reviews/          # Reviews API (GET + POST)
 │   │   ├── track-order/      # Order tracking API
 │   │   ├── orders/           # Order history API
 │   │   └── admin/            # Admin order management APIs
 │   └── studio/               # Sanity Studio
 ├── components/
-│   ├── header.tsx            # Site header with navigation & cart count
-│   ├── hero.tsx              # Hero banner
-│   ├── footer.tsx            # Site footer
-│   ├── cart-context.tsx      # Global cart state with localStorage
-│   ├── search.tsx            # Product search
-│   ├── shirts.tsx            # Product grid (casual)
-│   ├── products.tsx          # "You might also like" section
+│   ├── header.tsx            # Header with nav, search, wishlist, cart, auth
+│   ├── cart-context.tsx      # Global cart state (localStorage)
+│   ├── wishlist-context.tsx  # Global wishlist state (localStorage)
+│   ├── shirts.tsx            # Product grid with filters & pagination
+│   ├── accordion.tsx         # Category filter (controlled)
+│   ├── slider.tsx            # Price range filter (controlled)
+│   ├── check-box.tsx         # Color filter (controlled)
+│   ├── size.tsx              # Size filter (controlled, multi-select)
+│   ├── pagination.tsx        # Dynamic pagination component
+│   ├── products.tsx          # Related products (dynamic from Sanity)
+│   ├── all-reviews.tsx       # Product reviews (fetched from Sanity)
+│   ├── review-form.tsx       # Review submission form with star rating
 │   ├── carousel.tsx          # Customer reviews carousel
-│   ├── dress.tsx             # Browse by dress style
-│   ├── breadcrumb.tsx        # Breadcrumb navigation
-│   ├── sheet.tsx             # Mobile navigation drawer
-│   ├── types.ts              # Shared TypeScript interfaces
 │   └── ui/                   # Shadcn/ui components
 ├── sanity/
-│   ├── env.ts                # Environment variables
 │   ├── lib/
 │   │   ├── client.ts         # Sanity read client
 │   │   ├── writeClient.ts    # Sanity write client (server-side)
 │   │   └── image.ts          # Image URL builder
 │   └── schemaTypes/
 │       ├── products.ts       # Product schema
-│       ├── order.ts          # Order schema (status, total, Stripe ID)
+│       ├── order.ts          # Order schema
+│       ├── review.ts         # Review schema
 │       └── shipping_form.ts  # Shipping form schema
 └── lib/
-    ├── utils.ts              # Utility functions
     ├── resend.ts             # Resend email client
     ├── sendOrderEmail.ts     # Order email sender
     └── emails/
@@ -113,11 +124,11 @@ src/
 ### Prerequisites
 
 - Node.js 18+
-- npm or yarn
-- A [Sanity](https://www.sanity.io/) project (free tier available)
-- A [Stripe](https://stripe.com/) account (free test mode)
-- A [PayPal Developer](https://developer.paypal.com/) account (sandbox available)
-- A [Resend](https://resend.com/) account (100 free emails/day)
+- npm
+- [Sanity](https://www.sanity.io/) project
+- [Stripe](https://stripe.com/) account (test mode)
+- [Clerk](https://clerk.com/) account
+- [Resend](https://resend.com/) account (100 free emails/day)
 
 ### 1. Clone the repository
 
@@ -148,8 +159,9 @@ STRIPE_SECRET_KEY=sk_test_your_key
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_key
 STRIPE_WEBHOOK_SECRET=whsec_your_key
 
-# PayPal
-NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_paypal_client_id
+# Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key
+CLERK_SECRET_KEY=sk_test_your_key
 
 # Resend
 RESEND_API_KEY=re_your_key
@@ -182,14 +194,21 @@ Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to mana
 |-------|-------------|
 | `/` | Home page with hero, new arrivals, top selling |
 | `/products` | All products listing |
-| `/products/[id]` | Product detail with add to cart |
+| `/products/[id]` | Product detail with reviews, wishlist, related products |
+| `/onsale` | Product listing with filters & pagination |
 | `/arrivals` | Shopping cart with promo codes |
-| `/checkout` | Checkout with Stripe, PayPal, and COD |
+| `/wishlist` | Saved wishlist items |
+| `/checkout` | Checkout with Stripe and COD |
 | `/checkout/success` | Order confirmation page |
 | `/track-order` | Track order by Order ID |
 | `/orders` | Order history lookup by email |
 | `/admin` | Admin dashboard for order management |
 | `/studio` | Sanity Studio CMS |
+
+## Testing
+
+- **Testing Report:** `testing-report.csv` — 65 test cases covering functional, error handling, performance, security, cross-browser, and UAT
+- **Lighthouse Report:** `public/lighthouse/lighthouse-report.png` — Performance: 72, Accessibility: 87, Best Practices: 77, SEO: 100
 
 ## Scripts
 
