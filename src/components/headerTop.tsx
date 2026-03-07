@@ -3,11 +3,14 @@
 import { useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import { IoChevronDown } from "react-icons/io5";
-import { useClerk } from "@clerk/nextjs";
+import { useClerk, useAuth } from "@clerk/nextjs";
 
 function HeaderTop() {
   const [visible, setVisible] = useState(true);
   const { openSignUp } = useClerk();
+  const { isSignedIn } = useAuth();
+
+  if (isSignedIn) return null;
 
   return (
     <div className="relative">
