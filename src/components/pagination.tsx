@@ -1,52 +1,71 @@
+"use client";
+
 import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-  } from "@/components/ui/pagination"
-import React from 'react'
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
-function PaginationPage() {
-  return (
-    <div className="w-full mt-10">
- <Pagination>
-  <PaginationContent className="w-full space-x-4 flex justify-center lg:ml-7">
-    <PaginationItem>
-      <PaginationPrevious href="/" />
-    </PaginationItem>
-
-    <PaginationItem className="hidden lg:block">
-      <PaginationLink href="/">Home</PaginationLink>
-    </PaginationItem>
-    <PaginationItem className="hidden lg:block">
-      <PaginationEllipsis />
-    </PaginationItem>
-
-    <PaginationItem className="hidden lg:block">
-      <PaginationLink href="/sell">arrivals</PaginationLink>
-    </PaginationItem>
-    <PaginationItem className="hidden lg:block">
-      <PaginationEllipsis />
-    </PaginationItem>
-
-    <PaginationItem>
-      <PaginationLink href="/brand">Brands</PaginationLink>
-    </PaginationItem>
-    <PaginationItem>
-      <PaginationEllipsis />
-    </PaginationItem>
-
-    <PaginationItem>
-      <PaginationNext href="/onsale" />
-    </PaginationItem>
-  </PaginationContent>
-</Pagination>
- 
-    </div>
-  )
+interface PaginationPageProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }
 
-export default PaginationPage  
+function PaginationPage({ currentPage, totalPages, onPageChange }: PaginationPageProps) {
+  if (totalPages <= 1) return null;
+
+  const pages: number[] = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pages.push(i);
+  }
+
+  return (
+    <div className="w-full mt-10">
+      <Pagination>
+        <PaginationContent className="w-full space-x-2 flex justify-center">
+          <PaginationItem>
+            <PaginationPrevious
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage > 1) onPageChange(currentPage - 1);
+              }}
+              className={currentPage <= 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            />
+          </PaginationItem>
+
+          {pages.map((page) => (
+            <PaginationItem key={page}>
+              <button
+                onClick={() => onPageChange(page)}
+                className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                  currentPage === page
+                    ? "bg-black text-white"
+                    : "bg-gray-100 hover:bg-gray-200"
+                }`}
+              >
+                {page}
+              </button>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <PaginationNext
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                if (currentPage < totalPages) onPageChange(currentPage + 1);
+              }}
+              className={currentPage >= totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    </div>
+  );
+}
+
+export default PaginationPage;

@@ -4,7 +4,9 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { CartProvider } from "@/components/cart-context";
+import { WishlistProvider } from "@/components/wishlist-context";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +26,14 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <CartProvider>
+          <WishlistProvider>
+            <Toaster position="top-right" richColors />
             <div className="max-w-[95%] mx-auto">
               <Header />
               {children}
               <Footer />
             </div>
+          </WishlistProvider>
           </CartProvider>
         </body>
       </html>

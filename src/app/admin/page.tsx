@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 interface Order {
   _id: string;
@@ -62,7 +63,7 @@ export default function AdminDashboard() {
         );
       }
     } catch {
-      alert("Failed to update order status");
+      toast.error("Failed to update order status");
     } finally {
       setUpdating(null);
     }

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/cart-context";
+import { toast } from "sonner";
 
 export default function Cart() {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
@@ -23,7 +24,7 @@ export default function Cart() {
       setDiscountApplied(true);
     } else {
       setDiscountApplied(false);
-      alert("Invalid promo code. Try SAVE10 for 10% off!");
+      toast.error("Invalid promo code. Try SAVE10 for 10% off!");
     }
   };
 

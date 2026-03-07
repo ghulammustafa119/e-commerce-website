@@ -11,6 +11,9 @@ import { BreadcrumbDemo } from "@/components/breadcrumb";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import { useCart } from "@/components/cart-context";
+import { useWishlist } from "@/components/wishlist-context";
+import { toast } from "sonner";
+import { AiOutlineHeart, AiFillHeart as AiFilledHeart } from "react-icons/ai";
 
 const starIcons = Array(5)
   .fill(null)
@@ -23,6 +26,7 @@ interface SanityProduct {
   discountPercent: number;
   description: string;
   imageUrl: string;
+  category: string;
 }
 
 const Page = () => {
@@ -30,6 +34,7 @@ const Page = () => {
   const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
   const { addToCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const [product, setProduct] = useState<SanityProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +52,8 @@ const Page = () => {
             price,
             discountPercent,
             description,
-            "imageUrl": image.asset->url
+            "imageUrl": image.asset->url,
+            category
           }`,
           { id }
         );
@@ -106,7 +112,7 @@ const Page = () => {
       color: selectedColor || "#534933",
       quantity,
     });
-    alert(`Added ${quantity} of ${product.name} to the cart!`);
+    toast.success(`Added ${quantity} of ${product.name} to the cart!`);
   };
 
   const productImageUrl = product.imageUrl ? urlFor(product.imageUrl).url() : "";
@@ -209,12 +215,35 @@ const Page = () => {
               >
                 Add to Cart
               </button>
+              <button
+                className="p-2 rounded-full border border-gray-300 hover:border-red-500 transition-colors"
+                onClick={() => {
+                  if (product) {
+                    const inWishlist = isInWishlist(product._id);
+                    toggleWishlist({
+                      id: product._id,
+                      name: product.name,
+                      price: product.price,
+                      imageUrl: productImageUrl,
+                      discountPercent: product.discountPercent,
+                    });
+                    toast.success(inWishlist ? "Removed from wishlist" : "Added to wishlist");
+                  }
+                }}
+                aria-label="Toggle wishlist"
+              >
+                {product && isInWishlist(product._id) ? (
+                  <AiFilledHeart className="text-red-500 text-2xl" />
+                ) : (
+                  <AiOutlineHeart className="text-2xl" />
+                )}
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <AllReviws />
-      <Fashion />
+      <AllReviws productId={id} />
+      <Fashion category={product?.category} excludeId={product?._id} />
     </>
   );
 };

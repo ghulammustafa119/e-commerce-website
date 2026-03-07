@@ -7,11 +7,14 @@ import { NavigationMenuDemo } from "./navigation-menu";
 import Link from "next/link";
 import HeaderTop from "./headerTop";
 import { useCart } from "./cart-context";
+import { useWishlist } from "./wishlist-context";
 import { useAuth, SignInButton, UserButton } from "@clerk/nextjs";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const Header = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { cartItems } = useCart();
+  const { wishlistItems } = useWishlist();
   const { isSignedIn, isLoaded } = useAuth();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +71,16 @@ const Header = () => {
             onChange={handleSearchChange}
           />
         </div>
+
+        {/* Wishlist Icon */}
+        <Link href="/wishlist" className="relative" aria-label="Wishlist">
+          <AiOutlineHeart className="text-2xl" />
+          {wishlistItems.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {wishlistItems.length}
+            </span>
+          )}
+        </Link>
 
         {/* Cart Icon */}
         <Link href="/arrivals" className="relative" aria-label="Shopping cart">

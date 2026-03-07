@@ -5,6 +5,7 @@ import { useCart } from "@/components/cart-context";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
+import { toast } from "sonner";
 
 type PaymentMethod = "card" | "paypal" | "cod";
 
@@ -57,10 +58,10 @@ export default function Checkout() {
       if (data.success && data.url) {
         window.location.href = data.url;
       } else {
-        alert("Failed to process checkout. Please try again.");
+        toast.error("Failed to process checkout. Please try again.");
       }
     } catch {
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -84,10 +85,10 @@ export default function Checkout() {
         clearCart();
         router.push(`/checkout/success?orderId=${data.orderId}`);
       } else {
-        alert("Failed to place order. Please try again.");
+        toast.error("Failed to place order. Please try again.");
       }
     } catch {
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -100,7 +101,7 @@ export default function Checkout() {
       handleCOD(e);
     } else {
       e.preventDefault();
-      alert("PayPal is not configured yet. Please use Card or Cash on Delivery.");
+      toast.error("PayPal is not configured yet. Please use Card or Cash on Delivery.");
     }
   };
 

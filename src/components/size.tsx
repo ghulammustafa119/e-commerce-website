@@ -1,7 +1,4 @@
-
-
-"use client"
-import React, { useState } from "react";
+"use client";
 
 const sizes = [
   "Small",
@@ -15,13 +12,12 @@ const sizes = [
   "4-Large",
 ];
 
-const Size = () => {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+interface SizeProps {
+  selectedSizes: string[];
+  onSizeChange: (size: string) => void;
+}
 
-  const handleSizeClick = (size: string) => {
-    setSelectedSize(size);
-  };
-
+const Size = ({ selectedSizes, onSizeChange }: SizeProps) => {
   return (
     <div className="px-6">
       <h2 className="text-xl font-bold text-black mt-7 mb-3">Size</h2>
@@ -29,11 +25,11 @@ const Size = () => {
         {sizes.map((size) => (
           <button
             key={size}
-            onClick={() => handleSizeClick(size)}
+            onClick={() => onSizeChange(size)}
             className={`px-4 py-1 md:py-2 rounded-[10px] md:rounded-full ${
-              selectedSize === size ? "bg-black text-white" : "bg-gray-200"
+              selectedSizes.includes(size) ? "bg-black text-white" : "bg-gray-200"
             } hover:bg-black hover:text-white`}
-            aria-pressed={selectedSize === size}
+            aria-pressed={selectedSizes.includes(size)}
           >
             {size}
           </button>
