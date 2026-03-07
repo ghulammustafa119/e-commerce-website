@@ -40,23 +40,11 @@ const Header = () => {
       </div>
 
       {/* Center Navigation */}
-      <nav>
-        <ul className="hidden md:flex space-x-6">
-          <li>
-            <Link href={"/"}>
-              <NavigationMenuDemo />
-            </Link>
-          </li>
-          <li>
-            <Link href={"/onsale"}>On Sale</Link>
-          </li>
-          <li>
-            <Link href={"/arrivals"}>New Arrivals</Link>
-          </li>
-          <li>
-            <Link href={"/brands"}>Brands</Link>
-          </li>
-        </ul>
+      <nav className="hidden md:flex items-center space-x-6">
+        <NavigationMenuDemo />
+        <Link href="/onsale">On Sale</Link>
+        <Link href="/arrivals">New Arrivals</Link>
+        <Link href="/brands">Brands</Link>
       </nav>
 
       {/* Right Section */}

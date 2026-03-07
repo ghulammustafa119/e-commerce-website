@@ -44,8 +44,8 @@ export function NavigationMenuDemo() {
       <NavigationMenuList>
         
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            <h3 className="text-xl">Shop</h3>
+          <NavigationMenuTrigger className="!bg-transparent !p-0 !h-auto !text-base font-normal hover:!bg-transparent focus:!bg-transparent data-[state=open]:!bg-transparent">
+            Shop
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
