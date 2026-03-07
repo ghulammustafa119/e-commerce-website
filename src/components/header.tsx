@@ -40,7 +40,7 @@ const Header = () => {
       </div>
 
       {/* Center Navigation */}
-      <nav className="hidden md:flex items-center space-x-6">
+      <nav className="hidden lg:flex items-center space-x-6">
         <NavigationMenuDemo />
         <Link href="/onsale">On Sale</Link>
         <Link href="/arrivals">New Arrivals</Link>
@@ -49,13 +49,13 @@ const Header = () => {
 
       {/* Right Section */}
       <div className="flex items-center space-x-4 mr-[40px]">
-        {/* Mobile Search Icon */}
-        <button type="button" aria-label="Search" className="md:hidden">
+        {/* Mobile/Tablet Search Icon */}
+        <button type="button" aria-label="Search" className="lg:hidden">
           <IoSearch className="text-xl" />
         </button>
 
         {/* Desktop Search Bar */}
-        <div className="hidden md:flex items-center w-[300px] lg:w-[400px] h-[48px] rounded-full bg-[#f0f0f0] px-4">
+        <div className="hidden lg:flex items-center w-[300px] xl:w-[400px] h-[48px] rounded-full bg-[#f0f0f0] px-4">
           <IoSearch className="text-xl" />
           <label htmlFor="header-search" className="sr-only">Search items</label>
           <input
