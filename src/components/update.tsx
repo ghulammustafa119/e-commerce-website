@@ -38,29 +38,29 @@ export default function UpdateOffers() {
   };
 
   return (
-    <main className="w-full flex justify-center items-center mb-14">
-      <div className="w-[90%] md:w-full md:max-w-screen-xl md:h-[150px] rounded-[20px] p-6 sm:p-10 bg-black flex flex-col md:flex-row justify-between items-center">
-        <div className="w-full lg:w-[600px]">
-          <h1 className="text-2xl text-white md:text-3xl font-serif font-extrabold">
+    <main className="w-full flex justify-center items-center mb-14 px-4">
+      <div className="w-full max-w-screen-xl rounded-[20px] px-6 sm:px-10 md:px-16 py-8 md:py-9 bg-black flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="w-full md:w-[551px]">
+          <h1 className="font-integralcf text-2xl md:text-[40px] md:leading-[45px] text-white font-bold">
             STAY UPTO DATE ABOUT OUR LATEST OFFERS
           </h1>
         </div>
-        <div className="space-y-4 mt-2">
-          <label className="flex items-center bg-[#F0F0F0] md:w-[300px] py-2 px-3 rounded-full cursor-text text-black">
-            <AiOutlineMail className="text-xl text-gray-500 shrink-0" />
+        <div className="w-full md:w-[349px] space-y-3.5">
+          <label className="flex items-center bg-white w-full py-3 px-4 rounded-full cursor-text text-black">
+            <AiOutlineMail className="text-xl text-black/40 shrink-0" />
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubscribe()}
               placeholder="Enter your email address"
-              className="bg-transparent flex-1 ml-2 outline-none text-sm caret-black placeholder:text-gray-400"
+              className="bg-transparent flex-1 ml-3 outline-none text-base caret-black placeholder:text-black/40"
             />
           </label>
           <button
             onClick={handleSubscribe}
             disabled={loading}
-            className="w-full text-sm border bg-white py-2 px-10 rounded-[20px] disabled:opacity-50"
+            className="w-full text-base font-medium bg-white text-black py-3 px-4 rounded-full disabled:opacity-50 hover:bg-gray-100 transition-colors"
           >
             {loading ? "Subscribing..." : "Subscribe to Newsletter"}
           </button>

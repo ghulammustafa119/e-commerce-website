@@ -9,10 +9,12 @@ import { DressStyle } from "@/components/dressStyle";
 import Shirts, { FilterState } from "@/components/shirts";
 import Size from "@/components/size";
 import { SliderDemo } from "@/components/slider";
+import { SlidersHorizontal } from "lucide-react";
 
 function OnsaleContent() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
+  const [showFilters, setShowFilters] = useState(false);
 
   const [filters, setFilters] = useState<FilterState>({
     categories: [],
@@ -62,32 +64,68 @@ function OnsaleContent() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row justify-center items-start lg:space-x-6 space-y-4 lg:space-y-0 px-4 sm:px-6 lg:px-8">
-      {/* Left Sidebar */}
-      <div className="w-full sm:w-[300px]">
-        <BreadcrumbDemo />
-        <AccordionDemo
-          selectedCategories={filters.categories}
-          onCategoryChange={handleCategoryChange}
-          onClearAll={handleClearAll}
-        />
-        <SliderDemo
-          value={filters.priceRange}
-          onChange={handlePriceChange}
-        />
-        <CheckboxDisabled
-          selectedColors={filters.colors}
-          onColorChange={handleColorChange}
-        />
-        <Size
-          selectedSizes={filters.sizes}
-          onSizeChange={handleSizeChange}
-        />
-        <DressStyle />
-      </div>
-      {/* Main Content */}
-      <div className="w-full lg:w-[900px]">
-        <Shirts filters={filters} searchQuery={searchQuery} />
+    <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <BreadcrumbDemo />
+      <div className="flex gap-6 mt-4">
+        {/* Mobile filter toggle */}
+        <button
+          className="lg:hidden fixed bottom-4 right-4 z-50 bg-black text-white p-3 rounded-full shadow-lg"
+          onClick={() => setShowFilters(!showFilters)}
+          aria-label="Toggle filters"
+        >
+          <SlidersHorizontal className="w-5 h-5" />
+        </button>
+
+        {/* Left Sidebar */}
+        <div
+          className={`${
+            showFilters ? "fixed inset-0 z-40 bg-white overflow-y-auto p-4" : "hidden"
+          } lg:block lg:relative lg:w-[295px] shrink-0`}
+        >
+          {showFilters && (
+            <button
+              className="lg:hidden mb-4 text-sm text-black/60"
+              onClick={() => setShowFilters(false)}
+            >
+              Close Filters
+            </button>
+          )}
+          <div className="border border-black/10 rounded-[20px] p-5">
+            <AccordionDemo
+              selectedCategories={filters.categories}
+              onCategoryChange={handleCategoryChange}
+              onClearAll={handleClearAll}
+            />
+            <div className="border-t border-black/10 my-2" />
+            <SliderDemo
+              value={filters.priceRange}
+              onChange={handlePriceChange}
+            />
+            <div className="border-t border-black/10 my-2" />
+            <CheckboxDisabled
+              selectedColors={filters.colors}
+              onColorChange={handleColorChange}
+            />
+            <div className="border-t border-black/10 my-2" />
+            <Size
+              selectedSizes={filters.sizes}
+              onSizeChange={handleSizeChange}
+            />
+            <div className="border-t border-black/10 my-2" />
+            <DressStyle />
+            <button
+              className="w-full bg-black text-white py-3 rounded-full text-sm font-medium mt-4"
+              onClick={() => setShowFilters(false)}
+            >
+              Apply Filter
+            </button>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 min-w-0">
+          <Shirts filters={filters} searchQuery={searchQuery} />
+        </div>
       </div>
     </div>
   );

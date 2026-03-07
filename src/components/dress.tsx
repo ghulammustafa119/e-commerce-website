@@ -2,66 +2,66 @@ import Image from "next/image";
 
 export default function Dress() {
   return (
-    <>
-      <div className="w-full flex justify-center items-center mt-20 md:mt-16 mb-4 max-w-screen-2xl mx-auto">
-        {/* container */}
-        <div className="w-[90%] md:w-[80%] bg-[#F0F0F0] p-3 md:p-0 rounded-[20px]">
-          <div className="flex justify-center items-center">
-            <h1 className="text-black text-2xl md:text-4xl font-extrabold pt-4">
-              BROWSE BY DRESS STYLE
-            </h1>
+    <div className="w-full flex justify-center items-center mt-16 mb-4 max-w-screen-xl mx-auto px-4">
+      <div className="w-full bg-[#F0F0F0] rounded-[20px] md:rounded-[40px] px-4 sm:px-6 md:px-16 py-8 md:py-16">
+        <h1 className="font-integralcf text-2xl md:text-[48px] font-bold text-center">
+          BROWSE BY DRESS STYLE
+        </h1>
+        {/* Row 1: Casual (small) + Formal (large) */}
+        <div className="flex flex-col md:flex-row gap-4 mt-8 md:mt-12">
+          <div className="relative bg-white w-full md:w-[36%] h-[190px] md:h-[289px] rounded-[20px] overflow-hidden">
+            <h2 className="absolute left-6 md:left-9 top-5 md:top-8 text-xl md:text-4xl font-bold z-10">
+              Casual
+            </h2>
+            <Image
+              src="/images/casual .png"
+              className="w-full h-full object-cover"
+              width={407}
+              height={289}
+              alt="Casual style clothing"
+            />
           </div>
-          {/* boxes container */}
-          <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center mt-7 gap-2 sm:gap-3 lg:gap-0">
-            <div className="relative bg-white w-[90%] sm:w-[45%] lg:w-[350px] h-[190px] sm:h-[250px] mt-4 md:mt-0 rounded-[20px]">
-              <h1 className="absolute left-10 top-8 text-xl font-bold">
-                Casual
-              </h1>
-              <Image
-                src={"/images/casual .png"}
-                className="w-full h-full rounded-[20px]"
-                width={200}
-                height={200}
-                alt="Casual style clothing"
-              />
-            </div>
-            <div className="relative bg-white w-[90%] sm:w-[45%] lg:w-[550px] h-[190px] sm:h-[250px] mt-4 md:mt-0 md:ml-4 rounded-[20px]">
-              <h1 className="absolute left-10 top-8 text-xl font-bold">
-                Formal
-              </h1>
-              <Image
-                src={"/images/formal.png"}
-                className="w-full h-full rounded-[20px]"
-                width={200}
-                height={200}
-                alt="Formal style clothing"
-              />
-            </div>
-            <div className="relative bg-white w-[90%] sm:w-[45%] lg:w-[550px] h-[190px] sm:h-[250px] mt-2 rounded-[20px] mb-9">
-              <h1 className="absolute left-10 top-8 text-xl font-bold">
-                Party
-              </h1>
-              <Image
-                src={"/images/party.png"}
-                className="w-full h-full rounded-[20px]"
-                width={200}
-                height={200}
-                alt="Party style clothing"
-              />
-            </div>
-            <div className="relative bg-white w-[90%] sm:w-[45%] lg:w-[350px] h-[190px] sm:h-[250px] mt-2 md:ml-4 rounded-[20px] mb-9">
-              <h1 className="absolute left-10 top-8 text-xl font-bold">Gym</h1>
-              <Image
-                src={"/images/gym.png"}
-                className="w-full h-full rounded-[20px]"
-                width={200}
-                height={200}
-                alt="Gym style clothing"
-              />
-            </div>
+          <div className="relative bg-white w-full md:w-[64%] h-[190px] md:h-[289px] rounded-[20px] overflow-hidden">
+            <h2 className="absolute left-6 md:left-9 top-5 md:top-8 text-xl md:text-4xl font-bold z-10">
+              Formal
+            </h2>
+            <Image
+              src="/images/formal.png"
+              className="w-full h-full object-cover"
+              width={684}
+              height={289}
+              alt="Formal style clothing"
+            />
+          </div>
+        </div>
+        {/* Row 2: Party (large) + Gym (small) */}
+        <div className="flex flex-col md:flex-row gap-4 mt-4">
+          <div className="relative bg-white w-full md:w-[64%] h-[190px] md:h-[289px] rounded-[20px] overflow-hidden">
+            <h2 className="absolute left-6 md:left-9 top-5 md:top-8 text-xl md:text-4xl font-bold z-10">
+              Party
+            </h2>
+            <Image
+              src="/images/party.png"
+              className="w-full h-full object-cover"
+              width={684}
+              height={289}
+              alt="Party style clothing"
+            />
+          </div>
+          <div className="relative bg-white w-full md:w-[36%] h-[190px] md:h-[289px] rounded-[20px] overflow-hidden">
+            <h2 className="absolute left-6 md:left-9 top-5 md:top-8 text-xl md:text-4xl font-bold z-10">
+              Gym
+            </h2>
+            <Image
+              src="/images/gym.png"
+              className="w-full h-full object-cover"
+              width={407}
+              height={289}
+              alt="Gym style clothing"
+            />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

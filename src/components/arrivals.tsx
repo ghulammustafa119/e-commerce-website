@@ -73,7 +73,7 @@ export default function TopSell() {
 
   return (
     <div className="w-full h-full mt-10 max-w-screen-xl mx-auto">
-      <h1 className="text-3xl md:text-4xl font-bold text-center">You might also like</h1>
+      <h1 className="font-integralcf text-3xl md:text-[48px] font-bold text-center">YOU MIGHT ALSO LIKE</h1>
       <div className="relative mt-10 overflow-x-auto flex space-x-3 sm:space-x-5 px-4 sm:px-8">
         {products.map((data) => (
           <div key={data._id} className="flex-shrink-0">

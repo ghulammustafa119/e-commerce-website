@@ -22,6 +22,8 @@ export default function Checkout() {
   });
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const deliveryFee = cartItems.length > 0 ? 15 : 0;
+  const total = subtotal + deliveryFee;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,7 +43,6 @@ export default function Checkout() {
     total: subtotal,
   });
 
-  // Stripe card payment
   const handleStripePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isFormValid()) return;
@@ -67,7 +68,6 @@ export default function Checkout() {
     }
   };
 
-  // Cash on Delivery
   const handleCOD = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isFormValid()) return;
@@ -110,8 +110,8 @@ export default function Checkout() {
       <div className="flex flex-col items-center justify-center py-20">
         <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
         <button
-          onClick={() => router.push("/products")}
-          className="bg-black text-white px-6 py-2 rounded-full"
+          onClick={() => router.push("/onsale")}
+          className="bg-black text-white px-8 py-3 rounded-full font-medium"
         >
           Continue Shopping
         </button>
@@ -120,114 +120,128 @@ export default function Checkout() {
   }
 
   return (
-    <>
-      <div className="pl-5">
-        <BreadcrumbDemo />
-      </div>
-      <div className="max-w-screen-xl mx-auto px-4 py-8">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6">Checkout</h1>
+    <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+      <BreadcrumbDemo />
+      <h1 className="font-integralcf text-2xl md:text-[40px] font-bold mt-4 mb-6">
+        CHECKOUT
+      </h1>
 
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Left: Form + Payment */}
-          <form onSubmit={handleSubmit} className="flex-1 space-y-4">
-            <h2 className="text-xl font-bold mb-2">Shipping Details</h2>
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* Left: Form + Payment */}
+        <form onSubmit={handleSubmit} className="flex-1 space-y-5">
+          <div className="border border-black/10 rounded-[20px] p-5 md:p-6 space-y-4">
+            <h2 className="text-xl font-bold">Shipping Details</h2>
 
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium mb-1">Full Name</label>
+              <label htmlFor="fullName" className="block text-sm text-black/60 mb-1.5">Full Name</label>
               <input id="fullName" name="fullName" type="text" required value={form.fullName} onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="John Doe" />
+                className="w-full border border-black/10 rounded-full px-4 py-3 outline-none focus:border-black transition-colors" placeholder="John Doe" />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
+              <label htmlFor="email" className="block text-sm text-black/60 mb-1.5">Email</label>
               <input id="email" name="email" type="email" required value={form.email} onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="john@example.com" />
+                className="w-full border border-black/10 rounded-full px-4 py-3 outline-none focus:border-black transition-colors" placeholder="john@example.com" />
             </div>
 
             <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium mb-1">Phone Number</label>
+              <label htmlFor="phoneNumber" className="block text-sm text-black/60 mb-1.5">Phone Number</label>
               <input id="phoneNumber" name="phoneNumber" type="tel" required value={form.phoneNumber} onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="+92 300 1234567" />
+                className="w-full border border-black/10 rounded-full px-4 py-3 outline-none focus:border-black transition-colors" placeholder="+92 300 1234567" />
             </div>
 
             <div>
-              <label htmlFor="shippingAddress" className="block text-sm font-medium mb-1">Shipping Address</label>
+              <label htmlFor="shippingAddress" className="block text-sm text-black/60 mb-1.5">Shipping Address</label>
               <textarea id="shippingAddress" name="shippingAddress" required value={form.shippingAddress} onChange={handleChange}
-                rows={3} className="w-full border rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-black" placeholder="House #, Street, City, Country" />
+                rows={3} className="w-full border border-black/10 rounded-[16px] px-4 py-3 outline-none focus:border-black transition-colors" placeholder="House #, Street, City, Country" />
             </div>
+          </div>
 
-            {/* Payment Method Selection */}
-            <div className="border-t pt-4 mt-4">
-              <h2 className="text-xl font-bold mb-3">Payment Method</h2>
-              <div className="space-y-3">
-                <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "card" ? "border-black bg-gray-50" : "border-gray-200"}`}>
-                  <input type="radio" name="paymentMethod" value="card" checked={paymentMethod === "card"} onChange={() => setPaymentMethod("card")} className="accent-black" />
-                  <div className="flex-1">
-                    <p className="font-medium">Credit / Debit Card</p>
-                    <p className="text-xs text-gray-500">Pay securely with Stripe</p>
+          {/* Payment Method Selection */}
+          <div className="border border-black/10 rounded-[20px] p-5 md:p-6">
+            <h2 className="text-xl font-bold mb-4">Payment Method</h2>
+            <div className="space-y-3">
+              {[
+                { value: "card" as const, label: "Credit / Debit Card", desc: "Pay securely with Stripe" },
+                { value: "paypal" as const, label: "PayPal", desc: "Pay with your PayPal account" },
+                { value: "cod" as const, label: "Cash on Delivery", desc: "Pay when your order arrives" },
+              ].map((method) => (
+                <label
+                  key={method.value}
+                  className={`flex items-center gap-3 border rounded-[16px] p-4 cursor-pointer transition-colors ${
+                    paymentMethod === method.value ? "border-black bg-[#F0F0F0]" : "border-black/10"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={method.value}
+                    checked={paymentMethod === method.value}
+                    onChange={() => setPaymentMethod(method.value)}
+                    className="accent-black w-4 h-4"
+                  />
+                  <div>
+                    <p className="font-medium">{method.label}</p>
+                    <p className="text-xs text-black/60">{method.desc}</p>
                   </div>
                 </label>
-
-                <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "paypal" ? "border-black bg-gray-50" : "border-gray-200"}`}>
-                  <input type="radio" name="paymentMethod" value="paypal" checked={paymentMethod === "paypal"} onChange={() => setPaymentMethod("paypal")} className="accent-black" />
-                  <div className="flex-1">
-                    <p className="font-medium">PayPal</p>
-                    <p className="text-xs text-gray-500">Pay with your PayPal account</p>
-                  </div>
-                </label>
-
-                <label className={`flex items-center gap-3 border rounded-lg p-3 cursor-pointer transition-colors ${paymentMethod === "cod" ? "border-black bg-gray-50" : "border-gray-200"}`}>
-                  <input type="radio" name="paymentMethod" value="cod" checked={paymentMethod === "cod"} onChange={() => setPaymentMethod("cod")} className="accent-black" />
-                  <div className="flex-1">
-                    <p className="font-medium">Cash on Delivery</p>
-                    <p className="text-xs text-gray-500">Pay when your order arrives</p>
-                  </div>
-                </label>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-black text-white py-3 rounded-full font-medium disabled:opacity-50 mt-4"
-            >
-              {loading
-                ? "Processing..."
-                : paymentMethod === "cod"
-                ? "Place Order (Cash on Delivery)"
-                : paymentMethod === "paypal"
-                ? "Pay with PayPal"
-                : "Pay with Stripe"}
-            </button>
-          </form>
-
-          {/* Right: Order Summary */}
-          <div className="w-full md:w-[400px] border rounded-[20px] p-6 h-fit">
-            <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-
-            <div className="space-y-3 mb-4">
-              {cartItems.map((item) => (
-                <div key={item.id + item.size + item.color} className="flex gap-3">
-                  {item.imageUrl && (
-                    <Image src={item.imageUrl} alt={item.name} width={60} height={60} className="rounded-lg object-cover" />
-                  )}
-                  <div className="flex-1">
-                    <p className="font-medium text-sm">{item.name}</p>
-                    <p className="text-xs text-gray-500">{item.size} | Qty: {item.quantity}</p>
-                  </div>
-                  <p className="font-bold text-sm">${(item.price * item.quantity).toFixed(2)}</p>
-                </div>
               ))}
             </div>
+          </div>
 
-            <div className="border-t pt-3 space-y-2">
-              <p className="flex justify-between font-bold text-lg">
-                Total <span>${subtotal.toFixed(2)}</span>
-              </p>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-black text-white py-4 rounded-full font-medium disabled:opacity-50"
+          >
+            {loading
+              ? "Processing..."
+              : paymentMethod === "cod"
+              ? "Place Order (Cash on Delivery)"
+              : paymentMethod === "paypal"
+              ? "Pay with PayPal"
+              : "Pay with Stripe"}
+          </button>
+        </form>
+
+        {/* Right: Order Summary */}
+        <div className="w-full lg:w-[400px] border border-black/10 rounded-[20px] p-5 md:p-6 h-fit">
+          <h2 className="text-xl md:text-2xl font-bold mb-5">Order Summary</h2>
+
+          <div className="space-y-4 mb-5">
+            {cartItems.map((item) => (
+              <div key={item.id + item.size + item.color} className="flex gap-3">
+                {item.imageUrl && (
+                  <div className="w-[64px] h-[64px] bg-[#F0EEED] rounded-[12px] overflow-hidden shrink-0">
+                    <Image src={item.imageUrl} alt={item.name} width={64} height={64} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <p className="font-medium text-sm">{item.name}</p>
+                  <p className="text-xs text-black/60">{item.size} | Qty: {item.quantity}</p>
+                </div>
+                <p className="font-bold text-sm">${(item.price * item.quantity).toFixed(2)}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="border-t border-black/10 pt-4 space-y-3">
+            <div className="flex justify-between text-base">
+              <span className="text-black/60">Subtotal</span>
+              <span className="font-bold">${subtotal.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-base">
+              <span className="text-black/60">Delivery</span>
+              <span className="font-bold">${deliveryFee.toFixed(2)}</span>
+            </div>
+            <div className="w-full h-px bg-black/10" />
+            <div className="flex justify-between text-xl font-bold">
+              <span>Total</span>
+              <span>${total.toFixed(2)}</span>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -20,12 +20,12 @@ function HeaderTop() {
         }`}
       >
         <div className="flex items-center space-x-2">
-          <h1 className="text-[8px] md:text-xs">
+          <span className="text-[10px] sm:text-xs md:text-sm">
             Sign up and get 20% off to your first order.
-          </h1>
+          </span>
           <button
             onClick={() => openSignUp()}
-            className="underline underline-offset-4 text-xs md:text-sm cursor-pointer z-10"
+            className="underline underline-offset-4 text-[10px] sm:text-xs md:text-sm cursor-pointer z-10"
           >
             Sign Up Now
           </button>

@@ -1,4 +1,4 @@
-import { FaStar } from "react-icons/fa"; 
+import { FaStar } from "react-icons/fa";
 import { FaCircleCheck } from "react-icons/fa6";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -13,35 +13,35 @@ const testimonials = [
   {
     name: "Sarah M.",
     feedback:
-      "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.”",
+      "\u201CI\u2019m blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I\u2019ve bought has exceeded my expectations.\u201D",
     rating: 5,
     verified: true,
   },
   {
-    name: "John D.",
+    name: "Alex K.",
     feedback:
-      "Finding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.”",
+      "\u201CFinding clothes that align with my personal style used to be a challenge until I discovered Shop.co. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.\u201D",
     rating: 5,
     verified: true,
   },
   {
-    name: "Emma L.",
+    name: "James L.",
     feedback:
-    "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.",
+      "\u201CAs someone who\u2019s always on the lookout for unique fashion pieces, I\u2019m thrilled to have stumbled upon Shop.co. The selection of clothes is not only diverse but also on-point with the latest trends.\u201D",
     rating: 5,
-    verified: false,
+    verified: true,
   },
   {
     name: "Michael B.",
     feedback:
-    "Shop.co's selection of clothes is not only diverse but also on-point with the latest trends. I'm thrilled to have stumbled upon this amazing store.",
+      "\u201CShop.co\u2019s selection of clothes is not only diverse but also on-point with the latest trends. I\u2019m thrilled to have stumbled upon this amazing store.\u201D",
     rating: 5,
     verified: true,
   },
   {
     name: "Sophia K.",
     feedback:
-    "The selection of clothes at Shop.co is not only diverse but also aligned with the latest trends. I've found some amazing pieces here!",
+      "\u201CThe selection of clothes at Shop.co is not only diverse but also aligned with the latest trends. I\u2019ve found some amazing pieces here!\u201D",
     rating: 5,
     verified: true,
   },
@@ -49,58 +49,47 @@ const testimonials = [
 
 export default function Customers() {
   return (
-    <main className="mt-14">
-      <div className="w-full flex justify-center items-center mt-10 mb-1 max-w-screen-xl mx-auto">
-        {/* Container */}
-        <div className="w-[95%] md:w-[80%] p-3 md:p-0">
-          {/* Header */}
-          <div className="flex justify-between items-center">
-            <h1 className="text-black text-3xl md:text-4xl font-extrabold pt-4 text-center md:text-left">
-              OUR HAPPY CUSTOMERS
-            </h1>
-          </div>
-          <div className="relative mt-10">
-            {/* Carousel */}
-            <Carousel className="w-full md:max-w-[100%] mx-auto relative">
-              {/* Buttons */}
-              <CarouselPrevious className="absolute top-[-1rem] md:top-[-3rem] right-12 text-gray-600 hover:text-black" />
-              <CarouselNext className="absolute top-[-1rem] md:top-[-3rem] right-0 text-gray-600 hover:text-black" />
-
-              <CarouselContent className="-ml-1 flex  flex-row mt-4">
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem
-                    key={index}
-                    className="pl-1 w-full md:basis-1/2 lg:basis-1/3"
-                  >
-                    <div className="p-2">
-                      <Card>
-                        <CardContent className="flex flex-col items-start justify-center p-4">
-                          {/* Testimonial Card */}
-                          <div className="flex justify-start items-center space-x-1 mb-2">
-                            {Array.from({ length: testimonial.rating }).map(
-                              (_, i) => (
-                                <FaStar
-                                  key={i}
-                                  className="text-yellow-400 text-sm"
-                                />
-                              )
-                            )}
-                          </div>
-                          <h2 className="flex items-center text-lg font-bold mb-2">
-                            {testimonial.name}
-                            {testimonial.verified && (
-                              <FaCircleCheck className="text-green-500 ml-2" />
-                            )}
-                          </h2>
-                          <p className="text-sm">{testimonial.feedback}</p>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </div>
+    <main className="mt-14 mb-10">
+      <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6">
+        <div className="flex justify-between items-center">
+          <h1 className="font-integralcf text-3xl md:text-[48px] font-bold">
+            OUR HAPPY CUSTOMERS
+          </h1>
+        </div>
+        <div className="relative mt-8">
+          <Carousel className="w-full relative">
+            <CarouselPrevious className="absolute top-[-2.5rem] md:top-[-3.5rem] right-12 text-gray-600 hover:text-black" />
+            <CarouselNext className="absolute top-[-2.5rem] md:top-[-3.5rem] right-0 text-gray-600 hover:text-black" />
+            <CarouselContent className="-ml-2 mt-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-2 w-full md:basis-1/2 lg:basis-1/3"
+                >
+                  <Card className="border border-black/10 rounded-[20px]">
+                    <CardContent className="flex flex-col items-start justify-start p-6 md:p-8 min-h-[240px]">
+                      <div className="flex items-center space-x-1 mb-3">
+                        {Array.from({ length: testimonial.rating }).map(
+                          (_, i) => (
+                            <FaStar key={i} className="text-yellow-400" />
+                          )
+                        )}
+                      </div>
+                      <h2 className="flex items-center text-xl font-bold mb-3">
+                        {testimonial.name}
+                        {testimonial.verified && (
+                          <FaCircleCheck className="text-green-500 ml-1 text-base" />
+                        )}
+                      </h2>
+                      <p className="text-base text-black/60 leading-[22px]">
+                        {testimonial.feedback}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
       </div>
     </main>

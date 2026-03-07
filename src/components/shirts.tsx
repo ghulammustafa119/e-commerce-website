@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import PaginationPage from "./pagination";
@@ -26,9 +26,19 @@ interface IProduct {
 
 const PAGE_SIZE = 9;
 
-const star = Array(5)
-  .fill(null)
-  .map((_, i) => <FaStar key={i} className="text-yellow-400" />);
+function renderStars(rating: number) {
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      stars.push(<FaStar key={i} className="text-yellow-400" />);
+    } else if (rating >= i - 0.5) {
+      stars.push(<FaStarHalfAlt key={i} className="text-yellow-400" />);
+    } else {
+      stars.push(<FaRegStar key={i} className="text-yellow-400" />);
+    }
+  }
+  return stars;
+}
 
 interface ShirtsProps {
   filters?: FilterState;
@@ -165,19 +175,29 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
                   )}
                 </div>
               </Link>
-              <div>
-                <p className="text-sm md:text-lg mt-2 font-bold">{data.name}</p>
-                <div className="flex text-yellow-400">{star}</div>
-                <p className="font-bold mt-1">
-                  ${data.discountPercent > 0
-                    ? ((data.price * (100 - data.discountPercent)) / 100).toFixed(2)
-                    : data.price}
+              <div className="mt-2">
+                <p className="text-sm md:text-lg font-bold">{data.name}</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="flex">{renderStars(4.5)}</div>
+                  <span className="text-xs md:text-sm">4.5/<span className="text-black/60">5</span></span>
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-base md:text-xl font-bold">
+                    ${data.discountPercent > 0
+                      ? Math.round((data.price * (100 - data.discountPercent)) / 100)
+                      : data.price}
+                  </span>
                   {data.discountPercent > 0 && (
-                    <span className="text-gray-400 font-bold line-through ml-2">
-                      ${data.price}
-                    </span>
+                    <>
+                      <span className="text-base md:text-xl font-bold text-black/40 line-through">
+                        ${data.price}
+                      </span>
+                      <span className="bg-red-500/10 text-[#FF3333] text-[10px] md:text-xs font-medium px-2 py-1 rounded-full">
+                        -{data.discountPercent}%
+                      </span>
+                    </>
                   )}
-                </p>
+                </div>
               </div>
             </div>
           ))}

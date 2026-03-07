@@ -36,7 +36,7 @@ const Header = () => {
       {/* Left Section */}
       <div className="flex items-center space-x-4">
         <SheetSide />
-        <h1 className="text-xl sm:text-3xl font-bold uppercase">shop.co</h1>
+        <h1 className="font-integralcf text-xl sm:text-[32px] font-bold uppercase">shop.co</h1>
       </div>
 
       {/* Center Navigation */}
