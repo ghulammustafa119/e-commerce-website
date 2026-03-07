@@ -24,7 +24,8 @@ export default function WishlistPage() {
       color: "#000",
       quantity: 1,
     });
-    toast.success(`${item.name} added to cart!`);
+    removeFromWishlist(item.id);
+    toast.success(`${item.name} moved to cart!`);
   };
 
   return (
