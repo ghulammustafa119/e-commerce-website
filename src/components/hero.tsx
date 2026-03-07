@@ -7,7 +7,7 @@ const Hero = () => {
       <div className="w-full h-auto max-w-screen-2xl mx-auto md:h-[663px] flex flex-col items-start bg-[#f2f0f1] md:flex-row md:justify-center md:px-20">
         {/* Left Content */}
         <div className="w-full md:w-[596px] text-center md:text-left md:mt-10">
-          <h1 className="text-[22px] font-bold leading-snug md:text-5xl md:leading-tight md:w-[468px] md:mt-[88px]">
+          <h1 className="text-[22px] sm:text-3xl font-bold leading-snug md:text-5xl md:leading-tight md:w-[468px] md:mt-[88px]">
             FIND CLOTHES THAT MATCH YOUR STYLE
           </h1>
           <p className="text-sm mt-3 leading-relaxed md:text-base">
@@ -18,7 +18,7 @@ const Hero = () => {
           <button className="bg-black text-white text-sm px-6 py-2 mt-6 w-full rounded-lg md:rounded-[16px] md:text-base md:w-[148px] md:mt-3">
             Shop Now
           </button>
-          <div className="flex justify-evenly md:hidden md:justify-between flex-wrap md:flex-nowrap gap-y-4 mt-4 ml-4 space-x-4">
+          <div className="flex justify-evenly md:hidden md:justify-between flex-wrap md:flex-nowrap gap-y-4 mt-4 ml-4 space-x-2 sm:space-x-4">
                   <div className="border-r pr-2">
                     <h1 className="text-2xl md:text-5xl">200+</h1>
                     <p className="text-xs md:text-[15px] text-gray-500">International Brands</p>

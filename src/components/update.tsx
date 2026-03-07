@@ -39,7 +39,7 @@ export default function UpdateOffers() {
 
   return (
     <main className="w-full flex justify-center items-center mb-14">
-      <div className="w-[90%] md:w-full md:h-[150px] rounded-[20px] p-10 bg-black flex flex-col md:flex-row justify-between items-center">
+      <div className="w-[90%] md:w-full md:max-w-screen-xl md:h-[150px] rounded-[20px] p-6 sm:p-10 bg-black flex flex-col md:flex-row justify-between items-center">
         <div className="w-full lg:w-[600px]">
           <h1 className="text-2xl text-white md:text-3xl font-serif font-extrabold">
             STAY UPTO DATE ABOUT OUR LATEST OFFERS

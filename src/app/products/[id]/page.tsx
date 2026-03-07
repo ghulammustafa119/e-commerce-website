@@ -133,7 +133,7 @@ const Page = () => {
                 className="rounded-lg w-full max-w-[444px] h-auto object-cover"
               />
             ) : (
-              <div className="w-[444px] h-[530px] bg-gray-300 rounded-lg flex justify-center items-center">
+              <div className="w-full max-w-[444px] h-[300px] sm:h-[530px] bg-gray-300 rounded-lg flex justify-center items-center">
                 <p className="text-gray-600">No image available</p>
               </div>
             )}
@@ -184,7 +184,7 @@ const Page = () => {
 
             {/* Sizes */}
             <p className="text-sm text-gray-500 mb-2">Choose Size</p>
-            <div className="flex space-x-3 mb-4">
+            <div className="flex flex-wrap gap-2 mb-4">
               {["Small", "Medium", "Large", "X-Large"].map((size) => (
                 <button
                   key={size}

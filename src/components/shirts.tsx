@@ -135,7 +135,7 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
 
   return (
     <div className="w-full h-full">
-      <div className="flex justify-between items-center pl-5 pr-5 mb-4">
+      <div className="flex justify-between items-center px-2 sm:px-4 lg:px-5 mb-4">
         <h1 className="text-[25px] font-bold">{searchQuery ? `Results for "${searchQuery}"` : "Casual"}</h1>
         <span className="text-sm text-gray-500">{totalCount} products found</span>
       </div>
@@ -145,7 +145,7 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
           <p className="text-gray-500">No products match your filters.</p>
         </div>
       ) : (
-        <div className="grid gap-3 grid-cols-2 xl:grid-cols-3 md:p-0 place-items-center">
+        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:p-0 place-items-center">
           {products.map((data) => (
             <div className="mt-1" key={data._id}>
               <Link href={`/products/${data._id}`}>

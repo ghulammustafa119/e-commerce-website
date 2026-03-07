@@ -59,12 +59,12 @@ export default function Customers() {
               OUR HAPPY CUSTOMERS
             </h1>
           </div>
-          <div className="relative mt-10 bg-red-">
+          <div className="relative mt-10">
             {/* Carousel */}
             <Carousel className="w-full md:max-w-[100%] mx-auto relative">
               {/* Buttons */}
-              <CarouselPrevious className="absolute top-[-1rem] md:top-[-3rem]  left-[230px] md:left-[500px] lg:left-[700px] xl:left-[920px] text-gray-600 hover:text-black" />
-              <CarouselNext className="absolute top-[-1rem] md:top-[-3rem]   right-0 md:right-2 text-gray-600 hover:text-black" />
+              <CarouselPrevious className="absolute top-[-1rem] md:top-[-3rem] right-12 text-gray-600 hover:text-black" />
+              <CarouselNext className="absolute top-[-1rem] md:top-[-3rem] right-0 text-gray-600 hover:text-black" />
 
               <CarouselContent className="-ml-1 flex  flex-row mt-4">
                 {testimonials.map((testimonial, index) => (

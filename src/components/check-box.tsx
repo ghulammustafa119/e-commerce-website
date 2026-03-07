@@ -27,7 +27,7 @@ export function CheckboxDisabled({ selectedColors, onColorChange }: CheckboxProp
           <button
             key={color.value}
             onClick={() => onColorChange(color.value)}
-            className={`h-[37px] w-[37px] rounded-full ${color.bg} flex items-center justify-center transition-all ${
+            className={`h-[44px] w-[44px] rounded-full ${color.bg} flex items-center justify-center transition-all ${
               selectedColors.includes(color.value) ? "ring-2 ring-offset-2 ring-black" : ""
             }`}
             aria-label={`${color.value} color filter`}

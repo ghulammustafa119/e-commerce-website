@@ -127,7 +127,7 @@ export default function AdminDashboard() {
       {/* Orders Table */}
       <div className="border rounded-[20px] overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[600px]">
             <thead className="bg-gray-50">
               <tr>
                 <th className="text-left px-4 py-3 font-medium">Order ID</th>

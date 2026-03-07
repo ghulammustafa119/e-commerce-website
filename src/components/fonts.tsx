@@ -19,30 +19,30 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Fonts() {
   return (
-    <div className=" bg-black w-full h-[100px] md:h-[90px] flex flex-wrap justify-evenly md:justify-between   p-8 text-center space-x-3  max-w-screen-2xl mx-auto">
+    <div className="bg-black w-full h-auto py-4 sm:py-6 md:py-8 flex flex-wrap justify-center sm:justify-evenly md:justify-between px-4 sm:px-8 text-center gap-3 sm:gap-4 max-w-screen-2xl mx-auto">
       <h1
-        className={`${playfair.className} text-2xl  md:text-4xl text-white font-bold`}
+        className={`${playfair.className} text-xl sm:text-xl sm:text-2xl md:text-4xl text-white font-bold`}
       >
         Versace{" "}
       </h1>
       <h1
-        className={`${bodoni.className} text-2xl md:text-4xl text-white font-bold`}
+        className={`${bodoni.className} text-xl sm:text-2xl md:text-4xl text-white font-bold`}
       >
         Zara
       </h1>
 
       <h1
-        className={`${cinzel.className} text-2xl md:text-4xl text-white font-bold`}
+        className={`${cinzel.className} text-xl sm:text-2xl md:text-4xl text-white font-bold`}
       >
         Gucci
       </h1>
       <h1
-        className={`${prata.className} text-2xl md:text-4xl  text-white font-extrabold`}
+        className={`${prata.className} text-xl sm:text-2xl md:text-4xl  text-white font-extrabold`}
       >
         Prada
       </h1>
       <h1
-        className={`${montserrat.className} text-2xl md:text-4xl text-white `}
+        className={`${montserrat.className} text-xl sm:text-2xl md:text-4xl text-white `}
       >
         Calvin Klein
       </h1>

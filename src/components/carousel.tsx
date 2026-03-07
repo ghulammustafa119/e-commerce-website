@@ -67,11 +67,11 @@ export function CarouselDemo() {
           <div className="relative mt-10">
             <Carousel className="w-full md:max-w-[100%] mx-auto relative">
               <CarouselPrevious
-                className="absolute top-[-1rem] md:top-[-3rem] left-10 hover:text-black"
+                className="absolute top-[-1rem] md:top-[-3rem] right-12 hover:text-black"
                 aria-label="Previous Review"
               />
               <CarouselNext
-                className="absolute top-[-1rem] md:top-[-3rem] right-10 hover:text-black"
+                className="absolute top-[-1rem] md:top-[-3rem] right-0 hover:text-black"
                 aria-label="Next Review"
               />
               <CarouselContent className="-ml-1 flex flex-row mt-4">

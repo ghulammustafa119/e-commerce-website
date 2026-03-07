@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <>
       <Offers />
-      <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-wrap justify-center md:justify-evenly bg-gray-100 text-black py-8 px-5 md:px-20">
+      <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-wrap justify-center md:justify-evenly bg-gray-100 text-black py-8 px-5 sm:px-10 md:px-20">
         {/* Column 1 */}
         <div className="w-full md:w-1/5 px-4 mb-6">
           <h2 className="text-lg md:text-xl font-bold mb-4">SHOP.CO</h2>

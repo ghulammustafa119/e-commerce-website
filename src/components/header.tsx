@@ -48,7 +48,7 @@ const Header = () => {
       </nav>
 
       {/* Right Section */}
-      <div className="flex items-center space-x-4 mr-[40px]">
+      <div className="flex items-center space-x-4 mr-2 lg:mr-10">
         {/* Mobile/Tablet Search Icon */}
         <button type="button" aria-label="Search" className="lg:hidden">
           <IoSearch className="text-xl" />
