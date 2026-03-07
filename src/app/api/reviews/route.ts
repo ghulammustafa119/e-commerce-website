@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { client } from "@/sanity/lib/client";
 import { writeClient } from "@/sanity/lib/writeClient";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const productId = searchParams.get("productId");
