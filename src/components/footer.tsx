@@ -4,7 +4,7 @@ import { CiTwitter } from "react-icons/ci";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa6";
 import Image from "next/image";
-import Offers from "./offer";
+import Offers from "./update";
 import Link from "next/link";
 
 const Footer = () => {
