@@ -65,3 +65,11 @@
   }
 }
 
+.newsletter-input {
+  color: #111 !important;
+  caret-color: #111 !important;
+}
+.newsletter-input::placeholder {
+  color: #999 !important;
+}
+

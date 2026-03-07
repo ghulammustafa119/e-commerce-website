@@ -54,7 +54,7 @@ export default function UpdateOffers() {
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubscribe()}
               placeholder="Enter your email address"
-              className="bg-transparent flex-1 ml-2 outline-none !text-[#111] placeholder:!text-[#999] !caret-black text-sm"
+              className="newsletter-input bg-transparent flex-1 ml-2 outline-none text-sm"
             />
           </label>
           <button
