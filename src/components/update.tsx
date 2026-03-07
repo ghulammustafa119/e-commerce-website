@@ -46,7 +46,7 @@ export default function UpdateOffers() {
           </h1>
         </div>
         <div className="space-y-4 mt-2">
-          <label className="flex items-center bg-[#F0F0F0] md:w-[300px] py-2 px-3 rounded-full cursor-text">
+          <label className="flex items-center bg-[#F0F0F0] md:w-[300px] py-2 px-3 rounded-full cursor-text text-black">
             <AiOutlineMail className="text-xl text-gray-500 shrink-0" />
             <input
               type="email"
@@ -54,7 +54,7 @@ export default function UpdateOffers() {
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubscribe()}
               placeholder="Enter your email address"
-              className="newsletter-input bg-transparent flex-1 ml-2 outline-none text-sm"
+              className="bg-transparent flex-1 ml-2 outline-none text-sm caret-black placeholder:text-gray-400"
             />
           </label>
           <button
