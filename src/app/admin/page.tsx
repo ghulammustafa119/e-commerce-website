@@ -34,7 +34,7 @@ export default function AdminDashboard() {
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch("/api/admin/orders");
+      const res = await fetch(`/api/admin/orders?t=${Date.now()}`);
       const data = await res.json();
       setOrders(data.orders || []);
     } catch {

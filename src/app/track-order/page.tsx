@@ -45,7 +45,7 @@ function TrackOrderContent() {
     setOrder(null);
 
     try {
-      const res = await fetch(`/api/track-order?id=${id}`);
+      const res = await fetch(`/api/track-order?id=${id}&t=${Date.now()}`);
       const data = await res.json();
 
       if (res.ok) {
