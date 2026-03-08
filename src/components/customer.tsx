@@ -51,16 +51,18 @@ export default function Customers() {
   return (
     <main className="mt-14 mb-10">
       <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6">
-        <h1 className="font-integralcf text-[26px] sm:text-3xl md:text-[48px] font-extrabold leading-tight">
-          OUR HAPPY CUSTOMERS
-        </h1>
-        <div className="relative mt-8">
+        <div className="relative">
           <Carousel className="w-full relative">
-            <div className="absolute -top-12 md:-top-16 right-0 flex items-center gap-3 z-10">
-              <CarouselPrevious className="static translate-x-0 translate-y-0 w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
-              <CarouselNext className="static translate-x-0 translate-y-0 w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="font-integralcf text-[26px] sm:text-3xl md:text-[48px] font-extrabold leading-tight">
+                OUR HAPPY CUSTOMERS
+              </h1>
+              <div className="flex items-center gap-3 shrink-0 ml-3">
+                <CarouselPrevious className="w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
+                <CarouselNext className="w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
+              </div>
             </div>
-            <CarouselContent className="-ml-2 mt-4">
+            <CarouselContent className="-ml-2">
               {testimonials.map((testimonial, index) => (
                 <CarouselItem
                   key={index}
