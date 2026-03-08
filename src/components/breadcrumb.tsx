@@ -1,20 +1,32 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import {
   Breadcrumb,
-  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
+const routeLabels: Record<string, string> = {
+  products: "Products",
+  onsale: "On Sale",
+  arrivals: "Cart",
+  checkout: "Checkout",
+  brands: "Brands",
+  wishlist: "Wishlist",
+  orders: "Orders",
+  "track-order": "Track Order",
+};
 
 export function BreadcrumbDemo() {
+  const pathname = usePathname();
+  const segments = pathname.split("/").filter(Boolean);
+
+  if (segments.length === 0) return null;
+
   return (
     <div className="px-3 md:mt-6 md:ml-4">
       <Breadcrumb>
@@ -22,27 +34,27 @@ export function BreadcrumbDemo() {
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-4">
-                <BreadcrumbEllipsis className="h-4 w-4" />
-                <span className="sr-only">SHOP</span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                <DropdownMenuItem>CHECKERED SHIRT</DropdownMenuItem>
-                <DropdownMenuItem>SLEEVE STRIPED T-SHIRT</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Men</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>T-shirts</BreadcrumbPage>
-          </BreadcrumbItem>
+
+          {segments.map((segment, index) => {
+            const href = "/" + segments.slice(0, index + 1).join("/");
+            const isLast = index === segments.length - 1;
+            const label = routeLabels[segment] || decodeURIComponent(segment).replace(/-/g, " ");
+
+            return (
+              <span key={href} className="contents">
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  {isLast ? (
+                    <BreadcrumbPage className="capitalize">{label}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink href={href} className="capitalize">
+                      {label}
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+              </span>
+            );
+          })}
         </BreadcrumbList>
       </Breadcrumb>
     </div>
