@@ -146,8 +146,14 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
   return (
     <div className="w-full h-full">
       <div className="flex justify-between items-center px-2 sm:px-4 lg:px-5 mb-4">
-        <h1 className="text-[25px] font-bold">{searchQuery ? `Results for "${searchQuery}"` : "Casual"}</h1>
-        <span className="text-sm text-gray-500">{totalCount} products found</span>
+        <h1 className="text-2xl md:text-[32px] font-bold">{searchQuery ? `Results for "${searchQuery}"` : "Casual"}</h1>
+        <div className="flex items-center gap-2 text-sm text-black/60">
+          <span className="hidden sm:inline">
+            Showing {Math.min((currentPage - 1) * PAGE_SIZE + 1, totalCount)}-{Math.min(currentPage * PAGE_SIZE, totalCount)} of {totalCount} Products
+          </span>
+          <span className="sm:hidden">{totalCount} products</span>
+          <span className="hidden md:inline">Sort by: <span className="text-black font-medium">Most Popular</span></span>
+        </div>
       </div>
 
       {products.length === 0 ? (

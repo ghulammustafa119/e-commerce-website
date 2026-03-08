@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, ChevronRight } from "lucide-react";
 
 const categories = [
   { value: "tshirt", label: "T-Shirts" },
@@ -55,31 +49,22 @@ export function AccordionDemo({ selectedCategories, onCategoryChange, onClearAll
         </div>
       )}
 
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="categories" className="border-none">
-          <AccordionTrigger className="text-base font-medium py-3 hover:no-underline">
-            Categories
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-3">
-              {categories.map((cat) => (
-                <label
-                  key={cat.value}
-                  className="flex items-center justify-between cursor-pointer text-black/60 hover:text-black transition-colors"
-                >
-                  <span className="text-base">{cat.label}</span>
-                  <input
-                    type="checkbox"
-                    checked={selectedCategories.includes(cat.value)}
-                    onChange={() => onCategoryChange(cat.value)}
-                    className="w-4 h-4 accent-black"
-                  />
-                </label>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <div className="space-y-1">
+        {categories.map((cat) => (
+          <button
+            key={cat.value}
+            onClick={() => onCategoryChange(cat.value)}
+            className={`flex items-center justify-between w-full py-2 transition-colors ${
+              selectedCategories.includes(cat.value)
+                ? "text-black font-medium"
+                : "text-black/60 hover:text-black"
+            }`}
+          >
+            <span className="text-base">{cat.label}</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

@@ -15,18 +15,18 @@ export function SliderDemo({ value, onChange, className }: SliderDemoProps) {
   };
 
   return (
-    <div className="px-6">
-      <h1 className="font-bold mb-4 text-lg">Price Range</h1>
+    <div className="mt-4">
+      <h2 className="font-bold text-lg mb-3">Price</h2>
       <Slider
         value={value}
         onValueChange={handleSliderChange}
         max={500}
         step={5}
-        className={cn("w-[90%]", className)}
+        className={cn("w-full", className)}
       />
       <div className="flex justify-between items-center mt-2">
-        <span className="font-bold text-sm px-4">${value[0]}</span>
-        <span className="font-bold text-sm px-10">${value[1]}</span>
+        <span className="text-sm text-black/60">${value[0]}</span>
+        <span className="text-sm text-black/60">${value[1]}</span>
       </div>
     </div>
   );

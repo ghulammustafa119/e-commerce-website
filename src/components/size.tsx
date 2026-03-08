@@ -1,15 +1,15 @@
 "use client";
 
 const sizes = [
-  "Small",
-  "X-Small",
   "XX-Small",
+  "X-Small",
+  "Small",
   "Medium",
   "Large",
   "X-Large",
   "XX-Large",
-  "3-Large",
-  "4-Large",
+  "3X-Large",
+  "4X-Large",
 ];
 
 interface SizeProps {
@@ -19,16 +19,18 @@ interface SizeProps {
 
 const Size = ({ selectedSizes, onSizeChange }: SizeProps) => {
   return (
-    <div className="px-6">
-      <h2 className="text-xl font-bold text-black mt-7 mb-3">Size</h2>
-      <div className="flex flex-wrap mt-2 gap-3 mb-4">
+    <div className="mt-4">
+      <h2 className="font-bold text-lg mb-3">Size</h2>
+      <div className="flex flex-wrap gap-2">
         {sizes.map((size) => (
           <button
             key={size}
             onClick={() => onSizeChange(size)}
-            className={`px-4 py-1 md:py-2 rounded-[10px] md:rounded-full ${
-              selectedSizes.includes(size) ? "bg-black text-white" : "bg-gray-200"
-            } hover:bg-black hover:text-white`}
+            className={`px-4 py-1.5 rounded-full text-sm ${
+              selectedSizes.includes(size)
+                ? "bg-black text-white"
+                : "bg-[#F0F0F0] text-black/60 hover:bg-black hover:text-white"
+            } transition-colors`}
             aria-pressed={selectedSizes.includes(size)}
           >
             {size}
