@@ -161,11 +161,11 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
           <p className="text-gray-500">No products match your filters.</p>
         </div>
       ) : (
-        <div className="grid gap-3 grid-cols-2 md:grid-cols-3 md:p-0 place-items-center">
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
           {products.map((data) => (
-            <div className="mt-1" key={data._id}>
+            <div key={data._id}>
               <Link href={`/products/${data._id}`}>
-                <div className="w-[160px] md:w-[240px] lg:w-[290px] h-[160px] md:h-[240px] lg:h-[290px] bg-[#F0EEED] rounded-[20px]">
+                <div className="w-full aspect-square bg-[#F0EEED] rounded-[20px] overflow-hidden">
                   {data.imageUrl ? (
                     <Image
                       src={urlFor(data.imageUrl).url()}
