@@ -51,7 +51,7 @@ export default function Customers() {
   return (
     <main className="mt-14 mb-10">
       <div className="w-full max-w-screen-xl mx-auto px-4 sm:px-6">
-        <h1 className="font-integralcf text-2xl sm:text-3xl md:text-[48px] font-bold">
+        <h1 className="font-integralcf text-[26px] sm:text-3xl md:text-[48px] font-extrabold leading-tight">
           OUR HAPPY CUSTOMERS
         </h1>
         <div className="relative mt-8">
