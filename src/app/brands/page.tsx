@@ -13,7 +13,7 @@ export default function Brands() {
           </div>
           {/* boxes container */}
           <div className="flex flex-col lg:flex-row lg:flex-wrap justify-center items-center mt-7">
-            <div className="relative bg-white w-[90%] lg:w-[350px] h-[250px] mt-4 md:mt-0 rounded-[20px]">
+            <div className="relative bg-white w-[90%] lg:w-[350px] h-[190px] md:h-[250px] mt-4 md:mt-0 rounded-[20px]">
               <h1 className="absolute left-10 top-8 text-xl font-bold">
                 Casual
               </h1>
@@ -25,7 +25,7 @@ export default function Brands() {
                 alt="Casual style clothing"
               />
             </div>
-            <div className="relative bg-white w-[90%] lg:w-[550px] h-[250px] mt-4 md:mt-0 md:ml-4 rounded-[20px]">
+            <div className="relative bg-white w-[90%] lg:w-[550px] h-[190px] md:h-[250px] mt-4 md:mt-0 md:ml-4 rounded-[20px]">
               <h1 className="absolute left-10 top-8 text-xl font-bold">
                 Formal
               </h1>
@@ -37,7 +37,7 @@ export default function Brands() {
                 alt="Formal style clothing"
               />
             </div>
-            <div className="relative bg-white w-[90%] lg:w-[550px] h-[250px] mt-2 rounded-[20px] mb-9">
+            <div className="relative bg-white w-[90%] lg:w-[550px] h-[190px] md:h-[250px] mt-2 rounded-[20px] mb-9">
               <h1 className="absolute left-10 top-8 text-xl font-bold">
                 Party
               </h1>
@@ -49,7 +49,7 @@ export default function Brands() {
                 alt="Party style clothing"
               />
             </div>
-            <div className="relative bg-white w-[90%] lg:w-[350px] h-[250px] mt-2 md:ml-4 rounded-[20px] mb-9">
+            <div className="relative bg-white w-[90%] lg:w-[350px] h-[190px] md:h-[250px] mt-2 md:ml-4 rounded-[20px] mb-9">
               <h1 className="absolute left-10 top-8 text-xl font-bold">Gym</h1>
               <Image
                 src={"/images/gym.png"}
