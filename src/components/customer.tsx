@@ -58,8 +58,8 @@ export default function Customers() {
                 OUR HAPPY CUSTOMERS
               </h1>
               <div className="flex items-center gap-3 shrink-0 ml-3">
-                <CarouselPrevious className="static [transform:none] w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
-                <CarouselNext className="static [transform:none] w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
+                <CarouselPrevious className="w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
+                <CarouselNext className="w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
               </div>
             </div>
             <CarouselContent className="-ml-2">
