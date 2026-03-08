@@ -57,7 +57,7 @@ export default function Customers() {
               <h1 className="font-integralcf text-[26px] sm:text-3xl md:text-[48px] font-extrabold leading-tight">
                 OUR HAPPY CUSTOMERS
               </h1>
-              <div className="flex items-center gap-3 shrink-0 ml-3 self-center">
+              <div className="flex items-center gap-3 shrink-0 ml-3">
                 <CarouselPrevious className="static translate-x-0 translate-y-0 w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
                 <CarouselNext className="static translate-x-0 translate-y-0 w-8 h-8 md:w-10 md:h-10 text-gray-600 hover:text-black" />
               </div>
