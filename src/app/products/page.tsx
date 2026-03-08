@@ -92,7 +92,7 @@ const Products = () => {
                       alt={product.name}
                       width={295}
                       height={298}
-                      className="w-full h-full object-contain p-2 hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                     />
                   ) : (
                     <div className="w-full h-full flex justify-center items-center bg-gray-300 rounded-[20px]">
