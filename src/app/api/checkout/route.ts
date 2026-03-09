@@ -101,6 +101,14 @@ export async function POST(req: Request) {
       metadata: { orderId: orderDoc._id },
     });
 
+    // Send confirmation email
+    try {
+      const { sendOrderConfirmationEmail } = await import("@/lib/sendOrderEmail");
+      await sendOrderConfirmationEmail(orderDoc._id);
+    } catch (emailError) {
+      console.error("Failed to send confirmation email:", emailError);
+    }
+
     return NextResponse.json({
       success: true,
       orderId: orderDoc._id,
