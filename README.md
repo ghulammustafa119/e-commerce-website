@@ -14,7 +14,8 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 | [TypeScript](https://www.typescriptlang.org/) | Type safety |
 | [Tailwind CSS](https://tailwindcss.com/) | Utility-first styling |
 | [Sanity CMS](https://www.sanity.io/) | Headless CMS for products, orders & reviews |
-| [Stripe](https://stripe.com/) | Credit/debit card payments |
+| [Stripe](https://stripe.com/) | Credit/debit card payments + webhooks |
+| [PayPal](https://www.paypal.com/) | PayPal payments |
 | [Clerk](https://clerk.com/) | Authentication (Sign in / Sign up) |
 | [Resend](https://resend.com/) | Transactional order confirmation emails |
 | [Sonner](https://sonner.emilkowal.dev/) | Toast notifications |
@@ -26,9 +27,10 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 ### Shopping Experience
 - **Product Catalog** — Browse products fetched dynamically from Sanity CMS
 - **Product Detail Page** — View images, select colors & sizes, adjust quantity
-- **Product Filters** — Filter by category, price range, colors, and sizes with live results
+- **Product Filters** — Filter by category, price range, colors, sizes, and dress style with live results
 - **Pagination** — Navigate through products with page-based pagination (9 per page)
 - **Search** — Real-time product search
+- **Dress Style Navigation** — Clickable dress style cards (Casual, Formal, Party, Gym) on homepage and brands page
 - **Related Products** — "You might also like" section showing same-category products from Sanity
 - **Wishlist** — Save favorite products with heart icon, persists in localStorage
 - **Shopping Cart** — Add/remove items, apply promo codes (`SAVE10` for 10% off)
@@ -41,7 +43,9 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 
 ### Checkout & Payments
 - **Credit/Debit Card (Stripe)** — Secure payments via Stripe hosted checkout
+- **PayPal** — Pay with PayPal account
 - **Cash on Delivery** — Place orders without online payment
+- **Stripe Webhook** — Automatic order status update to "paid" after successful payment
 - **Promo Codes** — Apply discount codes at checkout
 
 ### Reviews & Ratings
@@ -92,6 +96,7 @@ src/
 │   ├── cart-context.tsx      # Global cart state (localStorage)
 │   ├── wishlist-context.tsx  # Global wishlist state (localStorage)
 │   ├── shirts.tsx            # Product grid with filters & pagination
+│   ├── dressStyle.tsx         # Dress style filter (Casual, Formal, Party, Gym)
 │   ├── accordion.tsx         # Category filter (controlled)
 │   ├── slider.tsx            # Price range filter (controlled)
 │   ├── check-box.tsx         # Color filter (controlled)
@@ -158,6 +163,9 @@ SANITY_API_TOKEN=your_sanity_write_token
 STRIPE_SECRET_KEY=sk_test_your_key
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_key
 STRIPE_WEBHOOK_SECRET=whsec_your_key
+
+# PayPal
+NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_paypal_client_id
 
 # Clerk
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key
@@ -231,7 +239,7 @@ Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to mana
 
 Make sure to also:
 - Add your Vercel URL to Sanity CORS origins at [sanity.io/manage](https://www.sanity.io/manage)
-- Set up Stripe webhook endpoint pointing to `https://your-domain.com/api/webhook`
+- Set up Stripe webhook endpoint pointing to `https://your-domain.com/api/webhook` (listen for `checkout.session.completed`)
 - Update `NEXT_PUBLIC_BASE_URL` to your production URL
 
 ## License
