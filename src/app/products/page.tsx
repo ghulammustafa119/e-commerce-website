@@ -128,7 +128,7 @@ const Products = () => {
         })}
       </div>
       <div className="flex justify-center mt-8">
-        <Link href="/onsale">
+        <Link href="/onsale?new=true">
           <button className="border border-black/10 text-black text-base font-medium px-14 py-4 rounded-full hover:bg-gray-50 transition-colors">
             View All
           </button>
