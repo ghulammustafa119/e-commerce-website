@@ -90,9 +90,9 @@ export async function POST(req: Request) {
         price_data: {
           currency: "usd",
           product_data: { name: p.name },
-          unit_amount: Math.round(p.price * 100),
+          unit_amount: Math.round(Number(p.price) * 100),
         },
-        quantity: p.quantity,
+        quantity: Number(p.quantity) || 1,
       })),
       mode: "payment",
       success_url: `${origin}/checkout/success?orderId=${orderDoc._id}&session_id={CHECKOUT_SESSION_ID}`,
