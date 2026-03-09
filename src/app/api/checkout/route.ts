@@ -103,13 +103,7 @@ export async function POST(req: Request) {
       metadata: { orderId: orderDoc._id },
     });
 
-    // Send confirmation email
-    try {
-      const { sendOrderConfirmationEmail } = await import("@/lib/sendOrderEmail");
-      await sendOrderConfirmationEmail(orderDoc._id);
-    } catch (emailError) {
-      console.error("Failed to send confirmation email:", emailError);
-    }
+    // Email will be sent by Stripe webhook after payment is confirmed
 
     return NextResponse.json({
       success: true,
