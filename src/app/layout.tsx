@@ -21,7 +21,7 @@ export default function RootLayout({
     // @ts-expect-error Clerk async server component
     <ClerkProvider>
       <html lang="en">
-        <body className="font-satoshi">
+        <body className="font-satoshi overflow-x-hidden">
           <CartProvider>
           <WishlistProvider>
             <Toaster position="top-right" richColors />
