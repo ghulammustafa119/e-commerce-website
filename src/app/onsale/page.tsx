@@ -16,6 +16,7 @@ function OnsaleContent() {
   const searchQuery = searchParams.get("search") || "";
   const isNew = searchParams.get("new") === "true";
   const onSale = searchParams.get("sale") === "true";
+  const dressStyleParam = searchParams.get("dressStyle") || "";
   const [showFilters, setShowFilters] = useState(false);
 
   const [filters, setFilters] = useState<FilterState>({
@@ -23,14 +24,14 @@ function OnsaleContent() {
     priceRange: [0, 500],
     colors: [],
     sizes: [],
-    dressStyle: "",
+    dressStyle: dressStyleParam,
     isNew,
     onSale,
   });
 
   useEffect(() => {
-    setFilters((prev) => ({ ...prev, isNew, onSale }));
-  }, [isNew, onSale]);
+    setFilters((prev) => ({ ...prev, isNew, onSale, dressStyle: dressStyleParam }));
+  }, [isNew, onSale, dressStyleParam]);
 
   const handleCategoryChange = (category: string) => {
     setFilters((prev) => ({
