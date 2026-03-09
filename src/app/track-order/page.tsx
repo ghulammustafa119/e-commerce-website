@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
+import { toast } from "sonner";
 
 interface Order {
   _id: string;
@@ -36,6 +37,7 @@ function TrackOrderContent() {
   const [orderId, setOrderId] = useState(initialId);
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
   const [error, setError] = useState("");
 
   const fetchOrder = async (rawId: string) => {
@@ -66,6 +68,29 @@ function TrackOrderContent() {
       fetchOrder(initialId);
     }
   }, [initialId]);
+
+  const handleCancelOrder = async () => {
+    if (!order || !confirm("Are you sure you want to cancel this order?")) return;
+    setCancelling(true);
+    try {
+      const res = await fetch("/api/orders/cancel", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: order._id }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setOrder({ ...order, status: "cancelled" });
+        toast.success("Order cancelled successfully");
+      } else {
+        toast.error(data.error || "Failed to cancel order");
+      }
+    } catch {
+      toast.error("Failed to cancel order");
+    } finally {
+      setCancelling(false);
+    }
+  };
 
   const currentStep = order ? STATUSES.indexOf(order.status) : -1;
 
@@ -185,6 +210,17 @@ function TrackOrderContent() {
                   <p><span className="text-gray-500">Address:</span> {order.shippingForm.shippingAddress}</p>
                 </div>
               </div>
+            )}
+
+            {/* Cancel Order Button */}
+            {(order.status === "pending" || order.status === "paid") && (
+              <button
+                onClick={handleCancelOrder}
+                disabled={cancelling}
+                className="w-full py-3 rounded-full bg-red-500 text-white font-medium hover:bg-red-600 transition-colors disabled:opacity-50"
+              >
+                {cancelling ? "Cancelling..." : "Cancel Order"}
+              </button>
             )}
           </div>
         )}

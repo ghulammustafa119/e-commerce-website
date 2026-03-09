@@ -36,6 +36,7 @@ export default function Checkout() {
   const getOrderPayload = () => ({
     shipping: form,
     products: cartItems.map((item) => ({
+      id: item.id,
       name: item.name,
       price: item.price,
       quantity: item.quantity,

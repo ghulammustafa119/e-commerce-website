@@ -21,12 +21,23 @@ export async function POST(req: Request) {
       phoneNumber: shipping.phoneNumber,
     });
 
-    const orderProducts = products.map((p: { name: string; price: number; quantity: number }) => ({
+    const orderProducts = products.map((p: { name: string; price: number; quantity: number; id?: string }) => ({
       _key: crypto.randomUUID(),
       name: p.name,
       price: p.price,
       qty: p.quantity,
     }));
+
+    // Deduct stock for each product
+    for (const p of products) {
+      if (p.id) {
+        try {
+          await writeClient.patch(p.id).dec({ stock: Number(p.quantity) || 1 }).commit();
+        } catch (stockErr) {
+          console.error("Stock deduction error for", p.id, stockErr);
+        }
+      }
+    }
 
     // Cash on Delivery
     if (paymentMethod === "cod") {

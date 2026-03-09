@@ -83,7 +83,7 @@ const Footer = () => {
                 Help
               </h3>
               <ul className="space-y-4 text-base text-black/60">
-                <li>Customer Support</li>
+                <li><Link href="/contact" className="hover:text-black transition-colors">Customer Support</Link></li>
                 <li>Delivery Details</li>
                 <li>Terms & Conditions</li>
                 <li>Privacy Policy</li>

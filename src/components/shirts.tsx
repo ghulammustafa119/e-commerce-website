@@ -15,6 +15,7 @@ export interface FilterState {
   dressStyle: string;
   isNew?: boolean;
   onSale?: boolean;
+  sortBy?: string;
 }
 
 interface IProduct {
@@ -24,6 +25,7 @@ interface IProduct {
   name: string;
   description: string;
   price: number;
+  stock: number;
   _id: string;
 }
 
@@ -46,9 +48,10 @@ function renderStars(rating: number) {
 interface ShirtsProps {
   filters?: FilterState;
   searchQuery?: string;
+  onSortChange?: (sortBy: string) => void;
 }
 
-export default function Shirts({ filters, searchQuery }: ShirtsProps) {
+export default function Shirts({ filters, searchQuery, onSortChange }: ShirtsProps) {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -110,6 +113,12 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
           searchQuery: searchQuery ? `${searchQuery}*` : "",
         };
 
+        const sortBy = filters?.sortBy || "most-popular";
+        const orderClause = sortBy === "price-low" ? "order(price asc)"
+          : sortBy === "price-high" ? "order(price desc)"
+          : sortBy === "newest" ? "order(_createdAt desc)"
+          : "order(rating desc, name asc)";
+
         const [fetchedProducts, count] = await Promise.all([
           client.fetch(
             `*[${filterQuery}]{
@@ -119,8 +128,10 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
               name,
               description,
               price,
+              rating,
+              "stock": coalesce(stock, 100),
               _id
-            } | order(name asc) [$start...$end]`,
+            } | ${orderClause} [$start...$end]`,
             params
           ),
           client.fetch(`count(*[${filterQuery}])`, params),
@@ -166,7 +177,16 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
             Showing {Math.min((currentPage - 1) * PAGE_SIZE + 1, totalCount)}-{Math.min(currentPage * PAGE_SIZE, totalCount)} of {totalCount} Products
           </span>
           <span className="sm:hidden">{totalCount} products</span>
-          <span className="hidden md:inline">Sort by: <span className="text-black font-medium">Most Popular</span></span>
+          <select
+            className="hidden md:inline bg-transparent text-sm text-black/60 cursor-pointer outline-none"
+            value={filters?.sortBy || "most-popular"}
+            onChange={(e) => onSortChange?.(e.target.value)}
+          >
+            <option value="most-popular">Most Popular</option>
+            <option value="newest">Newest</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
         </div>
       </div>
 
@@ -179,7 +199,7 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
           {products.map((data) => (
             <div key={data._id}>
               <Link href={`/products/${data._id}`}>
-                <div className="w-full aspect-square bg-[#F0EEED] rounded-[20px] overflow-hidden">
+                <div className="w-full aspect-square bg-[#F0EEED] rounded-[20px] overflow-hidden relative">
                   {data.imageUrl ? (
                     <Image
                       src={urlFor(data.imageUrl).url()}
@@ -191,6 +211,11 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
                   ) : (
                     <div className="w-full h-full flex justify-center items-center bg-gray-300 rounded-[20px]">
                       <p>No Image</p>
+                    </div>
+                  )}
+                  {data.stock === 0 && (
+                    <div className="absolute inset-0 bg-black/40 rounded-[20px] flex items-center justify-center">
+                      <span className="bg-white text-black text-xs font-bold px-3 py-1.5 rounded-full">Out of Stock</span>
                     </div>
                   )}
                 </div>

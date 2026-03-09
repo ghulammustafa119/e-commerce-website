@@ -83,6 +83,13 @@ export default defineType({
       of: [{ type: "string" }],
     },
     {
+      name: "stock",
+      title: "Stock",
+      type: "number",
+      initialValue: 100,
+      validation: (Rule) => Rule.min(0),
+    },
+    {
       name: "rating",
       title: "Rating",
       type: "string",

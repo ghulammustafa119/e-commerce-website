@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { CartProvider } from "@/components/cart-context";
 import { WishlistProvider } from "@/components/wishlist-context";
+import { RecentlyViewedProvider } from "@/components/recently-viewed-context";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 
@@ -24,12 +25,14 @@ export default function RootLayout({
         <body className="font-satoshi overflow-x-hidden">
           <CartProvider>
           <WishlistProvider>
+          <RecentlyViewedProvider>
             <Toaster position="top-right" richColors />
             <div className="max-w-[95%] mx-auto">
               <Header />
               {children}
               <Footer />
             </div>
+          </RecentlyViewedProvider>
           </WishlistProvider>
           </CartProvider>
         </body>

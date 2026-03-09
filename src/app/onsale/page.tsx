@@ -145,7 +145,11 @@ function OnsaleContent() {
 
         {/* Main Content */}
         <div className="flex-1 min-w-0">
-          <Shirts filters={filters} searchQuery={searchQuery} />
+          <Shirts
+            filters={filters}
+            searchQuery={searchQuery}
+            onSortChange={(sortBy) => setFilters((prev) => ({ ...prev, sortBy }))}
+          />
         </div>
       </div>
     </div>
