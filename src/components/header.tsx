@@ -43,7 +43,7 @@ const Header = () => {
       <nav className="hidden lg:flex items-center space-x-6">
         <NavigationMenuDemo />
         <Link href="/onsale">On Sale</Link>
-        <Link href="/arrivals">New Arrivals</Link>
+        <Link href="/onsale?new=true">New Arrivals</Link>
         <Link href="/brands">Brands</Link>
       </nav>
 

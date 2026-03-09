@@ -23,7 +23,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "New Arrivals",
-    href: "/products",
+    href: "/onsale?new=true",
     description: "Check out the latest products added to our collection.",
   },
   {

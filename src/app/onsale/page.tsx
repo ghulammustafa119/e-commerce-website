@@ -14,6 +14,7 @@ import { SlidersHorizontal } from "lucide-react";
 function OnsaleContent() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
+  const isNew = searchParams.get("new") === "true";
   const [showFilters, setShowFilters] = useState(false);
 
   const [filters, setFilters] = useState<FilterState>({
@@ -22,6 +23,7 @@ function OnsaleContent() {
     colors: [],
     sizes: [],
     dressStyle: "",
+    isNew,
   });
 
   const handleCategoryChange = (category: string) => {
