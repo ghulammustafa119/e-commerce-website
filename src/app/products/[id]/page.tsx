@@ -309,7 +309,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <AllReviws productId={id} />
+      <AllReviws productId={id} productDescription={product?.description} />
       <Fashion category={product?.category} excludeId={product?._id} />
     </>
   );
