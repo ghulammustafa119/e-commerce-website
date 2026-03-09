@@ -384,9 +384,20 @@ const Page = () => {
               </button>
               <button
                 className="w-9 h-9 rounded-full bg-[#F0F0F0] flex items-center justify-center hover:bg-black hover:text-white transition-colors"
-                onClick={() => {
-                  navigator.clipboard.writeText(`${window.location.origin}/products/${product._id}`);
-                  toast.success("Link copied to clipboard!");
+                onClick={async () => {
+                  const url = `${window.location.origin}/products/${product._id}`;
+                  try {
+                    await navigator.clipboard.writeText(url);
+                    toast.success("Link copied to clipboard!");
+                  } catch {
+                    const input = document.createElement("input");
+                    input.value = url;
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(input);
+                    toast.success("Link copied to clipboard!");
+                  }
                 }}
                 aria-label="Copy link"
               >
