@@ -49,7 +49,7 @@ export function OrderConfirmationEmail({
               <tr key={i} style={{ borderBottom: "1px solid #eee" }}>
                 <td style={{ padding: "10px 0", color: "#666" }}>{product.name}</td>
                 <td style={{ textAlign: "center" as const, padding: "10px 0", color: "#666" }}>{product.qty}</td>
-                <td style={{ textAlign: "right" as const, padding: "10px 0", color: "#666" }}>${(product.price * product.qty).toFixed(2)}</td>
+                <td style={{ textAlign: "right" as const, padding: "10px 0", color: "#666" }}>${(Number(product.price) * Number(product.qty) || 0).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
@@ -57,7 +57,7 @@ export function OrderConfirmationEmail({
 
         <div style={{ borderTop: "2px solid #000", marginTop: "10px", paddingTop: "10px" }}>
           <p style={{ textAlign: "right" as const, fontWeight: "bold", fontSize: "18px", color: "#333" }}>
-            Total: ${total.toFixed(2)}
+            Total: ${(Number(total) || 0).toFixed(2)}
           </p>
         </div>
 

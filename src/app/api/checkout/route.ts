@@ -8,7 +8,9 @@ function getStripe() {
 
 export async function POST(req: Request) {
   try {
-    const { shipping, products, total, paymentMethod, paypalOrderId } = await req.json();
+    const body = await req.json();
+    const { shipping, products, paymentMethod, paypalOrderId } = body;
+    const total = Number(body.total) || products.reduce((sum: number, p: { price: number; quantity: number }) => sum + Number(p.price) * Number(p.quantity), 0);
 
     // Create shipping form document in Sanity
     const shippingDoc = await writeClient.create({
