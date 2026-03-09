@@ -120,7 +120,7 @@ export default function Checkout() {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 mb-16">
       <BreadcrumbDemo />
       <h1 className="font-integralcf text-2xl md:text-[40px] font-bold mt-4 mb-6">
         CHECKOUT
