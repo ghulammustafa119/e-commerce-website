@@ -40,17 +40,14 @@ export async function POST(req: Request) {
       });
 
       // Send confirmation email
-      let emailStatus = "not_sent";
       try {
         const { sendOrderConfirmationEmail } = await import("@/lib/sendOrderEmail");
         await sendOrderConfirmationEmail(orderDoc._id);
-        emailStatus = "sent";
       } catch (emailError) {
-        emailStatus = emailError instanceof Error ? emailError.message : "email_failed";
         console.error("Failed to send confirmation email:", emailError);
       }
 
-      return NextResponse.json({ success: true, orderId: orderDoc._id, emailStatus });
+      return NextResponse.json({ success: true, orderId: orderDoc._id });
     }
 
     // PayPal
