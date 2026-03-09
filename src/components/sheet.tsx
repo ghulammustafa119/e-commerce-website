@@ -30,7 +30,7 @@ export function SheetSide() {
             <ul>
               <li className="grid grid-cols-1 p-6 my-3 text-2xl gap-y-4">
                 <Link href={"/"}><NavigationMenuDemo /></Link>
-                <Link href={"/onsale"} className="ml-4">On Sale</Link>
+                <Link href={"/onsale?sale=true"} className="ml-4">On Sale</Link>
                 <Link href={"/onsale?new=true"} className="ml-4">New Arrivals</Link>
                 <Link href={"/brands"} className="ml-4">Brands</Link>
               </li>

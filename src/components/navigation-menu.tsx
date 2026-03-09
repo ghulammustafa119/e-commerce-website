@@ -18,7 +18,7 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "On Sale",
-    href: "/onsale",
+    href: "/onsale?sale=true",
     description: "Browse all products with filters, categories, and price ranges.",
   },
   {

@@ -15,6 +15,7 @@ function OnsaleContent() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search") || "";
   const isNew = searchParams.get("new") === "true";
+  const onSale = searchParams.get("sale") === "true";
   const [showFilters, setShowFilters] = useState(false);
 
   const [filters, setFilters] = useState<FilterState>({
@@ -24,6 +25,7 @@ function OnsaleContent() {
     sizes: [],
     dressStyle: "",
     isNew,
+    onSale,
   });
 
   const handleCategoryChange = (category: string) => {
