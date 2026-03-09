@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AccordionDemo } from "@/components/accordion";
 import { BreadcrumbDemo } from "@/components/breadcrumb";
@@ -27,6 +27,10 @@ function OnsaleContent() {
     isNew,
     onSale,
   });
+
+  useEffect(() => {
+    setFilters((prev) => ({ ...prev, isNew, onSale }));
+  }, [isNew, onSale]);
 
   const handleCategoryChange = (category: string) => {
     setFilters((prev) => ({
