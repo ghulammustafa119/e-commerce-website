@@ -10,7 +10,12 @@ const dressStyles = [
   { value: "gym", label: "Gym" },
 ];
 
-export function DressStyle() {
+interface DressStyleProps {
+  selectedStyle?: string;
+  onStyleChange?: (style: string) => void;
+}
+
+export function DressStyle({ selectedStyle, onStyleChange }: DressStyleProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -31,7 +36,12 @@ export function DressStyle() {
           {dressStyles.map((style) => (
             <button
               key={style.value}
-              className="flex items-center justify-between w-full py-2 text-black/60 hover:text-black transition-colors"
+              onClick={() => onStyleChange?.(style.value)}
+              className={`flex items-center justify-between w-full py-2 transition-colors ${
+                selectedStyle === style.value
+                  ? "text-black font-medium"
+                  : "text-black/60 hover:text-black"
+              }`}
             >
               <span className="text-base">{style.label}</span>
               <ChevronRight className="w-4 h-4" />

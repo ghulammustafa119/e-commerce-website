@@ -21,6 +21,7 @@ function OnsaleContent() {
     priceRange: [0, 500],
     colors: [],
     sizes: [],
+    dressStyle: "",
   });
 
   const handleCategoryChange = (category: string) => {
@@ -54,12 +55,20 @@ function OnsaleContent() {
     setFilters((prev) => ({ ...prev, priceRange: value }));
   };
 
+  const handleDressStyleChange = (style: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      dressStyle: prev.dressStyle === style ? "" : style,
+    }));
+  };
+
   const handleClearAll = () => {
     setFilters({
       categories: [],
       priceRange: [0, 500],
       colors: [],
       sizes: [],
+      dressStyle: "",
     });
   };
 
@@ -112,7 +121,10 @@ function OnsaleContent() {
               onSizeChange={handleSizeChange}
             />
             <div className="border-t border-black/10 my-2" />
-            <DressStyle />
+            <DressStyle
+              selectedStyle={filters.dressStyle}
+              onStyleChange={handleDressStyleChange}
+            />
             <button
               className="w-full bg-black text-white py-3 rounded-full text-sm font-medium mt-4"
               onClick={() => setShowFilters(false)}

@@ -58,6 +58,19 @@ export default defineType({
       initialValue: false,
     },
     {
+      name: "dressStyle",
+      title: "Dress Style",
+      type: "string",
+      options: {
+        list: [
+          { title: "Casual", value: "casual" },
+          { title: "Formal", value: "formal" },
+          { title: "Party", value: "party" },
+          { title: "Gym", value: "gym" },
+        ],
+      },
+    },
+    {
       name: "colors",
       title: "Colors",
       type: "array",

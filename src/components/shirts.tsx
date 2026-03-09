@@ -12,6 +12,7 @@ export interface FilterState {
   priceRange: [number, number];
   colors: string[];
   sizes: string[];
+  dressStyle: string;
 }
 
 interface IProduct {
@@ -65,6 +66,7 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
         const maxPrice = filters?.priceRange?.[1] ?? 500;
         const sizes = filters?.sizes || [];
         const colors = filters?.colors || [];
+        const dressStyle = filters?.dressStyle || "";
 
         let filterQuery = `_type == 'product'`;
 
@@ -81,6 +83,9 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
         if (colors.length > 0) {
           filterQuery += ` && count((colors[])[@ in $colors]) > 0`;
         }
+        if (dressStyle) {
+          filterQuery += ` && dressStyle == $dressStyle`;
+        }
 
         const start = (currentPage - 1) * PAGE_SIZE;
         const end = start + PAGE_SIZE;
@@ -91,6 +96,7 @@ export default function Shirts({ filters, searchQuery }: ShirtsProps) {
           maxPrice,
           sizes,
           colors,
+          dressStyle,
           start,
           end,
           searchQuery: searchQuery ? `${searchQuery}*` : "",
