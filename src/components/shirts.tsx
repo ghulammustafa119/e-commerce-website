@@ -26,6 +26,8 @@ interface IProduct {
   description: string;
   price: number;
   stock: number;
+  avgRating: number | null;
+  reviewCount: number;
   _id: string;
 }
 
@@ -128,7 +130,8 @@ export default function Shirts({ filters, searchQuery, onSortChange }: ShirtsPro
               name,
               description,
               price,
-              rating,
+              "avgRating": math::avg(*[_type == "review" && product._ref == ^._id].rating),
+              "reviewCount": count(*[_type == "review" && product._ref == ^._id]),
               "stock": coalesce(stock, 100),
               _id
             } | ${orderClause} [$start...$end]`,
@@ -223,8 +226,9 @@ export default function Shirts({ filters, searchQuery, onSortChange }: ShirtsPro
               <div className="mt-2">
                 <p className="text-sm md:text-lg font-bold">{data.name}</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <div className="flex">{renderStars(4.5)}</div>
-                  <span className="text-xs md:text-sm">4.5/<span className="text-black/60">5</span></span>
+                  <div className="flex">{renderStars(data.avgRating || 0)}</div>
+                  <span className="text-xs md:text-sm">{(data.avgRating || 0).toFixed(1)}/<span className="text-black/60">5</span></span>
+                  {data.reviewCount > 0 && <span className="text-xs text-black/40">({data.reviewCount})</span>}
                 </div>
                 <div className="flex items-center gap-2 mt-1">
                   <span className="text-base md:text-xl font-bold">

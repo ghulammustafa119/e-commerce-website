@@ -7,6 +7,8 @@ export interface IProduct {
   price: number;
   _id: string;
   rating: string;
+  avgRating: number | null;
+  reviewCount: number;
 }
 
 export interface IReviews {

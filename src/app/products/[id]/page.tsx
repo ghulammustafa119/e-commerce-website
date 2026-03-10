@@ -43,6 +43,8 @@ interface SanityProduct {
   imageUrl: string;
   category: string;
   stock: number;
+  avgRating: number | null;
+  reviewCount: number;
 }
 
 const Page = () => {
@@ -86,7 +88,9 @@ const Page = () => {
             description,
             "imageUrl": image.asset->url,
             category,
-            "stock": coalesce(stock, 100)
+            "stock": coalesce(stock, 100),
+            "avgRating": math::avg(*[_type == "review" && product._ref == ^._id].rating),
+            "reviewCount": count(*[_type == "review" && product._ref == ^._id])
           }`,
           { id }
         );
@@ -152,7 +156,7 @@ const Page = () => {
 
   // Create thumbnail array (using same image 3 times as placeholder since Sanity has single image)
   const thumbnails = productImageUrl ? [productImageUrl, productImageUrl, productImageUrl] : [];
-  const rating = 4.5;
+  const rating = product.avgRating || 0;
 
   return (
     <>
@@ -211,8 +215,11 @@ const Page = () => {
             <div className="flex items-center gap-3 mb-3">
               <div className="flex">{renderStars(rating)}</div>
               <span className="text-base">
-                {rating}/<span className="text-black/60">5</span>
+                {rating.toFixed(1)}/<span className="text-black/60">5</span>
               </span>
+              {product.reviewCount > 0 && (
+                <span className="text-sm text-black/40">({product.reviewCount} reviews)</span>
+              )}
             </div>
 
             {/* Price */}

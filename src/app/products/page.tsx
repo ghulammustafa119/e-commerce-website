@@ -40,6 +40,8 @@ const Products = () => {
             name,
             description,
             price,
+            "avgRating": math::avg(*[_type == "review" && product._ref == ^._id].rating),
+            "reviewCount": count(*[_type == "review" && product._ref == ^._id]),
             _id
           }[4...8]`
         );
@@ -80,7 +82,7 @@ const Products = () => {
           const productPrice = Number(product.price) || 0;
           const discountRate = product.discountPercent / 100;
           const originalPrice = discountRate > 0 && discountRate < 1 ? productPrice / (1 - discountRate) : 0;
-          const rating = 4.5;
+          const rating = product.avgRating || 0;
 
           return (
             <div key={product._id}>
