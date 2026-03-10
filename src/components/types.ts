@@ -6,7 +6,6 @@ export interface IProduct {
   description: string;
   price: number;
   _id: string;
-  rating: string;
   avgRating: number | null;
   reviewCount: number;
 }

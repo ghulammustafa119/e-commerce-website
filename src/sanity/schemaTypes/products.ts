@@ -89,14 +89,5 @@ export default defineType({
       initialValue: 100,
       validation: (Rule) => Rule.min(0),
     },
-    {
-      name: "rating",
-      title: "Rating",
-      type: "string",
-      validation: (Rule) => Rule.regex(/^\d+(\.\d+)?\/5$/, {
-        name: "rating",
-        invert: false,
-      }),
-    },
   ],
 });
