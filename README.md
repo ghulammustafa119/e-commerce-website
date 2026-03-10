@@ -26,7 +26,10 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 
 ### Shopping Experience
 - **Product Catalog** — Browse products fetched dynamically from Sanity CMS
-- **Product Detail Page** — View images, select colors & sizes, adjust quantity
+- **Product Detail Page** — View images, select colors & sizes, adjust quantity, size guide, social sharing
+- **Sort By** — Sort products by Most Popular, Newest, Price Low/High
+- **Stock Management** — Real-time stock status (In Stock, Low Stock, Out of Stock), quantity limits
+- **Recently Viewed** — Tracks and displays recently viewed products on product pages
 - **Product Filters** — Filter by category, price range, colors, sizes, and dress style with live results
 - **Pagination** — Navigate through products with page-based pagination (9 per page)
 - **Search** — Real-time product search
@@ -50,17 +53,20 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 
 ### Reviews & Ratings
 - **Submit Reviews** — Star rating selector with comment form on product pages
+- **Dynamic Ratings** — Real average ratings calculated from customer reviews (no hardcoded values)
 - **View Reviews** — Real reviews fetched from Sanity with average rating display
 - **Verified Badge** — Shows verified purchase indicator
 
 ### Order Management
 - **Order Tracking** — Visual status stepper (Pending → Paid → Processing → Shipped → Delivered)
+- **Order Cancellation** — Cancel pending/paid orders from tracking page
 - **Order History** — Look up past orders by email address
 - **Email Confirmation** — Automated order confirmation emails via Resend
 - **Admin Dashboard** — View stats (orders, revenue, pending, delivered) and manage order statuses
 
 ### Content Management
 - **Sanity Studio** — Built-in CMS at `/studio` for managing products, orders, reviews
+- **Contact Page** — Customer support form with Sanity storage
 - **Newsletter Subscription** — Stay updated with latest offers
 
 ## Project Structure
@@ -210,6 +216,7 @@ Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to mana
 | `/checkout/success` | Order confirmation page |
 | `/track-order` | Track order by Order ID |
 | `/orders` | Order history lookup by email |
+| `/contact` | Customer support contact form |
 | `/admin` | Admin dashboard for order management |
 | `/studio` | Sanity Studio CMS |
 
