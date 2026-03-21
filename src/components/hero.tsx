@@ -8,7 +8,7 @@ const Hero = () => {
       <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-col items-start bg-[#f2f0f1] md:flex-row md:justify-center md:px-20">
         {/* Left Content */}
         <div className="w-full md:w-[596px] text-center md:text-left md:mt-10 px-4 md:px-0">
-          <h1 className="font-integralcf text-[28px] sm:text-4xl font-bold leading-snug md:text-[64px] md:leading-[64px] md:w-[577px] md:mt-[88px]">
+          <h1 className="font-integralcf text-[28px] sm:text-4xl font-extrabold leading-snug md:text-[64px] md:leading-[64px] md:w-[577px] md:mt-[88px]">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
           <p className="text-sm mt-3 leading-relaxed md:text-base text-black/60 max-w-[545px]">
