@@ -79,7 +79,7 @@ const Fashion = ({ category, excludeId }: FashionProps) => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 mt-12 mb-16">
-      <h1 className="font-integralcf text-3xl md:text-[48px] font-bold text-center uppercase mb-10">
+      <h1 className="font-integralcf text-3xl md:text-[48px] font-extrabold text-center uppercase mb-10">
         You might also like
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

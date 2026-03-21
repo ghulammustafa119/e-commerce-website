@@ -60,7 +60,7 @@ export function CarouselDemo() {
       <div className="w-full flex justify-center items-center mt-10 mb-1 max-w-screen-xl mx-auto">
         <div className="w-[95%] md:w-[80%] p-3 md:p-0">
           <div className="flex justify-between items-center">
-            <h1 className="font-integralcf text-black text-3xl md:text-[48px] font-bold pt-4 text-center md:text-left">
+            <h1 className="font-integralcf text-black text-3xl md:text-[48px] font-extrabold pt-4 text-center md:text-left">
               OUR HAPPY CUSTOMERS
             </h1>
           </div>

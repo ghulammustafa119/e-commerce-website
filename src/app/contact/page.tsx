@@ -44,7 +44,7 @@ export default function ContactPage() {
         <BreadcrumbDemo />
       </div>
       <div className="max-w-screen-lg mx-auto px-4 py-8">
-        <h1 className="font-integralcf text-3xl md:text-4xl font-bold text-center mb-2">
+        <h1 className="font-integralcf text-3xl md:text-4xl font-extrabold text-center mb-2">
           CONTACT US
         </h1>
         <p className="text-center text-black/60 mb-10">

@@ -74,7 +74,7 @@ const Sell = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 mt-12">
-      <h1 className="font-integralcf text-3xl md:text-[48px] text-center font-bold">
+      <h1 className="font-integralcf text-3xl md:text-[48px] text-center font-extrabold">
         TOP SELLING
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">

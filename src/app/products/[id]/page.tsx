@@ -207,7 +207,7 @@ const Page = () => {
 
           {/* Right Column: Product Details */}
           <div className="flex-1">
-            <h1 className="font-integralcf text-2xl md:text-[40px] md:leading-[48px] font-bold mb-3">
+            <h1 className="font-integralcf text-2xl md:text-[40px] md:leading-[48px] font-extrabold mb-3">
               {product.name}
             </h1>
 
@@ -460,7 +460,7 @@ const Page = () => {
       {/* Recently Viewed */}
       {recentlyViewed.filter((item) => item.id !== product?._id).length > 0 && (
         <div className="max-w-screen-xl mx-auto px-4 py-8">
-          <h2 className="font-integralcf text-2xl md:text-[32px] font-bold text-center mb-8">
+          <h2 className="font-integralcf text-2xl md:text-[32px] font-extrabold text-center mb-8">
             RECENTLY VIEWED
           </h2>
           <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">

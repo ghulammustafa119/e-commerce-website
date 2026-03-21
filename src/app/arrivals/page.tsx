@@ -37,7 +37,7 @@ export default function Cart() {
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
       <BreadcrumbDemo />
-      <h1 className="font-integralcf text-2xl md:text-[40px] font-bold mt-4 mb-6">
+      <h1 className="font-integralcf text-2xl md:text-[40px] font-extrabold mt-4 mb-6">
         YOUR CART
       </h1>
 
