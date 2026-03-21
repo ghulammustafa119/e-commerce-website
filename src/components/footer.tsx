@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <>
       <Offers />
-      <div className="w-full bg-gray-100 text-black py-10 px-4 sm:px-10 md:px-20">
+      <div className="w-full max-w-screen-2xl mx-auto bg-gray-100 text-black py-10 px-4 sm:px-10 md:px-20">
         <div className="max-w-screen-xl mx-auto">
           {/* Main footer content */}
           <div className="flex flex-col md:flex-row md:justify-between gap-y-8">
