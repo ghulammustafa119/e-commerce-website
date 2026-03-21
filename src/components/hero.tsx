@@ -11,7 +11,7 @@ const Hero = () => {
           <h1 className="font-integralcf text-[28px] sm:text-4xl font-extrabold leading-snug md:text-[64px] md:leading-[64px] md:w-[577px] md:mt-[88px]">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
-          <p className="text-sm mt-3 leading-relaxed md:text-base text-black/60 max-w-[545px]">
+          <p className="text-xs sm:text-sm mt-3 leading-relaxed md:text-base text-black/60 max-w-[545px]">
             Browse through our diverse range of meticulously crafted garments,
             designed to bring out your individuality and cater to your sense of
             style.
