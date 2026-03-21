@@ -69,8 +69,8 @@ const Header = () => {
           />
         </div>
 
-        {/* Wishlist Icon */}
-        <Link href="/wishlist" className="relative" aria-label="Wishlist">
+        {/* Wishlist Icon (hidden on small mobile) */}
+        <Link href="/wishlist" className="relative hidden sm:block" aria-label="Wishlist">
           <AiOutlineHeart className="text-2xl" />
           {wishlistItems.length > 0 && (
             <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -94,8 +94,16 @@ const Header = () => {
           <UserButton />
         ) : (
           <SignInButton mode="modal">
-            <button type="button" className="bg-black text-white px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm whitespace-nowrap">
+            <button type="button" className="hidden sm:block bg-black text-white px-4 py-1.5 rounded-full text-sm whitespace-nowrap">
               Sign In
+            </button>
+          </SignInButton>
+        )}
+        {/* Mobile user icon for sign in */}
+        {!isLoaded ? null : !isSignedIn && (
+          <SignInButton mode="modal">
+            <button type="button" className="sm:hidden" aria-label="Sign In">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
             </button>
           </SignInButton>
         )}
