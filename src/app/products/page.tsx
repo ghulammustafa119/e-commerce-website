@@ -129,14 +129,14 @@ const Products = () => {
           );
         })}
       </div>
-      <div className="flex justify-center mt-6 px-4">
+      <div className="flex justify-center mt-6">
         <Link href="/onsale?new=true" className="w-full sm:w-[218px]">
           <button className="w-full border border-black/40 text-black text-sm font-medium py-3.5 rounded-full hover:bg-gray-50 transition-colors">
             View All
           </button>
         </Link>
       </div>
-      <div className="w-full h-px bg-black/10 mt-10" />
+      <div className="w-full h-px bg-black/10 mt-8" />
     </div>
   );
 };
