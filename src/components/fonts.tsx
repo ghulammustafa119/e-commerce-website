@@ -14,7 +14,7 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function Fonts() {
   return (
-    <div className="bg-black w-full h-auto py-5 sm:py-0 sm:h-[80px] md:h-[122px] flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-evenly gap-x-10 sm:gap-x-5 gap-y-4 px-6 sm:px-10 md:px-24 max-w-screen-2xl mx-auto">
+    <div className="bg-black w-full h-auto py-5 sm:py-0 sm:h-[80px] md:h-[122px] flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-evenly gap-x-6 sm:gap-x-5 gap-y-3 px-4 sm:px-10 md:px-24 max-w-screen-2xl mx-auto">
       <h1 className={`${playfair.className} text-xl sm:text-lg md:text-[32px] text-white font-bold`}>
         Versace
       </h1>
