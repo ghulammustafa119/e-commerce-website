@@ -39,7 +39,7 @@ const Hero = () => {
         </div>
 
         {/* Right Content - Images */}
-        <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0 relative">
+        <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0 relative overflow-hidden">
           <Image
             src="/images/couple.jpeg"
             alt="Couple wearing stylish clothes from Shop.co"
@@ -53,14 +53,14 @@ const Hero = () => {
             alt=""
             width={104}
             height={104}
-            className="absolute w-[76px] h-[76px] top-[53px] right-[26px] md:w-[104px] md:h-[104px] md:top-[15%] md:right-[8%]"
+            className="absolute w-[76px] h-[76px] top-[53px] right-[26px] md:w-[80px] md:h-[80px] lg:w-[104px] lg:h-[104px] md:top-[15%] md:right-[5%] lg:right-[8%]"
           />
           <Image
             src="/images/star.png"
             alt=""
             width={56}
             height={56}
-            className="absolute w-11 h-11 top-[141px] left-[26px] md:w-14 md:h-14 md:top-[55%] md:left-[8%]"
+            className="absolute w-11 h-11 top-[141px] left-[26px] md:w-12 md:h-12 lg:w-14 lg:h-14 md:top-[55%] md:left-[3%] lg:left-[8%]"
           />
         </div>
       </div>
