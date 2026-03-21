@@ -17,7 +17,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row md:justify-between gap-y-8">
             {/* Column 1 - Brand */}
             <div className="w-full md:w-[248px]">
-              <h2 className="font-integralcf text-[28px] md:text-[33px] font-bold mb-4">
+              <h2 className="font-integralcf text-[28px] md:text-[33px] font-extrabold mb-4">
                 SHOP.CO
               </h2>
               <p className="text-sm leading-[22px] text-black/60 mb-6">
