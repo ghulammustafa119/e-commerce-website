@@ -14,13 +14,13 @@ const Footer = () => {
       <div className="w-full bg-gray-100 text-black py-10 px-4 sm:px-10 md:px-20">
         <div className="max-w-screen-xl mx-auto">
           {/* Main footer content */}
-          <div className="flex flex-wrap justify-between gap-y-8">
+          <div className="flex flex-col md:flex-row md:justify-between gap-y-8">
             {/* Column 1 - Brand */}
-            <div className="w-full sm:w-[248px]">
-              <h2 className="font-integralcf text-[28px] md:text-[33px] font-bold mb-6">
+            <div className="w-full md:w-[248px]">
+              <h2 className="font-integralcf text-[28px] md:text-[33px] font-bold mb-4">
                 SHOP.CO
               </h2>
-              <p className="text-sm leading-[22px] text-black/60 mb-8">
+              <p className="text-sm leading-[22px] text-black/60 mb-6">
                 We have clothes that suits your style and which you&apos;re
                 proud to wear. From women to men.
               </p>
@@ -64,56 +64,59 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Column 2 - Company */}
-            <div>
-              <h3 className="text-base font-medium uppercase tracking-[3px] mb-6">
-                Company
-              </h3>
-              <ul className="space-y-4 text-base text-black/60">
-                <li>About</li>
-                <li>Features</li>
-                <li>Works</li>
-                <li>Career</li>
-              </ul>
-            </div>
+            {/* Footer Links - 2x2 grid on mobile, row on desktop */}
+            <div className="grid grid-cols-2 md:flex md:gap-x-16 lg:gap-x-24 gap-y-8">
+              {/* Column 2 - Company */}
+              <div>
+                <h3 className="text-base font-medium uppercase tracking-[3px] mb-4 md:mb-6">
+                  Company
+                </h3>
+                <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-black/60">
+                  <li>About</li>
+                  <li>Features</li>
+                  <li>Works</li>
+                  <li>Career</li>
+                </ul>
+              </div>
 
-            {/* Column 3 - Help */}
-            <div>
-              <h3 className="text-base font-medium uppercase tracking-[3px] mb-6">
-                Help
-              </h3>
-              <ul className="space-y-4 text-base text-black/60">
-                <li><Link href="/contact" className="hover:text-black transition-colors">Customer Support</Link></li>
-                <li>Delivery Details</li>
-                <li>Terms & Conditions</li>
-                <li>Privacy Policy</li>
-              </ul>
-            </div>
+              {/* Column 3 - Help */}
+              <div>
+                <h3 className="text-base font-medium uppercase tracking-[3px] mb-4 md:mb-6">
+                  Help
+                </h3>
+                <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-black/60">
+                  <li><Link href="/contact" className="hover:text-black transition-colors">Customer Support</Link></li>
+                  <li>Delivery Details</li>
+                  <li>Terms & Conditions</li>
+                  <li>Privacy Policy</li>
+                </ul>
+              </div>
 
-            {/* Column 4 - FAQ */}
-            <div>
-              <h3 className="text-base font-medium uppercase tracking-[3px] mb-6">
-                FAQ
-              </h3>
-              <ul className="space-y-4 text-base text-black/60">
-                <li>Account</li>
-                <li>Manage Deliveries</li>
-                <li>Orders</li>
-                <li>Payments</li>
-              </ul>
-            </div>
+              {/* Column 4 - FAQ */}
+              <div>
+                <h3 className="text-base font-medium uppercase tracking-[3px] mb-4 md:mb-6">
+                  FAQ
+                </h3>
+                <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-black/60">
+                  <li>Account</li>
+                  <li>Manage Deliveries</li>
+                  <li>Orders</li>
+                  <li>Payments</li>
+                </ul>
+              </div>
 
-            {/* Column 5 - Resources */}
-            <div>
-              <h3 className="text-base font-medium uppercase tracking-[3px] mb-6">
-                Resources
-              </h3>
-              <ul className="space-y-4 text-base text-black/60">
-                <li>Free eBooks</li>
-                <li>Development Tutorial</li>
-                <li>How to - Blog</li>
-                <li>Youtube Playlist</li>
-              </ul>
+              {/* Column 5 - Resources */}
+              <div>
+                <h3 className="text-base font-medium uppercase tracking-[3px] mb-4 md:mb-6">
+                  Resources
+                </h3>
+                <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-black/60">
+                  <li>Free eBooks</li>
+                  <li>Development Tutorial</li>
+                  <li>How to - Blog</li>
+                  <li>Youtube Playlist</li>
+                </ul>
+              </div>
             </div>
           </div>
 
