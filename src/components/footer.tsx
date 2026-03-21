@@ -1,6 +1,6 @@
 import React from "react";
-import { FaFacebook } from "react-icons/fa";
-import { CiTwitter } from "react-icons/ci";
+import { FaFacebookF } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaGithub } from "react-icons/fa6";
 import Image from "next/image";
@@ -32,7 +32,7 @@ const Footer = () => {
                   aria-label="Twitter"
                   className="w-7 h-7 bg-white border border-black/20 rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors"
                 >
-                  <CiTwitter className="w-3.5 h-3.5" />
+                  <FaTwitter className="w-3.5 h-3.5" />
                 </Link>
                 <Link
                   href="https://facebook.com"
@@ -41,7 +41,7 @@ const Footer = () => {
                   aria-label="Facebook"
                   className="w-7 h-7 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-colors"
                 >
-                  <FaFacebook className="w-3.5 h-3.5" />
+                  <FaFacebookF className="w-3.5 h-3.5" />
                 </Link>
                 <Link
                   href="https://instagram.com"
