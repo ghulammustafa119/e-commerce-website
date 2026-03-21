@@ -32,7 +32,7 @@ const Header = () => {
   return (
     <>
     <HeaderTop/>
-    <header className="w-full h-[80px] max-w-screen-2xl mx-auto flex justify-between items-center px-4 md:px-8">
+    <header className="w-full h-[80px] max-w-screen-2xl mx-auto flex justify-between items-center px-2 sm:px-4 md:px-8 overflow-hidden">
       {/* Left Section */}
       <div className="flex items-center space-x-4">
         <SheetSide />
@@ -48,7 +48,7 @@ const Header = () => {
       </nav>
 
       {/* Right Section */}
-      <div className="flex items-center space-x-4 mr-2 lg:mr-10">
+      <div className="flex items-center space-x-2 sm:space-x-4 lg:mr-10">
         {/* Mobile/Tablet Search Icon */}
         <button type="button" aria-label="Search" className="lg:hidden">
           <IoSearch className="text-xl" />
@@ -94,7 +94,7 @@ const Header = () => {
           <UserButton />
         ) : (
           <SignInButton mode="modal">
-            <button type="button" className="bg-black text-white px-4 py-1.5 rounded-full text-sm">
+            <button type="button" className="bg-black text-white px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm whitespace-nowrap">
               Sign In
             </button>
           </SignInButton>
