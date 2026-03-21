@@ -57,7 +57,7 @@ const renderStars = (rating: number) => {
 export function CarouselDemo() {
   return (
     <main className="mt-14">
-      <div className="w-full flex justify-center items-center mt-10 mb-1 max-w-screen-xl mx-auto">
+      <div className="w-full flex justify-center items-center mt-10 mb-1 max-w-screen-2xl mx-auto px-4 md:px-20">
         <div className="w-[95%] md:w-[80%] p-3 md:p-0">
           <div className="flex justify-between items-center">
             <h1 className="font-integralcf text-black text-3xl md:text-[48px] font-extrabold pt-4 text-center md:text-left">

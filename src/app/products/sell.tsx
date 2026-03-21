@@ -73,7 +73,7 @@ const Sell = () => {
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 mt-12">
+    <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 md:px-20 mt-12">
       <h1 className="font-integralcf text-3xl md:text-[48px] text-center font-extrabold">
         TOP SELLING
       </h1>

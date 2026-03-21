@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Dress() {
   return (
-    <div className="w-full flex justify-center items-center mt-16 mb-4 max-w-screen-xl mx-auto px-4">
+    <div className="w-full flex justify-center items-center mt-16 mb-4 max-w-screen-2xl mx-auto px-4 md:px-20">
       <div className="w-full bg-[#F0F0F0] rounded-[20px] md:rounded-[40px] px-4 sm:px-6 md:px-16 py-8 md:py-16">
         <h1 className="font-integralcf text-2xl md:text-[48px] font-extrabold text-center">
           BROWSE BY DRESS STYLE
