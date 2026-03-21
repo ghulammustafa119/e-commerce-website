@@ -129,9 +129,9 @@ const Products = () => {
           );
         })}
       </div>
-      <div className="flex justify-center mt-8">
-        <Link href="/onsale?new=true">
-          <button className="border border-black/20 text-black text-base font-medium w-full sm:w-auto px-14 py-4 rounded-full hover:bg-gray-50 transition-colors">
+      <div className="flex justify-center mt-6 px-4">
+        <Link href="/onsale?new=true" className="w-full sm:w-[218px]">
+          <button className="w-full border border-black/40 text-black text-sm font-medium py-3.5 rounded-full hover:bg-gray-50 transition-colors">
             View All
           </button>
         </Link>
