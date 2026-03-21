@@ -5,10 +5,10 @@ const Hero = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-col items-start bg-[#f2f0f1] md:flex-row md:justify-center md:px-20">
+      <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-col items-start bg-[#f2f0f1] md:flex-row md:justify-center md:px-10 lg:px-20">
         {/* Left Content */}
-        <div className="w-full md:w-[596px] text-center md:text-left md:mt-10 px-4 md:px-0">
-          <h1 className="font-integralcf text-[28px] sm:text-4xl font-extrabold leading-snug md:text-[64px] md:leading-[64px] md:w-[577px] md:mt-[88px]">
+        <div className="w-full md:w-1/2 text-center md:text-left md:mt-10 px-4 md:px-0">
+          <h1 className="font-integralcf text-[28px] sm:text-4xl font-extrabold leading-snug md:text-[40px] md:leading-[44px] lg:text-[64px] lg:leading-[64px] md:mt-[88px]">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
           <p className="text-xs sm:text-sm mt-3 leading-relaxed md:text-base text-black/60 max-w-[545px]">
@@ -53,20 +53,17 @@ const Hero = () => {
             alt=""
             width={104}
             height={104}
-            className="absolute w-[76px] h-[76px] top-[53px] right-[26px] md:w-[80px] md:h-[80px] lg:w-[104px] lg:h-[104px] md:top-[15%] md:right-[5%] lg:right-[8%]"
+            className="absolute w-[76px] h-[76px] top-[53px] right-[26px] md:w-[60px] md:h-[60px] lg:w-[104px] lg:h-[104px] md:top-[15%] md:right-[5%] lg:right-[8%]"
           />
           <Image
             src="/images/star.png"
             alt=""
             width={56}
             height={56}
-            className="absolute w-11 h-11 top-[141px] left-[26px] md:w-12 md:h-12 lg:w-14 lg:h-14 md:top-[55%] md:left-[3%] lg:left-[8%]"
+            className="absolute w-11 h-11 top-[141px] left-[26px] md:w-9 md:h-9 lg:w-14 lg:h-14 md:top-[55%] md:left-[3%] lg:left-[8%]"
           />
         </div>
       </div>
-
-
-
     </>
   );
 };
