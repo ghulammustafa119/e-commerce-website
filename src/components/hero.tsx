@@ -17,7 +17,7 @@ const Hero = () => {
             style.
           </p>
           <Link href="/onsale">
-            <button className="bg-black text-white text-sm px-14 py-3.5 mt-6 w-full rounded-full md:text-base md:w-[210px] md:mt-4">
+            <button className="bg-black text-white text-sm px-14 py-3.5 mt-6 mb-6 md:mb-12 w-full rounded-full md:text-base md:w-[210px] md:mt-4">
               Shop Now
             </button>
           </Link>
