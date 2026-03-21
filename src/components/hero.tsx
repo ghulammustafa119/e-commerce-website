@@ -7,8 +7,8 @@ const Hero = () => {
       {/* Hero Section */}
       <div className="w-full h-auto max-w-screen-2xl mx-auto flex flex-col items-start bg-[#f2f0f1] md:flex-row md:justify-center md:px-10 lg:px-20">
         {/* Left Content */}
-        <div className="w-full md:w-1/2 text-center md:text-left md:mt-10 px-4 md:px-0">
-          <h1 className="font-integralcf text-[28px] sm:text-4xl font-extrabold leading-snug md:text-[40px] md:leading-[44px] lg:text-[64px] lg:leading-[64px] md:mt-[88px]">
+        <div className="w-full md:w-[55%] lg:w-[60%] text-center md:text-left md:mt-10 px-4 md:px-0">
+          <h1 className="font-integralcf text-[28px] sm:text-4xl font-extrabold leading-snug md:text-[40px] md:leading-[44px] lg:text-[64px] lg:leading-[64px] lg:max-w-[577px] md:mt-[88px]">
             FIND CLOTHES THAT MATCHES YOUR STYLE
           </h1>
           <p className="text-xs sm:text-sm mt-3 leading-relaxed md:text-base text-black/60 max-w-[545px]">
@@ -39,7 +39,7 @@ const Hero = () => {
         </div>
 
         {/* Right Content - Images */}
-        <div className="w-full md:w-1/2 flex justify-center mt-8 md:mt-0 relative overflow-hidden">
+        <div className="w-full md:w-[45%] lg:w-[40%] flex justify-center mt-8 md:mt-0 relative overflow-hidden">
           <Image
             src="/images/couple.jpeg"
             alt="Couple wearing stylish clothes from Shop.co"
