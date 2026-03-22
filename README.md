@@ -63,7 +63,7 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 - **Order Cancellation** — Cancel pending/paid orders from tracking page
 - **Order History** — Look up past orders by email address
 - **Email Confirmation** — Automated order confirmation emails via Resend
-- **Admin Dashboard** — Tabbed UI (Orders | Products) with stats, order status management, and full product CRUD (add, edit, delete with image upload)
+- **Admin Dashboard** — Tabbed UI (Orders | Products) with stats, order status management, and full product CRUD (add, edit, delete with image upload), search, category filter, and pagination
 
 ### Content Management
 - **Sanity Studio** — Built-in CMS at `/studio` for managing products, orders, reviews
