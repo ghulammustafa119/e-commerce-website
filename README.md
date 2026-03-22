@@ -36,7 +36,8 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 - **Dress Style Navigation** — Clickable dress style cards (Casual, Formal, Party, Gym) on homepage and brands page
 - **Related Products** — "You might also like" section showing same-category products from Sanity
 - **Wishlist** — Save favorite products with heart icon, persists in localStorage
-- **Shopping Cart** — Add/remove items, apply promo codes (`SAVE10` for 10% off)
+- **Shopping Cart** — Add/remove items, apply promo codes
+- **Dual Discount System** — Welcome 20% off for new users (first order) + promo codes (e.g., `SAVE10`), higher discount wins, real Stripe coupons
 - **Toast Notifications** — Beautiful toast alerts for all actions (add to cart, wishlist, errors)
 - **Responsive Design** — Fully optimized for mobile, tablet, and desktop
 
@@ -84,6 +85,7 @@ src/
 │   ├── track-order/          # Order tracking page
 │   ├── orders/               # Order history lookup
 │   ├── admin/                # Admin dashboard
+│   ├── contact/              # Contact support page
 │   ├── onsale/               # Product listing with filters & pagination
 │   ├── products/
 │   │   ├── page.tsx          # New Arrivals section
@@ -95,11 +97,12 @@ src/
 │   │   ├── reviews/          # Reviews API (GET + POST)
 │   │   ├── track-order/      # Order tracking API
 │   │   ├── orders/           # Order history API
+│   │   ├── validate-discount/ # Discount validation (welcome + promo codes)
 │   │   └── admin/            # Admin order management APIs
 │   └── studio/               # Sanity Studio
 ├── components/
 │   ├── header.tsx            # Header with nav, search, wishlist, cart, auth
-│   ├── cart-context.tsx      # Global cart state (localStorage)
+│   ├── cart-context.tsx      # Global cart state + discount (localStorage)
 │   ├── wishlist-context.tsx  # Global wishlist state (localStorage)
 │   ├── shirts.tsx            # Product grid with filters & pagination
 │   ├── dressStyle.tsx         # Dress style filter (Casual, Formal, Party, Gym)
@@ -210,7 +213,7 @@ Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to mana
 | `/products` | All products listing |
 | `/products/[id]` | Product detail with reviews, wishlist, related products |
 | `/onsale` | Product listing with filters & pagination |
-| `/arrivals` | Shopping cart with promo codes |
+| `/arrivals` | Shopping cart with promo codes & welcome discount |
 | `/wishlist` | Saved wishlist items |
 | `/checkout` | Checkout with Stripe and COD |
 | `/checkout/success` | Order confirmation page |
