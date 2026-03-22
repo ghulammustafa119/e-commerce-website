@@ -14,9 +14,9 @@ const Footer = () => {
       <div className="w-full max-w-screen-2xl mx-auto bg-gray-100 text-black pt-28 pb-10 px-4 sm:px-10 md:px-20">
         <div className="max-w-screen-2xl mx-auto">
           {/* Main footer content */}
-          <div className="flex flex-col md:flex-row md:justify-between gap-y-8">
+          <div className="flex flex-col lg:flex-row lg:justify-between gap-y-8">
             {/* Column 1 - Brand */}
-            <div className="w-full md:w-[248px]">
+            <div className="w-full lg:w-[248px]">
               <h2 className="font-integralcf text-[28px] md:text-[33px] font-extrabold mb-4">
                 SHOP.CO
               </h2>
@@ -65,7 +65,7 @@ const Footer = () => {
             </div>
 
             {/* Footer Links - 2x2 grid on mobile, row on desktop */}
-            <div className="grid grid-cols-2 md:flex md:gap-x-16 lg:gap-x-24 gap-y-8">
+            <div className="grid grid-cols-2 lg:flex lg:gap-x-16 xl:gap-x-24 gap-y-8">
               {/* Column 2 - Company */}
               <div>
                 <h3 className="text-base font-medium uppercase tracking-[3px] mb-4 md:mb-6">
