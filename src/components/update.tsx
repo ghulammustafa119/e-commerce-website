@@ -41,7 +41,7 @@ export default function UpdateOffers() {
     <main className="w-full max-w-screen-2xl mx-auto flex justify-center items-center px-4 md:px-20 relative z-10 mb-[-80px]">
       <div className="w-full max-w-screen-2xl rounded-[20px] px-6 sm:px-10 md:px-16 py-8 md:py-9 bg-black flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="w-full md:w-[551px]">
-          <h1 className="font-integralcf text-2xl md:text-[40px] md:leading-[45px] text-white font-extrabold">
+          <h1 className="font-integralcf text-[26px] leading-[32px] md:text-[40px] md:leading-[45px] text-white font-extrabold">
             STAY UPTO DATE ABOUT OUR LATEST OFFERS
           </h1>
         </div>
