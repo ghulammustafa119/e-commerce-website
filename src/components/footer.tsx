@@ -14,13 +14,13 @@ const Footer = () => {
       <div className="w-full bg-[#F0F0F0] text-black pt-28 pb-10">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-10 md:px-20">
           {/* Main footer content */}
-          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-y-8">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-stretch gap-y-8">
             {/* Column 1 - Brand */}
-            <div className="w-full md:w-[248px] md:shrink-0">
+            <div className="w-full md:w-[248px] md:shrink-0 flex flex-col">
               <h2 className="font-integralcf text-[28px] md:text-[33px] font-extrabold mb-4 leading-none">
                 SHOP.CO
               </h2>
-              <p className="text-sm leading-[22px] text-black/60 mb-6">
+              <p className="text-sm leading-[22px] text-black/60 mb-6 flex-1">
                 We have clothes that suits your style and which you&apos;re
                 proud to wear. From women to men.
               </p>
