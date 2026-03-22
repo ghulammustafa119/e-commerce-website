@@ -63,7 +63,7 @@ A modern, fully responsive e-commerce fashion store built with **Next.js 14**, *
 - **Order Cancellation** — Cancel pending/paid orders from tracking page
 - **Order History** — Look up past orders by email address
 - **Email Confirmation** — Automated order confirmation emails via Resend
-- **Admin Dashboard** — View stats (orders, revenue, pending, delivered) and manage order statuses
+- **Admin Dashboard** — Tabbed UI (Orders | Products) with stats, order status management, and full product CRUD (add, edit, delete with image upload)
 
 ### Content Management
 - **Sanity Studio** — Built-in CMS at `/studio` for managing products, orders, reviews
@@ -98,7 +98,7 @@ src/
 │   │   ├── track-order/      # Order tracking API
 │   │   ├── orders/           # Order history API
 │   │   ├── validate-discount/ # Discount validation (welcome + promo codes)
-│   │   └── admin/            # Admin order management APIs
+│   │   └── admin/            # Admin APIs (orders + product CRUD)
 │   └── studio/               # Sanity Studio
 ├── components/
 │   ├── header.tsx            # Header with nav, search, wishlist, cart, auth
@@ -220,7 +220,7 @@ Navigate to [http://localhost:3000/studio](http://localhost:3000/studio) to mana
 | `/track-order` | Track order by Order ID |
 | `/orders` | Order history lookup by email |
 | `/contact` | Customer support contact form |
-| `/admin` | Admin dashboard for order management |
+| `/admin` | Admin dashboard (orders + product management) |
 | `/studio` | Sanity Studio CMS |
 
 ## Testing
