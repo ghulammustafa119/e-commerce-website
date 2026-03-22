@@ -265,6 +265,8 @@ const emptyForm = {
   sizes: [] as string[],
 };
 
+const PRODUCTS_PER_PAGE = 10;
+
 function ProductsSection() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -276,6 +278,11 @@ function ProductsSection() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Search, filter, pagination
+  const [search, setSearch] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchProducts = async () => {
     try {
@@ -405,6 +412,19 @@ function ProductsSection() {
     }
   };
 
+  // Filtered & paginated products
+  const filtered = products.filter((p) => {
+    const matchesSearch = !search || p.name.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = !filterCategory || p.category === filterCategory;
+    return matchesSearch && matchesCategory;
+  });
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginated = filtered.slice(
+    (safePage - 1) * PRODUCTS_PER_PAGE,
+    safePage * PRODUCTS_PER_PAGE
+  );
+
   if (loading) {
     return <p className="text-center py-10 text-lg font-medium">Loading products...</p>;
   }
@@ -431,6 +451,33 @@ function ProductsSection() {
           {showForm && !editingId ? "Cancel" : "+ Add Product"}
         </button>
       </div>
+
+      {/* Search + Category Filter */}
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => { setSearch(e.target.value); setCurrentPage(1); }}
+          placeholder="Search products..."
+          className="flex-1 border border-black/10 rounded-full px-4 py-2.5 outline-none focus:border-black text-sm"
+        />
+        <select
+          value={filterCategory}
+          onChange={(e) => { setFilterCategory(e.target.value); setCurrentPage(1); }}
+          className="border border-black/10 rounded-full px-4 py-2.5 outline-none focus:border-black bg-white text-sm min-w-[150px]"
+        >
+          <option value="">All Categories</option>
+          {CATEGORIES.map((c) => (
+            <option key={c.value} value={c.value}>{c.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Results info */}
+      <p className="text-xs text-black/50 mb-3">
+        Showing {paginated.length} of {filtered.length} products
+        {search || filterCategory ? " (filtered)" : ""}
+      </p>
 
       {/* Add/Edit Form */}
       {showForm && (
@@ -643,14 +690,14 @@ function ProductsSection() {
               </tr>
             </thead>
             <tbody>
-              {products.length === 0 ? (
+              {paginated.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="text-center py-10 text-gray-500">
-                    No products yet. Add your first product!
+                    {products.length === 0 ? "No products yet. Add your first product!" : "No products match your search."}
                   </td>
                 </tr>
               ) : (
-                products.map((product) => (
+                paginated.map((product) => (
                   <tr key={product._id} className="border-t hover:bg-gray-50">
                     <td className="px-4 py-3">
                       {product.imageUrl ? (
@@ -718,6 +765,39 @@ function ProductsSection() {
           </table>
         </div>
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={safePage <= 1}
+            className="px-4 py-2 rounded-full text-sm font-medium border border-black/10 disabled:opacity-30 hover:bg-black/5"
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`w-9 h-9 rounded-full text-sm font-medium ${
+                page === safePage
+                  ? "bg-black text-white"
+                  : "border border-black/10 hover:bg-black/5"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={safePage >= totalPages}
+            className="px-4 py-2 rounded-full text-sm font-medium border border-black/10 disabled:opacity-30 hover:bg-black/5"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </>
   );
 }
