@@ -38,14 +38,13 @@ export async function POST(req: Request) {
         });
 
         if (promoCodes.data.length > 0) {
-          const promotion = promoCodes.data[0].promotion;
-          if (promotion.type === "coupon" && promotion.coupon && typeof promotion.coupon !== "string") {
-            const coupon = promotion.coupon;
-            if (coupon.percent_off) {
-              promoDiscount = coupon.percent_off;
-              stripeCouponId = coupon.id;
-              promoLabel = promoCode.toUpperCase();
-            }
+          const pc = promoCodes.data[0] as Stripe.PromotionCode & { coupon?: Stripe.Coupon };
+          // Handle both SDK structures: promotion.coupon (v20+) or direct coupon
+          const coupon = pc.promotion?.coupon || pc.coupon;
+          if (coupon && typeof coupon !== "string" && coupon.percent_off) {
+            promoDiscount = coupon.percent_off;
+            stripeCouponId = coupon.id;
+            promoLabel = promoCode.toUpperCase();
           }
         }
       } catch (err) {
