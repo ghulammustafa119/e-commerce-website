@@ -38,13 +38,24 @@ export async function POST(req: Request) {
         });
 
         if (promoCodes.data.length > 0) {
-          const pc = promoCodes.data[0] as Stripe.PromotionCode & { coupon?: Stripe.Coupon };
-          // Handle both SDK structures: promotion.coupon (v20+) or direct coupon
-          const coupon = pc.promotion?.coupon || pc.coupon;
-          if (coupon && typeof coupon !== "string" && coupon.percent_off) {
-            promoDiscount = coupon.percent_off;
-            stripeCouponId = coupon.id;
-            promoLabel = promoCode.toUpperCase();
+          const pc = promoCodes.data[0];
+          const couponRef = pc.promotion?.coupon;
+
+          if (couponRef) {
+            // couponRef can be a string (coupon ID) or full Coupon object
+            if (typeof couponRef === "string") {
+              // Fetch the full coupon to get percent_off
+              const fullCoupon = await stripe.coupons.retrieve(couponRef);
+              if (fullCoupon.valid && fullCoupon.percent_off) {
+                promoDiscount = fullCoupon.percent_off;
+                stripeCouponId = fullCoupon.id;
+                promoLabel = promoCode.toUpperCase();
+              }
+            } else if (couponRef.percent_off) {
+              promoDiscount = couponRef.percent_off;
+              stripeCouponId = couponRef.id;
+              promoLabel = promoCode.toUpperCase();
+            }
           }
         }
       } catch (err) {
