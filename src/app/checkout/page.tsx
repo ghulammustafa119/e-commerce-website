@@ -10,7 +10,7 @@ import { toast } from "sonner";
 type PaymentMethod = "card" | "paypal" | "cod";
 
 export default function Checkout() {
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, clearCart, discount } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
@@ -22,8 +22,10 @@ export default function Checkout() {
   });
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const discountPercent = discount?.percent || 0;
+  const discountAmount = subtotal * (discountPercent / 100);
   const deliveryFee = cartItems.length > 0 ? 15 : 0;
-  const total = subtotal + deliveryFee;
+  const total = subtotal - discountAmount + deliveryFee;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,7 +43,12 @@ export default function Checkout() {
       price: item.price,
       quantity: item.quantity,
     })),
-    total: subtotal,
+    total: subtotal - discountAmount,
+    discount: discount ? {
+      type: discount.type,
+      percent: discount.percent,
+      couponId: discount.couponId,
+    } : null,
   });
 
   const handleStripePayment = async (e: React.FormEvent) => {
@@ -231,6 +238,12 @@ export default function Checkout() {
               <span className="text-black/60">Subtotal</span>
               <span className="font-bold">${subtotal.toFixed(2)}</span>
             </div>
+            {discount && (
+              <div className="flex justify-between text-base">
+                <span className="text-black/60">Discount (-{discountPercent}%)</span>
+                <span className="font-bold text-[#FF3333]">-${discountAmount.toFixed(2)}</span>
+              </div>
+            )}
             <div className="flex justify-between text-base">
               <span className="text-black/60">Delivery</span>
               <span className="font-bold">${deliveryFee.toFixed(2)}</span>

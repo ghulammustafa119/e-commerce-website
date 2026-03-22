@@ -2,9 +2,10 @@
 
 import { BreadcrumbDemo } from "@/components/breadcrumb";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/components/cart-context";
+import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { FiMinus } from "react-icons/fi";
 import { FaPlus } from "react-icons/fa6";
@@ -13,25 +14,99 @@ import { MdLocalOffer } from "react-icons/md";
 import { IoArrowForward } from "react-icons/io5";
 
 export default function Cart() {
-  const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const { cartItems, removeFromCart, updateQuantity, discount, setDiscount } = useCart();
+  const { user } = useUser();
   const [promoCode, setPromoCode] = useState("");
-  const [discountApplied, setDiscountApplied] = useState(false);
+  const [promoLoading, setPromoLoading] = useState(false);
   const router = useRouter();
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const discountPercent = discountApplied ? 10 : 0;
-  const discount = subtotal * (discountPercent / 100);
+  const discountPercent = discount?.percent || 0;
+  const discountAmount = subtotal * (discountPercent / 100);
   const deliveryFee = cartItems.length > 0 ? 15 : 0;
-  const total = subtotal - discount + deliveryFee;
+  const total = subtotal - discountAmount + deliveryFee;
 
-  const handleApplyPromo = () => {
-    if (promoCode.toUpperCase() === "SAVE10") {
-      setDiscountApplied(true);
-      toast.success("Promo code applied! 10% off");
-    } else {
-      setDiscountApplied(false);
-      toast.error("Invalid promo code. Try SAVE10 for 10% off!");
+  // Auto-check welcome discount on load
+  const checkWelcomeDiscount = useCallback(async () => {
+    if (!user?.primaryEmailAddress?.emailAddress) return;
+    try {
+      const res = await fetch("/api/validate-discount", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.primaryEmailAddress.emailAddress }),
+      });
+      const data = await res.json();
+      if (data.appliedType === "welcome") {
+        setDiscount({
+          type: data.appliedType,
+          percent: data.appliedPercent,
+          couponId: data.appliedCouponId,
+          label: data.appliedLabel,
+        });
+      }
+    } catch (err) {
+      console.error("Welcome discount check failed:", err);
     }
+  }, [user?.primaryEmailAddress?.emailAddress, setDiscount]);
+
+  useEffect(() => {
+    // Only auto-check if no discount is already applied
+    if (!discount) {
+      checkWelcomeDiscount();
+    }
+  }, [discount, checkWelcomeDiscount]);
+
+  const handleApplyPromo = async () => {
+    if (!promoCode.trim()) {
+      toast.error("Please enter a promo code");
+      return;
+    }
+    if (!user?.primaryEmailAddress?.emailAddress) {
+      toast.error("Please sign in to use promo codes");
+      return;
+    }
+
+    setPromoLoading(true);
+    try {
+      const res = await fetch("/api/validate-discount", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.primaryEmailAddress.emailAddress,
+          promoCode: promoCode.trim(),
+        }),
+      });
+      const data = await res.json();
+
+      if (data.promoValid === false) {
+        toast.error("Invalid promo code");
+        return;
+      }
+
+      if (data.appliedType !== "none") {
+        setDiscount({
+          type: data.appliedType,
+          percent: data.appliedPercent,
+          couponId: data.appliedCouponId,
+          label: data.appliedLabel,
+        });
+        if (data.appliedType === "welcome") {
+          toast.success("Your welcome 20% discount is better! Applied automatically.");
+        } else {
+          toast.success(`Promo code applied! ${data.appliedPercent}% off`);
+        }
+      }
+    } catch {
+      toast.error("Failed to validate promo code");
+    } finally {
+      setPromoLoading(false);
+    }
+  };
+
+  const handleRemoveDiscount = () => {
+    setDiscount(null);
+    setPromoCode("");
+    toast.success("Discount removed");
   };
 
   return (
@@ -126,14 +201,23 @@ export default function Cart() {
           <div className="w-full lg:w-[400px] border border-black/10 rounded-[20px] p-5 md:p-6 h-fit">
             <h2 className="text-xl md:text-2xl font-bold mb-5">Order Summary</h2>
 
+            {/* Welcome discount banner */}
+            {discount?.type === "welcome" && (
+              <div className="bg-green-50 border border-green-200 rounded-[12px] p-3 text-sm text-green-700 mb-4">
+                Welcome! 20% first-order discount applied automatically.
+              </div>
+            )}
+
             <div className="space-y-4">
               <div className="flex justify-between text-base">
                 <span className="text-black/60">Subtotal</span>
                 <span className="font-bold">${subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-base">
-                <span className="text-black/60">Discount (-{discountPercent}%)</span>
-                <span className="font-bold text-[#FF3333]">-${discount.toFixed(2)}</span>
+                <span className="text-black/60">
+                  Discount (-{discountPercent}%)
+                </span>
+                <span className="font-bold text-[#FF3333]">-${discountAmount.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-base">
                 <span className="text-black/60">Delivery Fee</span>
@@ -145,6 +229,19 @@ export default function Cart() {
                 <span className="font-bold">${total.toFixed(2)}</span>
               </div>
             </div>
+
+            {/* Applied discount info */}
+            {discount && (
+              <div className="flex items-center justify-between mt-3 bg-green-50 rounded-full px-4 py-2">
+                <span className="text-sm text-green-700">{discount.label}</span>
+                <button
+                  onClick={handleRemoveDiscount}
+                  className="text-xs text-red-500 hover:text-red-700 font-medium"
+                >
+                  Remove
+                </button>
+              </div>
+            )}
 
             {/* Promo Code */}
             <div className="flex gap-3 mt-5">
@@ -158,18 +255,17 @@ export default function Cart() {
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleApplyPromo()}
+                  disabled={promoLoading}
                 />
               </div>
               <button
-                className="bg-black text-white px-6 rounded-full text-sm font-medium hover:bg-gray-900 transition-colors"
+                className="bg-black text-white px-6 rounded-full text-sm font-medium hover:bg-gray-900 transition-colors disabled:opacity-50"
                 onClick={handleApplyPromo}
+                disabled={promoLoading}
               >
-                Apply
+                {promoLoading ? "..." : "Apply"}
               </button>
             </div>
-            {discountApplied && (
-              <p className="text-green-600 text-sm mt-2">Promo SAVE10 applied!</p>
-            )}
 
             {/* Checkout Button */}
             <button

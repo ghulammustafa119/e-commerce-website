@@ -60,6 +60,29 @@ export default defineType({
       type: "number",
     },
     {
+      name: "discountType",
+      title: "Discount Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "None", value: "none" },
+          { title: "Welcome 20%", value: "welcome" },
+          { title: "Promo Code", value: "promo" },
+        ],
+      },
+      initialValue: "none",
+    },
+    {
+      name: "discountPercent",
+      title: "Discount Percent",
+      type: "number",
+    },
+    {
+      name: "discountAmount",
+      title: "Discount Amount",
+      type: "number",
+    },
+    {
       name: "stripeSessionId",
       title: "Stripe Session ID",
       type: "string",
